@@ -17,7 +17,7 @@ pygame.display.set_icon(icon)
 ####################################################classes#############################################################
 
 class ship:
-    def __init__(self, pic_move, pic_stay, deck_width, deck_height, speed, t_speed, hp, x, y, angle, guns_left, guns_right, cd_left = 0, cd_right = 0, move=True):
+    def __init__(self, pic_move, pic_stay, deck_width, deck_height, speed, t_speed, hp, x, y, angle, guns_left, guns_right, cd_left = 0, cd_right = 0, move=True, target = -1):
         self.pic_move = pic_move
         self.pic_stay = pic_stay
         self.deck_width = deck_width
@@ -33,6 +33,7 @@ class ship:
         self.cd_left = cd_left
         self.cd_right = cd_right
         self.move = move
+        self.target = target
     def get_width(self):
         return self.pic_move.get_width() / scale
     def get_height(self):
@@ -60,8 +61,11 @@ shuna_guns_left = [(-23/scale, -30/scale), (-23/scale, -6/scale), (-23/scale, 18
 shuna_guns_right = [(23/scale, -30/scale), (23/scale, -6/scale), (23/scale, 18/scale)]
 
 player_ship = ship(bark_move, bark_stay, bark_deck_width, bark_deck_height, 0.8, 0.6, 30, 600, 450, 0, bark_guns_left, bark_guns_right)
+friendly_ships = [ship(bark_move, bark_stay, bark_deck_width, bark_deck_height, 0.8, 0.6, 30, 700, 450, 0, bark_guns_left, bark_guns_right)]
 enemy_ships = [ship(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 0.6, 0.8, 20, 200, 100, 180, shuna_guns_left, shuna_guns_right),
-               ship(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 0.6, 0.8, 20, 1000, 100, 180, shuna_guns_left, shuna_guns_right)]
+               ship(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 0.6, 0.8, 20, 1100, 100, 180, shuna_guns_left, shuna_guns_right),
+               ship(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 0.6, 0.8, 20, 200, 800, 0, shuna_guns_left, shuna_guns_right),
+               ship(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 0.6, 0.8, 20, 1100, 800, 0, shuna_guns_left, shuna_guns_right)]
 
 # player_ship = ship(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 0.6, 0.8, 20, 600, 450, 0, shuna_guns_left, shuna_guns_right)
 # enemy_ships = [ship(bark_move, bark_stay, bark_deck_width, bark_deck_height, 0.8, 0.6, 30, 200, 100, 180, bark_guns_left, bark_guns_right)]
@@ -91,12 +95,114 @@ def kernel_in_ship(x, y, x1, y1, x2, y2, x3, y3, x4, y4):
     else:
         return False
 
+def ships_and_kernels(enemy_ship):
+    edw2 = enemy_ship.deck_width / 2
+    edh2 = enemy_ship.deck_height / 2
+    en_x = enemy_ship.x
+    en_y = enemy_ship.y
+    eangle = enemy_ship.angle
+
+    gip = (edw2 ** 2 + edh2 ** 2) ** 0.5
+    eax = gip * math.cos(math.radians(eangle) + math.asin(edh2 / gip)) + en_x
+    eay = -gip * math.sin(math.radians(eangle) + math.asin(edh2 / gip)) + en_y
+    ebx = gip * math.cos(math.radians(eangle) - math.asin(edh2 / gip)) + en_x
+    eby = -gip * math.sin(math.radians(eangle) - math.asin(edh2 / gip)) + en_y
+    ecx = gip * math.cos(math.radians(eangle) + math.pi + math.asin(edh2 / gip)) + en_x
+    ecy = -gip * math.sin(math.radians(eangle) + math.pi + math.asin(edh2 / gip)) + en_y
+    edx = gip * math.cos(math.radians(eangle) + math.pi - math.asin(edh2 / gip)) + en_x
+    edy = -gip * math.sin(math.radians(eangle) + math.pi - math.asin(edh2 / gip)) + en_y
+
+    for kernel in kernels:
+        if kernel_in_ship(kernel[0], kernel[1], eax, eay, ebx, eby, ecx, ecy, edx, edy):
+            image = pygame.transform.smoothscale(kernel_hit_image, (5, 5))
+            display.blit(image, (kernel[0], kernel[1]))
+            kernels.remove(kernel)
+            enemy_ship.hp -= 1
+
+def swim_to_target(enemy_ship, player_ship):
+    en_x = enemy_ship.x
+    en_y = enemy_ship.y
+    usr_x = player_ship.x
+    usr_y = player_ship.y
+    eangle = enemy_ship.angle
+    eturning_speed = enemy_ship.t_speed
+    guns_left = enemy_ship.guns_left
+    guns_right = enemy_ship.guns_right
+
+    gip = ((en_x - usr_x) ** 2 + (en_y - usr_y) ** 2) ** 0.5
+    if (en_y - usr_y < 0):
+        i_angle = math.acos((en_x - usr_x) / gip)
+    else:
+        i_angle = 2 * math.pi - math.acos((en_x - usr_x) / gip)
+
+    dif = (math.radians(eangle) - i_angle)
+    pi = math.pi
+
+    if gip < 200:
+        if (-2 * pi < dif < -1.5 * pi) or (-pi < dif < -0.5 * pi) or (0 < dif < 0.5 * pi) or (pi < dif < 1.5 * pi):
+            enemy_ship.angle -= eturning_speed
+            if enemy_ship.angle <= 0:
+                enemy_ship.angle = 360
+        else:
+            enemy_ship.angle += eturning_speed
+            if enemy_ship.angle >= 360:
+                enemy_ship.angle = 0
+    else:
+        if (-1.5 * pi < dif < -0.5 * pi) or (0.5 * pi < dif < 1.5 * pi):
+            enemy_ship.angle -= eturning_speed
+            if enemy_ship.angle <= 0:
+                enemy_ship.angle = 360
+        else:
+            enemy_ship.angle += eturning_speed
+            if enemy_ship.angle >= 360:
+                enemy_ship.angle = 0
+
+    if (gip < 200):
+        if ((-0.05 * pi < dif < 0.05 * pi) or (1.95 * pi < dif < 2 * pi) or (-2 * pi < dif < -1.95 * pi)) and (
+                enemy_ship.cd_left == 0):
+            for gun in guns_left:
+                gip = (gun[0] ** 2 + gun[1] ** 2) ** 0.5
+                arcsin = math.asin(gun[1] / gip)
+                kernels.append([gip * math.cos(math.radians(eangle) + math.pi + arcsin) + en_x,
+                                -gip * math.sin(math.radians(eangle) + math.pi + arcsin) + en_y, eangle - 90, 40])
+                enemy_ship.cd_left = 100
+        elif ((-1.05 * pi < dif < -0.95 * pi) or (0.95 * pi < dif < 1.05 * pi)) and (enemy_ship.cd_right == 0):
+            for gun in guns_right:
+                gip = (gun[0] ** 2 + gun[1] ** 2) ** 0.5
+                arcsin = math.asin(gun[1] / gip)
+                kernels.append([gip * math.cos(math.radians(eangle) + arcsin) + en_x,
+                                -gip * math.sin(math.radians(eangle) + arcsin) + en_y, eangle + 90, 40])
+                enemy_ship.cd_right = 100
+
+    if enemy_ship.cd_left > 0:
+        enemy_ship.cd_left -= 1
+    if enemy_ship.cd_right > 0:
+        enemy_ship.cd_right -= 1
+
+def ship_intersection(ship1, ship2):
+    x1 = ship1.x
+    y1 = ship1.y
+    x2 = ship2.x
+    y2 = ship2.y
+    dh1 = ship1.deck_height
+    dw1 = ship1.deck_width
+    dh2 = ship2.deck_height
+    dw2 = ship2.deck_width
+    gip = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    dist = ((dh1 / 2) ** 2 + (dw1 / 2) ** 2 + (dh2 / 2) ** 2 + (dw2 / 2) ** 2) ** 0.5
+    if gip <= dist:
+        dif = dist - gip
+        ship1.x += (x1 - x2) * dif / gip
+        ship1.y += (y1 - y2) * dif / gip
+        ship2.x -= (x1 - x2) * dif / gip
+        ship2.y -= (y1 - y2) * dif / gip
+
 ###################################################game_start###########################################################
 
 def run_game():
     player_ship.move = True
     game = True
-    ring_x = 600
+    ring_x = 650
     ring_y = 450
 
     while game:
@@ -155,65 +261,27 @@ def run_game():
             player_ship.cd_right -= 1
 
         for enemy_ship in enemy_ships:
-
-            en_x = enemy_ship.x
-            en_y = enemy_ship.y
-            usr_x = player_ship.x
-            usr_y = player_ship.y
-            eangle = enemy_ship.angle
-            eturning_speed = enemy_ship.t_speed
-            guns_left = enemy_ship.guns_left
-            guns_right = enemy_ship.guns_right
-
-            gip = ((en_x-usr_x)**2+(en_y-usr_y)**2)**0.5
-            if (en_y - usr_y < 0):
-                i_angle = math.acos((en_x-usr_x)/gip)
+            enemy_ship.target = -1
+            dist_target = (enemy_ship.x-player_ship.x)**2+(enemy_ship.y-player_ship.y)**2
+            for i in range(len(friendly_ships)):
+                dist = (enemy_ship.x-friendly_ships[i].x)**2+(enemy_ship.y-friendly_ships[i].y)**2
+                if dist < dist_target:
+                    enemy_ship.target = i
+                    dist_target = dist
+            if enemy_ship.target == -1:
+                swim_to_target(enemy_ship, player_ship)
             else:
-                i_angle = 2*math.pi-math.acos((en_x-usr_x)/gip)
+                swim_to_target(enemy_ship, friendly_ships[enemy_ship.target])
 
-            dif = (math.radians(eangle) - i_angle)
-            pi = math.pi
-
-            print(gip)
-
-            if gip < 200:
-                print("true")
-                if (-2*pi<dif<-1.5*pi)or(-pi<dif<-0.5*pi)or(0<dif<0.5*pi)or(pi<dif<1.5*pi):
-                    enemy_ship.angle -= eturning_speed
-                    if enemy_ship.angle <= 0:
-                        enemy_ship.angle = 360
-                else:
-                    enemy_ship.angle += eturning_speed
-                    if enemy_ship.angle >= 360:
-                        enemy_ship.angle = 0
-            else:
-                if (-1.5*pi<dif<-0.5*pi)or(0.5*pi<dif<1.5*pi):
-                    enemy_ship.angle -= eturning_speed
-                    if enemy_ship.angle <= 0:
-                        enemy_ship.angle = 360
-                else:
-                    enemy_ship.angle += eturning_speed
-                    if enemy_ship.angle >= 360:
-                        enemy_ship.angle = 0
-
-            if (gip < 200):
-                if ((-0.05 * pi < dif < 0.05 * pi) or(1.95*pi<dif<2*pi)or(-2*pi<dif<-1.95*pi))and(enemy_ship.cd_left==0):
-                    for gun in guns_left:
-                        gip = (gun[0] ** 2 + gun[1] ** 2) ** 0.5
-                        arcsin = math.asin(gun[1] / gip)
-                        kernels.append([gip * math.cos(math.radians(eangle) + math.pi + arcsin) + en_x, -gip * math.sin(math.radians(eangle) + math.pi + arcsin) + en_y, eangle - 90, 40])
-                        enemy_ship.cd_left = 100
-                elif ((-1.05*pi<dif<-0.95*pi)or(0.95*pi<dif<1.05*pi))and(enemy_ship.cd_right==0):
-                    for gun in guns_right:
-                        gip = (gun[0] ** 2 + gun[1] ** 2) ** 0.5
-                        arcsin = math.asin(gun[1] / gip)
-                        kernels.append([gip * math.cos(math.radians(eangle) + arcsin) + en_x, -gip * math.sin(math.radians(eangle) + arcsin) + en_y, eangle + 90, 40])
-                        enemy_ship.cd_right = 100
-
-            if enemy_ship.cd_left > 0:
-                enemy_ship.cd_left -= 1
-            if enemy_ship.cd_right > 0:
-                enemy_ship.cd_right -= 1
+        for friendly_ship in friendly_ships:
+            friendly_ship.target = 0
+            dist_target = (friendly_ship.x-enemy_ships[0].x)**2+(friendly_ship.y-enemy_ships[0].y)**2
+            for i in range(len(enemy_ships)):
+                dist = (friendly_ship.x-enemy_ships[i].x)**2+(friendly_ship.y-enemy_ships[i].y)**2
+                if dist < dist_target:
+                    friendly_ship.target = i
+                    dist_target = dist
+            swim_to_target(friendly_ship, enemy_ships[friendly_ship.target])
 
 ########################################################movement########################################################
 
@@ -224,6 +292,9 @@ def run_game():
             for enemy_ship in enemy_ships:
                 enemy_ship.x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
                 enemy_ship.y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
+            for friendly_ship in friendly_ships:
+                friendly_ship.x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
+                friendly_ship.y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
             ring_x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
             ring_y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
         else:
@@ -243,23 +314,35 @@ def run_game():
             surf, r = rot_center(image, rect, enemy_ship.angle)
             display.blit(surf, r)
 
+        for friendly_ship in friendly_ships:
+            image = pygame.transform.smoothscale(friendly_ship.pic_move, (friendly_ship.get_width(), friendly_ship.get_height()))
+
+            friendly_ship.x -= math.sin(math.radians(friendly_ship.angle)) * friendly_ship.speed
+            friendly_ship.y -= math.cos(math.radians(friendly_ship.angle)) * friendly_ship.speed
+
+            rect = image.get_rect(center=(friendly_ship.x, friendly_ship.y))
+            surf, r = rot_center(image, rect, friendly_ship.angle)
+            display.blit(surf, r)
+
+################################################ship_intersection#######################################################
+
+        for enemy_ship in enemy_ships:
+            ship_intersection(enemy_ship, player_ship)
+            for friendly_ship in friendly_ships:
+                ship_intersection(enemy_ship, friendly_ship)
+            for other_enemy_ship in enemy_ships:
+                if (other_enemy_ship != enemy_ship):
+                    ship_intersection(enemy_ship, other_enemy_ship)
+
+        for friendly_ship in friendly_ships:
+            ship_intersection(friendly_ship, player_ship)
+            for enemy_ship in enemy_ships:
+                ship_intersection(friendly_ship, enemy_ship)
+            for other_friendly_ship in friendly_ships:
+                if (other_friendly_ship != friendly_ship):
+                    ship_intersection(friendly_ship, other_friendly_ship)
+
 ######################################################kernels###########################################################
-
-        dw2 = player_ship.deck_width/2
-        dh2 = player_ship.deck_height/2
-        usr_x = player_ship.x
-        usr_y = player_ship.y
-        angle = player_ship.angle
-
-        gip = (dw2 ** 2 + dh2 ** 2) ** 0.5
-        ax = gip * math.cos(math.radians(angle) + math.asin(dh2/gip)) + usr_x
-        ay = -gip * math.sin(math.radians(angle) + math.asin(dh2/gip)) + usr_y
-        bx = gip * math.cos(math.radians(angle) - math.asin(dh2/gip)) + usr_x
-        by = -gip * math.sin(math.radians(angle) - math.asin(dh2/gip)) + usr_y
-        cx = gip * math.cos(math.radians(angle) + math.pi + math.asin(dh2/gip)) + usr_x
-        cy = -gip * math.sin(math.radians(angle) + math.pi + math.asin(dh2/gip)) + usr_y
-        dx = gip * math.cos(math.radians(angle) + math.pi - math.asin(dh2/gip)) + usr_x
-        dy = -gip * math.sin(math.radians(angle) + math.pi - math.asin(dh2/gip)) + usr_y
 
         for kernel in kernels:
             kernel[0] += math.sin(math.radians(kernel[2])) * 5
@@ -269,66 +352,45 @@ def run_game():
                 image = pygame.transform.smoothscale(kernel_miss_image, (5, 5))
                 display.blit(image, (kernel[0], kernel[1]))
                 kernels.remove(kernel)
-            elif kernel_in_ship(kernel[0], kernel[1], ax, ay, bx, by, cx, cy, dx, dy):
-                image = pygame.transform.smoothscale(kernel_hit_image, (5, 5))
-                display.blit(image, (kernel[0], kernel[1]))
-                kernels.remove(kernel)
-                player_ship.hp -= 1
             else:
                 image = pygame.transform.smoothscale(kernel_image, (3, 3))
                 display.blit(image, (kernel[0], kernel[1]))
 
+        ships_and_kernels(player_ship)
+        f = pygame.font.Font(None, 72)
+        hp = f.render(str(player_ship.hp), True, (0, 255, 0))
+        display.blit(hp, (1130, 10))
         if (player_ship.hp <= 0):
-            f3 = pygame.font.Font(None, 72)
-            final = f3.render("FINISH HIM!", True, (255, 0, 0))
+            f = pygame.font.Font(None, 72)
+            final = f.render("FINISH HIM!", True, (255, 0, 0))
             display.blit(final, (480, 430))
             game = False
 
-        f1 = pygame.font.Font(None, 72)
-        hp1 = f1.render(str(player_ship.hp), True, (0, 255, 0))
-        display.blit(hp1, (1130, 10))
-
         step = 10
+        for enemy_ship in enemy_ships:
+            ships_and_kernels(enemy_ship)
+            f = pygame.font.Font(None, 72)
+            hp = f.render(str(enemy_ship.hp), True, (255, 0, 0))
+            display.blit(hp, (10, step))
+            if (enemy_ship.hp <= 0):
+                enemy_ships.remove(enemy_ship)
+            step += 50
+
+        step = 60
+        for friendly_ship in friendly_ships:
+            ships_and_kernels(friendly_ship)
+            f = pygame.font.Font(None, 72)
+            hp = f.render(str(friendly_ship.hp), True, (255, 255, 0))
+            display.blit(hp, (1130, step))
+            if (friendly_ship.hp <= 0):
+                friendly_ships.remove(friendly_ship)
+            step += 50
 
         if (len(enemy_ships) == 0):
             f3 = pygame.font.Font(None, 72)
             final = f3.render("FLAWLESS VICTORY!", True, (0, 255, 0))
             display.blit(final, (360, 430))
             game = False
-
-        for enemy_ship in enemy_ships:
-
-            edw2 = enemy_ship.deck_width / 2
-            edh2 = enemy_ship.deck_height / 2
-            en_x = enemy_ship.x
-            en_y = enemy_ship.y
-            eangle = enemy_ship.angle
-
-            gip = (edw2 ** 2 + edh2 ** 2) ** 0.5
-            eax = gip * math.cos(math.radians(eangle) + math.asin(edh2 / gip)) + en_x
-            eay = -gip * math.sin(math.radians(eangle) + math.asin(edh2 / gip)) + en_y
-            ebx = gip * math.cos(math.radians(eangle) - math.asin(edh2 / gip)) + en_x
-            eby = -gip * math.sin(math.radians(eangle) - math.asin(edh2 / gip)) + en_y
-            ecx = gip * math.cos(math.radians(eangle) + math.pi + math.asin(edh2 / gip)) + en_x
-            ecy = -gip * math.sin(math.radians(eangle) + math.pi + math.asin(edh2 / gip)) + en_y
-            edx = gip * math.cos(math.radians(eangle) + math.pi - math.asin(edh2 / gip)) + en_x
-            edy = -gip * math.sin(math.radians(eangle) + math.pi - math.asin(edh2 / gip)) + en_y
-
-            for kernel in kernels:
-                if kernel_in_ship(kernel[0], kernel[1], eax, eay, ebx, eby, ecx, ecy, edx, edy):
-                    image = pygame.transform.smoothscale(kernel_hit_image, (5, 5))
-                    display.blit(image, (kernel[0], kernel[1]))
-                    kernels.remove(kernel)
-                    enemy_ship.hp -= 1
-
-            f2 = pygame.font.Font(None, 72)
-            hp2 = f2.render(str(enemy_ship.hp), True, (255, 0, 0))
-            display.blit(hp2, (10, step))
-
-            if (enemy_ship.hp <= 0):
-                enemy_ships.remove(enemy_ship)
-
-            step += 50
 
         pygame.display.update()
         clock.tick(30)
