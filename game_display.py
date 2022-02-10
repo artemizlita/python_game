@@ -43,12 +43,20 @@ class ship_object(ship_type):
         self.target = target
         if (type == "barkas"):
             super().__init__(barkas_move, barkas_stay, barkas_deck_width, barkas_deck_height, 0.8, 1.0, 15, 30, barkas_guns_left, barkas_guns_right)
-        if (type == "pink"):
+        elif (type == "pink"):
             super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.6, 15, 30, pink_guns_left, pink_guns_right)
-        if (type == "shuna"):
+        elif (type == "ladya"):
+            super().__init__(ladya_move, ladya_stay, ladya_deck_width, ladya_deck_height, 1.2, 0.4, 20, 30, ladya_guns_left, ladya_guns_right)
+        elif (type == "shuna"):
             super().__init__(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 1.2, 0.8, 20, 30, shuna_guns_left, shuna_guns_right)
+        elif (type == "lugger"):
+            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 0.8, 25, 30, lugger_guns_left, lugger_guns_right)
         elif (type == "bark"):
-            super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 1.6, 0.6, 30, 40, bark_guns_left, bark_guns_right)
+            super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 1.6, 0.6, 35, 40, bark_guns_left, bark_guns_right)
+        elif (type == "brig"):
+            super().__init__(brig_move, brig_stay, brig_deck_width, brig_deck_height, 2.0, 0.8, 40, 40, brig_guns_left, brig_guns_right)
+        elif (type == "karaka"):
+            super().__init__(karaka_move, karaka_stay, karaka_deck_width, karaka_deck_height, 2.0, 0.4, 50, 50, karaka_guns_left, karaka_guns_right)
         elif (type == "corvet"):
             super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 60, 50, corvet_guns_left, corvet_guns_right)
         elif (type == "fregat"):
@@ -79,6 +87,13 @@ pink_deck_height = 86
 pink_guns_left = [(-23, -18), (-23, 6)]
 pink_guns_right = [(23, -18), (23, 6)]
 
+ladya_move = pygame.image.load('ladya\\sail_1.png')
+ladya_stay = pygame.image.load('ladya\\sail_0.png')
+ladya_deck_width = 34
+ladya_deck_height = 86
+ladya_guns_left = [(-27, -15), (-27, 9)]
+ladya_guns_right = [(27, -15), (27, 9)]
+
 shuna_move = pygame.image.load('shuna\\sail_1.png')
 shuna_stay = pygame.image.load('shuna\\sail_0.png')
 shuna_deck_width = 34
@@ -86,12 +101,33 @@ shuna_deck_height = 108
 shuna_guns_left = [(-23, -30), (-23, -6), (-23, 18)]
 shuna_guns_right = [(23, -30), (23, -6), (23, 18)]
 
+lugger_move = pygame.image.load('lugger\\sail_1.png')
+lugger_stay = pygame.image.load('lugger\\sail_0.png')
+lugger_deck_width = 34
+lugger_deck_height = 108
+lugger_guns_left = [(-23, -24), (-23, 0), (-23, 24)]
+lugger_guns_right = [(23, -24), (23, 0), (23, 24)]
+
 bark_move = pygame.image.load('bark\\sail_1.png')
 bark_stay = pygame.image.load('bark\\sail_0.png')
 bark_deck_width = 42
 bark_deck_height = 144
 bark_guns_left = [(-27, -36), (-27, -12), (-27, 12), (-27, 36)]
 bark_guns_right = [(27, -36), (27, -12), (27, 12), (27, 36)]
+
+brig_move = pygame.image.load('brig\\sail_1.png')
+brig_stay = pygame.image.load('brig\\sail_0.png')
+brig_deck_width = 42
+brig_deck_height = 170
+brig_guns_left = [(-27, -48), (-27, -24), (-27, -0), (-27, 24), (-27, 48)]
+brig_guns_right = [(27, -48), (27, -24), (27, -0), (27, 24), (27, 48)]
+
+karaka_move = pygame.image.load('karaka\\sail_1.png')
+karaka_stay = pygame.image.load('karaka\\sail_0.png')
+karaka_deck_width = 58
+karaka_deck_height = 206
+karaka_guns_left = [(-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48)]
+karaka_guns_right = [(35, -48), (35, -24), (35, 0), (35, 24), (35, 48)]
 
 corvet_move = pygame.image.load('corvet\\sail_1.png')
 corvet_stay = pygame.image.load('corvet\\sail_0.png')
@@ -116,14 +152,9 @@ fregat_guns_right = [(43, -84), (43, -60), (43, -36), (43, -12), (43, 12), (43, 
 #                ship_object(100, 1000, 0, "bark"),
 #                ship_object(700, 1000, 0, "bark")]
 
-player_ship = ship_object(0, 0, 0, "corvet")
-friendly_ships = [ship_object(200, 0, 0, "corvet")]
-enemy_ships = [ship_object(-1000, -1000, 180, "fregat"),
-               ship_object(800, -1000, 180, "fregat")]
-
-# player_ship = ship_object(0, 0, 0, "fregat")
-# friendly_ships = []
-# enemy_ships = [ship_object(0, -1000, 180, "corvet")]
+player_ship = ship_object(0, 0, 0, "lugger")
+friendly_ships = []
+enemy_ships = [ship_object(0, -1000, 180, "corvet")]
 
 kernels = []
 
@@ -188,34 +219,35 @@ def swim_to_target(ship, target_ship):
     ship.move = True
 
     gip = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    pi = math.pi
     if (x2 - x1 > 0):
         i_angle = math.acos((y2 - y1) / gip)
     else:
-        i_angle = 2 * math.pi - math.acos((y2 - y1) / gip)
+        i_angle = 2 * pi - math.acos((y2 - y1) / gip)
 
-    dif = (math.radians(angle) - i_angle)
-    pi = math.pi
-    target_angle = math.radians(target_ship.angle) - i_angle
+    a = math.radians(angle)
+    dif = a - i_angle
+
+    target_angle = math.radians(ship.angle) - i_angle
+
+    if ((math.fabs(target_angle) < 0.5 * pi) or (1.5 * pi < math.fabs(target_angle) < 2 * pi)) and (ship.cd_left < 50) and (ship.cd_right < 50) and (target_ship.move == True):
+        ship.move = False
 
     if gip < ship.gun_distance * 10:
-        if (math.fabs(target_angle) < pi) and (ship.cd_left == 0) and (ship.cd_right == 0) and (target_ship.move == True):
-            if ((target_ship.speed / gip) < math.radians(turning_speed)):
-                ship.move = False
-        if (-1.49 * pi < dif < -0.51 * pi) or (0.51 * pi < dif < 1.49 * pi):
+        if (-1.49 * pi < dif < -1.01 * pi) or (-0.49 * pi < dif < -0.01 * pi) or (0.51 * pi < dif < 0.99 * pi) or (1.51 * pi < dif < 1.99 * pi):
             ship.angle -= turning_speed
-            if ship.angle <= 0:
-                ship.angle = 360
-        elif (-2 * pi < dif < -1.51 * pi) or (-0.49 * pi < dif < 0.49 * pi) or (1.51 * pi < dif < 2 * pi):
+            if ship.angle < 0:
+                ship.angle = 360 + ship.angle
+        elif (-1.99 * pi < dif < -1.51 * pi) or (-0.99 * pi < dif < -0.51 * pi) or (0.01 * pi < dif < 0.49 * pi) or (1.01 * pi < dif < 1.49 * pi):
             ship.angle += turning_speed
             if ship.angle >= 360:
                 ship.angle = 0
     else:
         if (-0.99 * pi < dif < -0.01 * pi) or (1.01 * pi < dif < 1.99 * pi):
             ship.angle -= turning_speed
-            if ship.angle <= 0:
-                ship.angle = 360
-        elif (-2 * pi < dif < -1.01 * pi) or (0.01 * pi < dif < 0.99 * pi):
-            print(dif)
+            if ship.angle < 0:
+                ship.angle = 360 + ship.angle
+        elif (-1.99 * pi < dif < -1.01 * pi) or (0.01 * pi < dif < 0.99 * pi):
             ship.angle += turning_speed
             if ship.angle >= 360:
                 ship.angle = 0
@@ -243,6 +275,7 @@ def shoot_near_ships(ship, target_ship):
     dif = (math.radians(angle) - i_angle)
     pi = math.pi
     dif_angle = math.asin(math.fabs(ship.guns_left[0][1])/gip)
+    # dif_angle = 0.01 * pi
 
     if gip < ship.gun_distance * 10:
         if ((0.5 * pi - dif_angle < dif < 0.5 * pi + dif_angle) or (-1.5 * pi - dif_angle < dif < -1.5 * pi + dif_angle)) and (ship.cd_left == 0):
@@ -306,6 +339,8 @@ def ship_intersection(ship1, ship2):
         dot_in_ship(cx2, cy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
         dot_in_ship(dx2, dy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)):
         gip = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+        ship1.move = True
+        ship2.move = True
         if (ship2 == player_ship):
             ship1.x += ship1.speed * (x1 - x2) / gip
             ship1.y += ship1.speed * (y1 - y2) / gip
@@ -425,6 +460,24 @@ def run_game():
             for enemy_ship in enemy_ships:
                 shoot_near_ships(friendly_ship, enemy_ship)
 
+################################################ship_intersection#######################################################
+
+        for enemy_ship in enemy_ships:
+            ship_intersection(enemy_ship, player_ship)
+            for friendly_ship in friendly_ships:
+                ship_intersection(enemy_ship, friendly_ship)
+            for other_enemy_ship in enemy_ships:
+                if other_enemy_ship != enemy_ship:
+                    ship_intersection(enemy_ship, other_enemy_ship)
+
+        for friendly_ship in friendly_ships:
+            ship_intersection(friendly_ship, player_ship)
+            for enemy_ship in enemy_ships:
+                ship_intersection(friendly_ship, enemy_ship)
+            for other_friendly_ship in friendly_ships:
+                if other_friendly_ship != friendly_ship:
+                    ship_intersection(friendly_ship, other_friendly_ship)
+
 ########################################################movement########################################################
 
         if player_ship.move:
@@ -469,24 +522,6 @@ def run_game():
             rect = image.get_rect(center=(center_x + friendly_ship.x / scale, center_y + friendly_ship.y / scale))
             surf, r = rot_center(image, rect, friendly_ship.angle)
             display.blit(surf, r)
-
-################################################ship_intersection#######################################################
-
-        for enemy_ship in enemy_ships:
-            ship_intersection(enemy_ship, player_ship)
-            for friendly_ship in friendly_ships:
-                ship_intersection(enemy_ship, friendly_ship)
-            for other_enemy_ship in enemy_ships:
-                if other_enemy_ship != enemy_ship:
-                    ship_intersection(enemy_ship, other_enemy_ship)
-
-        for friendly_ship in friendly_ships:
-            ship_intersection(friendly_ship, player_ship)
-            for enemy_ship in enemy_ships:
-                ship_intersection(friendly_ship, enemy_ship)
-            for other_friendly_ship in friendly_ships:
-                if other_friendly_ship != friendly_ship:
-                    ship_intersection(friendly_ship, other_friendly_ship)
 
 #######################################################damage###########################################################
 
