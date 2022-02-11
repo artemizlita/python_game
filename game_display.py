@@ -1,5 +1,6 @@
 import pygame
 import math
+from random import randint
 
 pygame.init()
 pygame.font.init()
@@ -9,6 +10,7 @@ display_height = 900
 scale = 4
 center_x = display_width / 2
 center_y = display_height / 2
+wave_step = 0
 
 display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Ship game')
@@ -36,6 +38,7 @@ class ship_object(ship_type):
         self.x = x
         self.y = y
         self.angle = angle
+        self.type = type
         self.ship_type = ship_type
         self.cd_left = cd_left
         self.cd_right = cd_right
@@ -71,7 +74,14 @@ class ship_object(ship_type):
 kernel_image = pygame.image.load('kernel.png')
 kernel_hit_image = pygame.image.load('kernel_hit.png')
 kernel_miss_image = pygame.image.load('kernel_miss.png')
-ring_image = pygame.image.load('ring.png')
+
+wave_step = []
+wave_step.append(pygame.image.load('waves\\1.png'))
+wave_step.append(pygame.image.load('waves\\2.png'))
+wave_step.append(pygame.image.load('waves\\3.png'))
+wave_step.append(pygame.image.load('waves\\4.png'))
+wave_step.append(pygame.image.load('waves\\5.png'))
+wave_step.append(pygame.image.load('waves\\6.png'))
 
 barkas_move = pygame.image.load('barkas\\sail_1.png')
 barkas_stay = pygame.image.load('barkas\\sail_0.png')
@@ -143,20 +153,22 @@ fregat_deck_height = 302
 fregat_guns_left = [(-43, -84), (-43, -60), (-43, -36), (-43, -12), (-43, 12), (-43, 36), (-43, 60), (-43, 84)]
 fregat_guns_right = [(43, -84), (43, -60), (43, -36), (43, -12), (43, 12), (43, 36), (43, 60), (43, 84)]
 
-# player_ship = ship_object(0, 0, 0, "corvet")
-# friendly_ships = [ship_object(200, 0, 0, "corvet")]
-# enemy_ships = [ship_object(-500, -1000, 180, "bark"),
-#                ship_object(100, -1000, 180, "bark"),
-#                ship_object(700, -1000, 180, "bark"),
-#                ship_object(-500, 1000, 0, "bark"),
-#                ship_object(100, 1000, 0, "bark"),
-#                ship_object(700, 1000, 0, "bark")]
+player_ship = ship_object(0, 0, 0, "corvet")
+friendly_ships = [ship_object(300, 0, 0, "corvet"),
+                  ship_object(-300, -300, 0, "brig"),
+                  ship_object(0, -300, 0, "brig")]
+enemy_ships = [ship_object(-1000, -1500, 180, "fregat"),
+               ship_object(-500, -1500, 180, "fregat"),
+               ship_object(-500, -2000, 180, "karaka"),
+               ship_object(-1000, -2000, 180, "karaka")]
 
-player_ship = ship_object(0, 0, 0, "lugger")
-friendly_ships = []
-enemy_ships = [ship_object(0, -1000, 180, "corvet")]
+# player_ship = ship_object(0, 0, 0, "brig")
+# friendly_ships = []
+# enemy_ships = [ship_object(0, -1000, 180, "corvet")]
 
 kernels = []
+
+waves = []
 
 clock = pygame.time.Clock()
 
@@ -230,14 +242,14 @@ def swim_to_target(ship, target_ship):
 
     target_angle = math.radians(ship.angle) - i_angle
 
-    if ((math.fabs(target_angle) < 0.5 * pi) or (1.5 * pi < math.fabs(target_angle) < 2 * pi)) and (ship.cd_left < 50) and (ship.cd_right < 50) and (target_ship.move == True):
+    if ((math.fabs(target_angle) < 0.5 * pi) or (1.5 * pi < math.fabs(target_angle) < 2 * pi)) and (ship.cd_left == 0) and (ship.cd_right == 0) and (target_ship.move == True):
         ship.move = False
 
     if gip < ship.gun_distance * 10:
         if (-1.49 * pi < dif < -1.01 * pi) or (-0.49 * pi < dif < -0.01 * pi) or (0.51 * pi < dif < 0.99 * pi) or (1.51 * pi < dif < 1.99 * pi):
             ship.angle -= turning_speed
             if ship.angle < 0:
-                ship.angle = 360 + ship.angle
+                ship.angle = 360 - turning_speed
         elif (-1.99 * pi < dif < -1.51 * pi) or (-0.99 * pi < dif < -0.51 * pi) or (0.01 * pi < dif < 0.49 * pi) or (1.01 * pi < dif < 1.49 * pi):
             ship.angle += turning_speed
             if ship.angle >= 360:
@@ -246,7 +258,7 @@ def swim_to_target(ship, target_ship):
         if (-0.99 * pi < dif < -0.01 * pi) or (1.01 * pi < dif < 1.99 * pi):
             ship.angle -= turning_speed
             if ship.angle < 0:
-                ship.angle = 360 + ship.angle
+                ship.angle = 360 - turning_speed
         elif (-1.99 * pi < dif < -1.01 * pi) or (0.01 * pi < dif < 0.99 * pi):
             ship.angle += turning_speed
             if ship.angle >= 360:
@@ -274,7 +286,7 @@ def shoot_near_ships(ship, target_ship):
 
     dif = (math.radians(angle) - i_angle)
     pi = math.pi
-    dif_angle = math.asin(math.fabs(ship.guns_left[0][1])/gip)
+    dif_angle = math.atan(math.fabs(ship.guns_left[0][1])/gip)
     # dif_angle = 0.01 * pi
 
     if gip < ship.gun_distance * 10:
@@ -361,9 +373,9 @@ def ship_intersection(ship1, ship2):
 def run_game():
     player_ship.move = True
     game = True
-    ring_x = 0
-    ring_y = 0
-    global scale, center_x, center_y
+    global scale, center_x, center_y, wave_step
+    for i in range(192):
+        waves.append([randint(-display_width * 2, display_width * 2), randint(-display_height * 2, display_height * 2), i // 4])
 
     while game:
         for event in pygame.event.get():
@@ -371,13 +383,10 @@ def run_game():
                 pygame.quit()
                 quit()
 
-        display.fill((0, 128, 255))
+        display.fill((0, 162, 232))
 
-        image = pygame.transform.smoothscale(ring_image, (1200 / scale, 1200 / scale))
-
-        rect = image.get_rect(center=(center_x + ring_x / scale, center_y + ring_y / scale))
-        surf, r = rot_center(image, rect, 0)
-        display.blit(surf, r)
+        for i in range(4):
+            waves.append([randint(-display_width * 2, display_width * 2), randint(-display_height * 2, display_height * 2), 0])
 
 ####################################################control#############################################################
 
@@ -388,8 +397,8 @@ def run_game():
             player_ship.move = False
         if keys[pygame.K_d]:
             player_ship.angle -= player_ship.t_speed
-            if player_ship.angle <= 0:
-                player_ship.angle = 360
+            if player_ship.angle < 0:
+                player_ship.angle = 360 - player_ship.t_speed
         elif keys[pygame.K_a]:
             player_ship.angle += player_ship.t_speed
             if player_ship.angle >= 360:
@@ -480,6 +489,15 @@ def run_game():
 
 ########################################################movement########################################################
 
+        for wave in waves:
+            image = pygame.transform.smoothscale(wave_step[wave[2] // 8], (24 / scale, 8 / scale))
+            rect = image.get_rect(center=(center_x + wave[0] / scale, center_y + wave[1] / scale))
+            surf, r = rot_center(image, rect, 0)
+            display.blit(surf, r)
+            wave[2] += 1
+            if wave[2] >= 48:
+                waves.remove(wave)
+
         if player_ship.move:
             image = pygame.transform.smoothscale(player_ship.pic_move, (player_ship.get_width(), player_ship.get_height()))
             for enemy_ship in enemy_ships:
@@ -488,8 +506,9 @@ def run_game():
             for friendly_ship in friendly_ships:
                 friendly_ship.x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
                 friendly_ship.y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
-            ring_x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
-            ring_y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
+            for wave in waves:
+                wave[0] += math.sin(math.radians(player_ship.angle)) * player_ship.speed
+                wave[1] += math.cos(math.radians(player_ship.angle)) * player_ship.speed
         else:
             image = pygame.transform.smoothscale(player_ship.pic_stay, (player_ship.get_width(), player_ship.get_height()))
 
@@ -545,34 +564,40 @@ def run_game():
                 display.blit(image, (center_x + kernel[0] / scale, center_y + kernel[1] / scale))
 
         ships_and_kernels(player_ship)
-        f = pygame.font.Font(None, 72)
+        f = pygame.font.Font(None, 48)
+        typ = f.render(player_ship.type, True, (128, 255, 0))
+        display.blit(typ, (1000, 5))
         hp = f.render(str(player_ship.hp), True, (0, 255, 0))
-        display.blit(hp, (1130, 10))
+        display.blit(hp, (1150, 5))
         if (player_ship.hp <= 0):
             f = pygame.font.Font(None, 72)
             final = f.render("FINISH HIM!", True, (255, 0, 0))
             display.blit(final, (480, 430))
             game = False
 
-        step = 10
+        step = 5
         for enemy_ship in enemy_ships:
             ships_and_kernels(enemy_ship)
-            f = pygame.font.Font(None, 72)
+            f = pygame.font.Font(None, 48)
+            typ = f.render(enemy_ship.type, True, (255, 255, 0))
+            display.blit(typ, (10, step))
             hp = f.render(str(enemy_ship.hp), True, (255, 0, 0))
-            display.blit(hp, (10, step))
+            display.blit(hp, (150, step))
             if (enemy_ship.hp <= 0):
                 enemy_ships.remove(enemy_ship)
-            step += 50
+            step += 35
 
-        step = 60
+        step = 40
         for friendly_ship in friendly_ships:
             ships_and_kernels(friendly_ship)
-            f = pygame.font.Font(None, 72)
-            hp = f.render(str(friendly_ship.hp), True, (255, 255, 0))
-            display.blit(hp, (1130, step))
+            f = pygame.font.Font(None, 48)
+            typ = f.render(friendly_ship.type, True, (255, 255, 0))
+            display.blit(typ, (1000, step))
+            hp = f.render(str(friendly_ship.hp), True, (0, 255, 0))
+            display.blit(hp, (1150, step))
             if (friendly_ship.hp <= 0):
                 friendly_ships.remove(friendly_ship)
-            step += 50
+            step += 35
 
         if (len(enemy_ships) == 0):
             f3 = pygame.font.Font(None, 72)
