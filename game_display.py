@@ -71,6 +71,8 @@ class ship_object(ship_type):
             super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 60, 50, corvet_guns_left, corvet_guns_right)
         elif (type == "fregat"):
             super().__init__(fregat_move, fregat_stay, fregat_deck_width, fregat_deck_height, 2.0, 0.8, 75, 60, fregat_guns_left, fregat_guns_right)
+        elif (type == "tradeship"):
+            super().__init__(tradeship_move, tradeship_stay, tradeship_deck_width, tradeship_deck_height, 2.4, 0.4, 90, 60, tradeship_guns_left, tradeship_guns_right)
         elif (type == "warship"):
             super().__init__(warship_move, warship_stay, warship_deck_width, warship_deck_height, 2.4, 0.8, 90, 60, warship_guns_left, warship_guns_right)
     def get_width(self):
@@ -179,30 +181,33 @@ corvet_guns_right = [(35, -72), (35, -48), (35, -24), (35, 0), (35, 24), (35, 48
 fregat_move = pygame.image.load('fregat\\sail_1.png')
 fregat_stay = pygame.image.load('fregat\\sail_0.png')
 fregat_deck_width = 74
-fregat_deck_height = 302
-fregat_guns_left = [(-43, -84), (-43, -60), (-43, -36), (-43, -12), (-43, 12), (-43, 36), (-43, 60), (-43, 84)]
-fregat_guns_right = [(43, -84), (43, -60), (43, -36), (43, -12), (43, 12), (43, 36), (43, 60), (43, 84)]
+fregat_deck_height = 308
+fregat_guns_left = [(-43, -81), (-43, -57), (-43, -33), (-43, -9), (-43, 15), (-43, 39), (-43, 63), (-43, 87)]
+fregat_guns_right = [(43, -81), (43, -57), (43, -33), (43, -9), (43, 15), (43, 39), (43, 63), (43, 87)]
+
+tradeship_move = pygame.image.load('tradeship\\sail_1.png')
+tradeship_stay = pygame.image.load('tradeship\\sail_0.png')
+tradeship_deck_width = 74
+tradeship_deck_height = 332
+tradeship_guns_left = [(-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75)]
+tradeship_guns_right = [(43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75)]
 
 warship_move = pygame.image.load('warship\\sail_1.png')
 warship_stay = pygame.image.load('warship\\sail_0.png')
 warship_deck_width = 74
-warship_deck_height = 326
-warship_guns_left = [(-43, -96), (-43, -72), (-43, -48), (-43, -24), (-43, 0), (-43, 24), (-43, 48), (-43, 72), (-43, 96)]
-warship_guns_right = [(43, -96), (43, -72), (43, -48), (43, -24), (43, 0), (43, 24), (43, 48), (43, 72), (43, 96)]
+warship_deck_height = 332
+warship_guns_left = [(-43, -93), (-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75), (-43, 99)]
+warship_guns_right = [(43, -93), (43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75), (43, 99)]
 
-# player_ship = ship_object(0, 0, 0, "corvet")
-# friendly_ships = [ship_object(300, 0, 0, "corvet"),
-#                   ship_object(-300, -300, 0, "brig"),
-#                   ship_object(0, -300, 0, "brig")]
-# enemy_ships = [ship_object(-1000, -1500, 180, "fregat"),
-#                ship_object(-500, -1500, 180, "fregat"),
-#                ship_object(-500, -2000, 180, "karaka"),
-#                ship_object(-1000, -2000, 180, "karaka")]
+player_ship = ship_object(0, 0, 0, "corvet")
+friendly_ships = [ship_object(-300, -300, 0, "brig")]
+enemy_ships = [ship_object(-500, -1500, 180, "fregat"),
+               ship_object(-500, -2000, 180, "karaka")]
 
-player_ship = ship_object(0, 0, 0, "warship")
-friendly_ships = []
-enemy_ships = [ship_object(0, -1000, 180, "corvet"),
-               ship_object(200, -1000, 180, "corvet")]
+# player_ship = ship_object(0, 0, 0, "warship")
+# friendly_ships = []
+# enemy_ships = [ship_object(-200, -1000, 180, "fregat"),
+#                ship_object(200, -1000, 180, "fregat")]
 
 kernels = []
 
@@ -478,7 +483,7 @@ def no_may_shoot_right(ship, target_ship, block_ship):
     dist = ((ship.x - target_ship.x) ** 2 + (ship.y - target_ship.y) ** 2) ** 0.5
     block_dist = ((ship.x - block_ship.x) ** 2 + (ship.y - block_ship.y) ** 2) ** 0.5
     gip1 = ((ship.guns_left[0][0]) ** 2 + (ship.guns_left[0][1]) ** 2) ** 0.5
-    gip2 = ((ship.guns_left[len(ship.guns_left) - 1][0]) ** 2 + (ship.guns_left[len(ship.guns_left) - 1][1]) ** 2)
+    gip2 = ((ship.guns_left[len(ship.guns_left) - 1][0]) ** 2 + (ship.guns_left[len(ship.guns_left) - 1][1]) ** 2) ** 0.5
 
     arcsin1 = math.asin(ship.guns_right[0][1] / gip1)
     arcsin2 = math.asin(ship.guns_right[len(ship.guns_right) - 1][1] / gip2)
