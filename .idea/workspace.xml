@@ -39,18 +39,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jSR1aH1vwTS06vfzkGliJnKCfg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../island_generate" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
-    <configuration name="game_display" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="global_display" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="test_game" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -61,19 +64,18 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/game_display.py" />
+      <option name="SCRIPT_NAME" value="global_display" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
+      <option name="MODULE_MODE" value="true" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.game_display" />
+        <item itemvalue="Python.global_display" />
       </list>
     </recent_temporary>
   </component>
@@ -101,45 +103,57 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1259" height="346" key="GridCell.Tab.0.bottom" timestamp="1645124219147">
+    <state x="94" y="147" width="1092" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1645880340116">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1645124219147" />
-    <state width="1259" height="346" key="GridCell.Tab.0.center" timestamp="1645124219147">
+    <state x="94" y="147" width="1092" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.984@0.0.1280.984" timestamp="1645880340116" />
+    <state x="369" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1645880335451">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1645124219147" />
-    <state width="1259" height="346" key="GridCell.Tab.0.left" timestamp="1645124219147">
+    <state x="369" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.984@0.0.1280.984" timestamp="1645880335451" />
+    <state x="420" y="234" key="FileChooserDialogImpl" timestamp="1645867420757">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1645124219147" />
-    <state width="1259" height="346" key="GridCell.Tab.0.right" timestamp="1645124219147">
+    <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1645867420757" />
+    <state width="1259" height="346" key="GridCell.Tab.0.bottom" timestamp="1646252457230">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1645124219147" />
-    <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1644080733048">
+    <state width="1259" height="346" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1646252457230" />
+    <state width="1259" height="346" key="GridCell.Tab.0.center" timestamp="1646252457230">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1644080733048" />
-    <state width="1259" height="325" key="GridCell.Tab.1.center" timestamp="1644080733048">
+    <state width="1259" height="346" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1646252457230" />
+    <state width="1259" height="346" key="GridCell.Tab.0.left" timestamp="1646252457230">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1644080733048" />
-    <state width="1259" height="325" key="GridCell.Tab.1.left" timestamp="1644080733048">
+    <state width="1259" height="346" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1646252457230" />
+    <state width="1259" height="346" key="GridCell.Tab.0.right" timestamp="1646252457230">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1644080733048" />
-    <state width="1259" height="325" key="GridCell.Tab.1.right" timestamp="1644080733048">
+    <state width="1259" height="346" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1646252457230" />
+    <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1645909546257">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1644080733048" />
-    <state x="143" y="109" key="SettingsEditor" timestamp="1644696553694">
+    <state width="1259" height="325" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1645909546257" />
+    <state width="1259" height="325" key="GridCell.Tab.1.center" timestamp="1645909546257">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1644696553694" />
-    <state x="303" y="211" key="search.everywhere.popup" timestamp="1644655447577">
+    <state width="1259" height="325" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1645909546257" />
+    <state width="1259" height="325" key="GridCell.Tab.1.left" timestamp="1645909546256">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="303" y="211" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1644655447577" />
+    <state width="1259" height="325" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1645909546256" />
+    <state width="1259" height="325" key="GridCell.Tab.1.right" timestamp="1645909546257">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1645909546257" />
+    <state x="143" y="109" key="SettingsEditor" timestamp="1645282273344">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1645282273344" />
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1646166298632">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1646166298632" />
   </component>
 </project>

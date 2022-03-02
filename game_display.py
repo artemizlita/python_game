@@ -199,21 +199,8 @@ warship_deck_height = 332
 warship_guns_left = [(-43, -93), (-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75), (-43, 99)]
 warship_guns_right = [(43, -93), (43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75), (43, 99)]
 
-# player_ship = ship_object(0, 0, 0, "shlup")
-# friendly_ships = []
-# enemy_ships = [ship_object(0, -500, 180, "fleyt"),
-#                ship_object(200, -500, 180, "fleyt")]
-
-player_ship = ship_object(0, 0, 0, "fregat")
-friendly_ships = [ship_object(300, 0, 0, "fregat"),
-                  ship_object(600, 0, 0, "fregat"),
-                  ship_object(900, 0, 0, "fregat"),
-                  ship_object(1200, 0, 0, "fregat")]
-enemy_ships = [ship_object(0, -1500, 180, "corvet"),
-               ship_object(300, -1500, 180, "corvet"),
-               ship_object(600, -1500, 180, "corvet"),
-               ship_object(900, -1500, 180, "corvet"),
-               ship_object(1200, -1500, 180, "corvet")]
+friendly_ships = []
+enemy_ships = []
 
 kernels = []
 
@@ -227,9 +214,6 @@ def rot_center(image, rect, angle):
     rot_image = pygame.transform.rotate(image, angle)
     rot_rect = rot_image.get_rect(center=rect.center)
     return rot_image, rot_rect
-
-def ships_range(ship1, ship2):
-    return ((ship1.x - ship2.x) ** 2 + (ship1.y - ship2.y) ** 2) ** 0.5
 
 def dot_in_ship(x, y, x1, y1, x2, y2, x3, y3, x4, y4):
     p21 = [x2 - x1, y2 - y1]
@@ -426,6 +410,22 @@ def ship_intersection(ship1, ship2):
     dx1 = ac1 * math.cos(math.radians(angle1) + math.pi - math.asin(dh1 / ac1)) + x1
     dy1 = -ac1 * math.sin(math.radians(angle1) + math.pi - math.asin(dh1 / ac1)) + y1
 
+    # dw2 = ship.deck_width / 2
+    # dh2 = ship.deck_height / 2
+    # x = ship.x
+    # y = ship.y
+    # angle = ship.angle
+    #
+    # gip = (dw2 ** 2 + dh2 ** 2) ** 0.5
+    # ax = gip * math.cos(math.radians(angle) + math.asin(dh2 / gip)) + x
+    # ay = -gip * math.sin(math.radians(angle) + math.asin(dh2 / gip)) + y
+    # bx = gip * math.cos(math.radians(angle) - math.asin(dh2 / gip)) + x
+    # by = -gip * math.sin(math.radians(angle) - math.asin(dh2 / gip)) + y
+    # cx = gip * math.cos(math.radians(angle) + math.pi + math.asin(dh2 / gip)) + x
+    # cy = -gip * math.sin(math.radians(angle) + math.pi + math.asin(dh2 / gip)) + y
+    # dx = gip * math.cos(math.radians(angle) + math.pi - math.asin(dh2 / gip)) + x
+    # dy = -gip * math.sin(math.radians(angle) + math.pi - math.asin(dh2 / gip)) + y
+
     x2 = ship2.x
     y2 = ship2.y
     dh2 = ship2.deck_height / 2
@@ -451,15 +451,16 @@ def ship_intersection(ship1, ship2):
         dot_in_ship(cx2, cy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
         dot_in_ship(dx2, dy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)):
         gip = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
-        if (ship2 == player_ship):
+        if (ship2 == friendly_ships[0]):
             ship1.x += ship1.speed * (x1 - x2) / gip
             ship1.y += ship1.speed * (y1 - y2) / gip
             for ship in enemy_ships:
                 ship.x += ship2.speed * (x1 - x2) / gip
                 ship.y += ship2.speed * (y1 - y2) / gip
             for ship in friendly_ships:
-                ship.x += ship2.speed * (x1 - x2) / gip
-                ship.y += ship2.speed * (y1 - y2) / gip
+                if ship != friendly_ships[0]:
+                    ship.x += ship2.speed * (x1 - x2) / gip
+                    ship.y += ship2.speed * (y1 - y2) / gip
         else:
             ship1.x += ship1.speed * (x1 - x2) / gip
             ship1.y += ship1.speed * (y1 - y2) / gip
@@ -542,9 +543,21 @@ def no_may_shoot_right(ship, target_ship, block_ship):
 
 ###################################################game_start###########################################################
 
-def run_game():
-    player_ship.move = True
+def battle(friendly_ships_list, enemy_ships_list):
+
+    i = 0
+    for ship in friendly_ships_list:
+        friendly_ships.append(ship_object(i, 0, 0, ship))
+        i += 200
+
+    i = -len(enemy_ships_list) // 2 * 200
+    for ship in enemy_ships_list:
+        enemy_ships.append(ship_object(i, -1000, 180, ship))
+        i += 200
+
+    friendly_ships[0].move = True
     game = True
+    victory = False
     global scale, center_x, center_y, wave_step
     for i in range(192):
         waves.append([randint(-display_width * 2, display_width * 2), randint(-display_height * 2, display_height * 2), i // 4])
@@ -560,31 +573,31 @@ def run_game():
         for i in range(4):
             waves.append([randint(-display_width * 2, display_width * 2), randint(-display_height * 2, display_height * 2), 0])
 
-####################################################control#############################################################
+#####################################################player#############################################################
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            if player_ship.cd_sail == 0:
-                player_ship.move = True
-                player_ship.cd_sail = 100
+            if friendly_ships[0].cd_sail == 0:
+                friendly_ships[0].move = True
+                friendly_ships[0].cd_sail = 100
         elif keys[pygame.K_s]:
-            if player_ship.cd_sail == 0:
-                player_ship.move = False
-                player_ship.cd_sail = 100
+            if friendly_ships[0].cd_sail == 0:
+                friendly_ships[0].move = False
+                friendly_ships[0].cd_sail = 100
         if keys[pygame.K_d]:
-            player_ship.angle -= player_ship.t_speed
-            if player_ship.angle < 0:
-                player_ship.angle = 360 - player_ship.t_speed
+            friendly_ships[0].angle -= friendly_ships[0].t_speed
+            if friendly_ships[0].angle < 0:
+                friendly_ships[0].angle = 360 - friendly_ships[0].t_speed
         elif keys[pygame.K_a]:
-            player_ship.angle += player_ship.t_speed
-            if player_ship.angle >= 360:
-                player_ship.angle = 0
+            friendly_ships[0].angle += friendly_ships[0].t_speed
+            if friendly_ships[0].angle >= 360:
+                friendly_ships[0].angle = 0
         if keys[pygame.K_q]:
-            if player_ship.cd_left == 0:
-                shoot_left(player_ship)
+            if friendly_ships[0].cd_left == 0:
+                shoot_left(friendly_ships[0])
         if keys[pygame.K_e]:
-            if player_ship.cd_right == 0:
-                shoot_right(player_ship)
+            if friendly_ships[0].cd_right == 0:
+                shoot_right(friendly_ships[0])
         if keys[pygame.K_1]:
             scale = 1
         elif keys[pygame.K_2]:
@@ -592,62 +605,32 @@ def run_game():
         elif keys[pygame.K_3]:
             scale = 4
 
-        if player_ship.cd_left > 0:
-            player_ship.cd_left -= 1
-        if player_ship.cd_right > 0:
-            player_ship.cd_right -= 1
-        if player_ship.cd_sail > 0:
-            player_ship.cd_sail -= 1
+        if friendly_ships[0].cd_left > 0:
+            friendly_ships[0].cd_left -= 1
+        if friendly_ships[0].cd_right > 0:
+            friendly_ships[0].cd_right -= 1
+        if friendly_ships[0].cd_sail > 0:
+            friendly_ships[0].cd_sail -= 1
+
+####################################################control#############################################################
 
         for enemy_ship in enemy_ships:
-            enemy_ship.target = -1
-            dist_target = (enemy_ship.x-player_ship.x)**2+(enemy_ship.y-player_ship.y)**2
+            enemy_ship.target = 0
+            dist_target = (enemy_ship.x-friendly_ships[0].x)**2+(enemy_ship.y-friendly_ships[0].y)**2
             for i in range(len(friendly_ships)):
                 dist = (enemy_ship.x-friendly_ships[i].x)**2+(enemy_ship.y-friendly_ships[i].y)**2
                 if dist < dist_target:
                     enemy_ship.target = i
                     dist_target = dist
-            if enemy_ship.target == -1:
-                swim_to_target(enemy_ship, player_ship)
-            else:
-                swim_to_target(enemy_ship, friendly_ships[enemy_ship.target])
-
-            if (ships_range(enemy_ship, player_ship) < enemy_ship.gun_distance * 10
-                ) and (ready_shoot_left(enemy_ship, player_ship)) and enemy_ship.cd_left == 0:
-                may_shoot_left = True
-                for no_shoot_enemy_ship in enemy_ships:
-                    if (no_shoot_enemy_ship != enemy_ship) and (
-                            ships_range(enemy_ship, no_shoot_enemy_ship) < enemy_ship.gun_distance * 10):
-                        if no_may_shoot_left(enemy_ship, player_ship, no_shoot_enemy_ship):
-                            may_shoot_left = False
-                if may_shoot_left:
-                    shoot_left(enemy_ship)
-                else:
-                    if (enemy_ship.cd_sail == 0):
-                        enemy_ship.move = True
-                        enemy_ship.cd_sail = 100
-            if (ships_range(enemy_ship, player_ship) < enemy_ship.gun_distance * 10
-                ) and (ready_shoot_right(enemy_ship, player_ship)) and enemy_ship.cd_right == 0:
-                may_shoot_right = True
-                for no_shoot_enemy_ship in enemy_ships:
-                    if (no_shoot_enemy_ship != enemy_ship) and (
-                            ships_range(enemy_ship, no_shoot_enemy_ship) < enemy_ship.gun_distance * 10):
-                        if no_may_shoot_right(enemy_ship, player_ship, no_shoot_enemy_ship):
-                            may_shoot_right = False
-                if may_shoot_right:
-                    shoot_right(enemy_ship)
-                else:
-                    if (enemy_ship.cd_sail == 0):
-                        enemy_ship.move = True
-                        enemy_ship.cd_sail = 100
+            swim_to_target(enemy_ship, friendly_ships[enemy_ship.target])
 
             for friendly_ship in friendly_ships:
-                if (ships_range(enemy_ship, friendly_ship) < enemy_ship.gun_distance * 10
-                    ) and (ready_shoot_left(enemy_ship, friendly_ship)) and enemy_ship.cd_left == 0:
+                gip = ((enemy_ship.x - friendly_ship.x) ** 2 + (enemy_ship.y - friendly_ship.y) ** 2) ** 0.5
+                if (gip < enemy_ship.gun_distance * 10) and (ready_shoot_left(enemy_ship, friendly_ship)) and enemy_ship.cd_left == 0:
                     may_shoot_left = True
                     for no_shoot_enemy_ship in enemy_ships:
-                        if (no_shoot_enemy_ship != enemy_ship) and (
-                                ships_range(enemy_ship, no_shoot_enemy_ship) < enemy_ship.gun_distance * 10):
+                        block_gip = ((enemy_ship.x-no_shoot_enemy_ship.x)**2+(enemy_ship.y-no_shoot_enemy_ship.y)**2)**0.5
+                        if (no_shoot_enemy_ship != enemy_ship) and (block_gip < enemy_ship.gun_distance * 10):
                             if no_may_shoot_left(enemy_ship, friendly_ship, no_shoot_enemy_ship):
                                 may_shoot_left = False
                     if may_shoot_left:
@@ -656,12 +639,12 @@ def run_game():
                         if (enemy_ship.cd_sail == 0):
                             enemy_ship.move = True
                             enemy_ship.cd_sail = 100
-                if (ships_range(enemy_ship, friendly_ship) < enemy_ship.gun_distance * 10
+                if (gip < enemy_ship.gun_distance * 10
                     ) and (ready_shoot_right(enemy_ship, friendly_ship)) and enemy_ship.cd_right == 0:
                     may_shoot_right = True
                     for no_shoot_enemy_ship in enemy_ships:
-                        if (no_shoot_enemy_ship != enemy_ship) and (
-                                ships_range(enemy_ship, no_shoot_enemy_ship) < enemy_ship.gun_distance * 10):
+                        block_gip = ((enemy_ship.x-no_shoot_enemy_ship.x)**2+(enemy_ship.y-no_shoot_enemy_ship.y)**2)**0.5
+                        if (no_shoot_enemy_ship != enemy_ship) and (block_gip < enemy_ship.gun_distance * 10):
                             if no_may_shoot_right(enemy_ship, friendly_ship, no_shoot_enemy_ship):
                                 may_shoot_right = False
                     if may_shoot_right:
@@ -672,68 +655,67 @@ def run_game():
                             enemy_ship.cd_sail = 100
 
         for friendly_ship in friendly_ships:
-            friendly_ship.target = 0
-            dist_target = (friendly_ship.x-enemy_ships[0].x)**2+(friendly_ship.y-enemy_ships[0].y)**2
-            for i in range(len(enemy_ships)):
-                dist = (friendly_ship.x-enemy_ships[i].x)**2+(friendly_ship.y-enemy_ships[i].y)**2
-                if dist < dist_target:
-                    friendly_ship.target = i
-                    dist_target = dist
-            swim_to_target(friendly_ship, enemy_ships[friendly_ship.target])
+            if (friendly_ship != friendly_ships[0]):
+                friendly_ship.target = 0
+                dist_target = (friendly_ship.x-enemy_ships[0].x)**2+(friendly_ship.y-enemy_ships[0].y)**2
+                for i in range(len(enemy_ships)):
+                    dist = (friendly_ship.x-enemy_ships[i].x)**2+(friendly_ship.y-enemy_ships[i].y)**2
+                    if dist < dist_target:
+                        friendly_ship.target = i
+                        dist_target = dist
+                swim_to_target(friendly_ship, enemy_ships[friendly_ship.target])
 
-            for enemy_ship in enemy_ships:
-                if (ships_range(friendly_ship, enemy_ship) < friendly_ship.gun_distance * 10
-                    ) and (ready_shoot_left(friendly_ship, enemy_ship)) and friendly_ship.cd_left == 0:
-                    may_shoot_left = True
-                    if no_may_shoot_left(friendly_ship, enemy_ship, player_ship):
-                        may_shoot_left = False
-                    for no_shoot_friendly_ship in friendly_ships:
-                        if (no_shoot_friendly_ship != friendly_ship) and (
-                                ships_range(friendly_ship, no_shoot_friendly_ship) < enemy_ship.gun_distance * 10):
-                            if no_may_shoot_left(friendly_ship, enemy_ship, no_shoot_friendly_ship):
-                                may_shoot_left = False
-                    if may_shoot_left:
-                        shoot_left(friendly_ship)
-                    else:
-                        if (friendly_ship.cd_sail == 0):
-                            friendly_ship.move = True
-                            friendly_ship.cd_sail = 100
-                if (ships_range(friendly_ship, enemy_ship) < friendly_ship.gun_distance * 10
-                    ) and (ready_shoot_right(friendly_ship, enemy_ship)) and friendly_ship.cd_right == 0:
-                    may_shoot_right = True
-                    if no_may_shoot_right(friendly_ship, enemy_ship, player_ship):
-                        may_shoot_right = False
-                    for no_shoot_friendly_ship in friendly_ships:
-                        if (no_shoot_friendly_ship != friendly_ship) and (
-                                ships_range(friendly_ship, no_shoot_friendly_ship) < enemy_ship.gun_distance * 10):
-                            if no_may_shoot_right(friendly_ship, enemy_ship, no_shoot_friendly_ship):
-                                may_shoot_right = False
-                    if may_shoot_right:
-                        shoot_right(friendly_ship)
-                    else:
-                        if (friendly_ship.cd_sail == 0):
-                            friendly_ship.move = True
-                            friendly_ship.cd_sail = 100
+                for enemy_ship in enemy_ships:
+                    gip = ((enemy_ship.x - friendly_ship.x) ** 2 + (enemy_ship.y - friendly_ship.y) ** 2) ** 0.5
+                    if (gip < friendly_ship.gun_distance * 10) and (ready_shoot_left(friendly_ship, enemy_ship)) and friendly_ship.cd_left == 0:
+                        may_shoot_left = True
+                        for no_shoot_friendly_ship in friendly_ships:
+                            block_gip = ((friendly_ship.x-no_shoot_friendly_ship.x)**2+(friendly_ship.y-no_shoot_friendly_ship.y)**2)**0.5
+                            if (no_shoot_friendly_ship != friendly_ship) and (block_gip < enemy_ship.gun_distance * 10):
+                                if no_may_shoot_left(friendly_ship, enemy_ship, no_shoot_friendly_ship):
+                                    may_shoot_left = False
+                        if may_shoot_left:
+                            shoot_left(friendly_ship)
+                        else:
+                            if (friendly_ship.cd_sail == 0):
+                                friendly_ship.move = True
+                                friendly_ship.cd_sail = 100
+                    if (gip < friendly_ship.gun_distance * 10
+                        ) and (ready_shoot_right(friendly_ship, enemy_ship)) and friendly_ship.cd_right == 0:
+                        may_shoot_right = True
+                        for no_shoot_friendly_ship in friendly_ships:
+                            block_gip = ((friendly_ship.x-no_shoot_friendly_ship.x)**2+(friendly_ship.y-no_shoot_friendly_ship.y)**2)**0.5
+                            if (no_shoot_friendly_ship != friendly_ship) and (block_gip < enemy_ship.gun_distance * 10):
+                                if no_may_shoot_right(friendly_ship, enemy_ship, no_shoot_friendly_ship):
+                                    may_shoot_right = False
+                        if may_shoot_right:
+                            shoot_right(friendly_ship)
+                        else:
+                            if (friendly_ship.cd_sail == 0):
+                                friendly_ship.move = True
+                                friendly_ship.cd_sail = 100
 
 ################################################ship_intersection#######################################################
 
         for enemy_ship in enemy_ships:
-            ship_intersection(enemy_ship, player_ship)
             for friendly_ship in friendly_ships:
-                ship_intersection(enemy_ship, friendly_ship)
+                if (enemy_ship.x-friendly_ship.x)**2+(enemy_ship.y-friendly_ship.y)**2 < (
+                    enemy_ship.deck_width/2)**2+(enemy_ship.deck_height/2)**2+(friendly_ship.deck_width/2)**2+(friendly_ship.deck_height/2)**2:
+                    ship_intersection(enemy_ship, friendly_ship)
             for other_enemy_ship in enemy_ships:
                 if other_enemy_ship != enemy_ship:
-                    ship_intersection(enemy_ship, other_enemy_ship)
+                    if (enemy_ship.x-other_enemy_ship.x)**2+(enemy_ship.y-other_enemy_ship.y)**2 < (
+                        enemy_ship.deck_width/2)**2+(enemy_ship.deck_height/2)**2+(other_enemy_ship.deck_width/2)**2+(other_enemy_ship.deck_height/2)**2:
+                        ship_intersection(enemy_ship, other_enemy_ship)
 
         for friendly_ship in friendly_ships:
-            ship_intersection(friendly_ship, player_ship)
-            for enemy_ship in enemy_ships:
-                ship_intersection(friendly_ship, enemy_ship)
             for other_friendly_ship in friendly_ships:
-                if other_friendly_ship != friendly_ship:
-                    ship_intersection(friendly_ship, other_friendly_ship)
+                if other_friendly_ship != friendly_ship and friendly_ship != friendly_ships[0]:
+                    if (other_friendly_ship.x-friendly_ship.x)**2+(other_friendly_ship.y-friendly_ship.y)**2 < (
+                        other_friendly_ship.deck_width/2)**2+(other_friendly_ship.deck_height/2)**2+(friendly_ship.deck_width/2)**2+(friendly_ship.deck_height/2)**2:
+                        ship_intersection(friendly_ship, other_friendly_ship)
 
-########################################################movement########################################################
+########################################################painting########################################################
 
         for wave in waves:
             image = pygame.transform.smoothscale(wave_step[wave[2] // 8], (24 / scale, 8 / scale))
@@ -744,22 +726,22 @@ def run_game():
             if wave[2] >= 48:
                 waves.remove(wave)
 
-        if player_ship.move:
-            image = pygame.transform.smoothscale(player_ship.pic_move, (player_ship.get_width(), player_ship.get_height()))
+        if friendly_ships[0].move:
+            image = pygame.transform.smoothscale(friendly_ships[0].pic_move, (friendly_ships[0].get_width(), friendly_ships[0].get_height()))
             for enemy_ship in enemy_ships:
-                enemy_ship.x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
-                enemy_ship.y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
+                enemy_ship.x += math.sin(math.radians(friendly_ships[0].angle)) * friendly_ships[0].speed
+                enemy_ship.y += math.cos(math.radians(friendly_ships[0].angle)) * friendly_ships[0].speed
             for friendly_ship in friendly_ships:
-                friendly_ship.x += math.sin(math.radians(player_ship.angle)) * player_ship.speed
-                friendly_ship.y += math.cos(math.radians(player_ship.angle)) * player_ship.speed
+                friendly_ship.x += math.sin(math.radians(friendly_ships[0].angle)) * friendly_ships[0].speed
+                friendly_ship.y += math.cos(math.radians(friendly_ships[0].angle)) * friendly_ships[0].speed
             for wave in waves:
-                wave[0] += math.sin(math.radians(player_ship.angle)) * player_ship.speed
-                wave[1] += math.cos(math.radians(player_ship.angle)) * player_ship.speed
+                wave[0] += math.sin(math.radians(friendly_ships[0].angle)) * friendly_ships[0].speed
+                wave[1] += math.cos(math.radians(friendly_ships[0].angle)) * friendly_ships[0].speed
         else:
-            image = pygame.transform.smoothscale(player_ship.pic_stay, (player_ship.get_width(), player_ship.get_height()))
+            image = pygame.transform.smoothscale(friendly_ships[0].pic_stay, (friendly_ships[0].get_width(), friendly_ships[0].get_height()))
 
         rect = image.get_rect(center=(center_x, center_y))
-        surf, r = rot_center(image, rect, player_ship.angle)
+        surf, r = rot_center(image, rect, friendly_ships[0].angle)
         display.blit(surf, r)
 
         for enemy_ship in enemy_ships:
@@ -809,18 +791,6 @@ def run_game():
                 image = pygame.transform.smoothscale(kernel_image, (kernel_miss_size, kernel_miss_size))
                 display.blit(image, (center_x + kernel[0] / scale, center_y + kernel[1] / scale))
 
-        ships_and_kernels(player_ship)
-        f = pygame.font.Font(None, 48)
-        typ = f.render(player_ship.type, True, (128, 255, 0))
-        display.blit(typ, (1000, 5))
-        hp = f.render(str(player_ship.hp), True, (0, 255, 0))
-        display.blit(hp, (1150, 5))
-        if (player_ship.hp <= 0):
-            f = pygame.font.Font(None, 72)
-            final = f.render("FINISH HIM!", True, (255, 0, 0))
-            display.blit(final, (480, 430))
-            game = False
-
         step = 5
         for enemy_ship in enemy_ships:
             ships_and_kernels(enemy_ship)
@@ -833,7 +803,7 @@ def run_game():
                 enemy_ships.remove(enemy_ship)
             step += 35
 
-        step = 40
+        step = 5
         for friendly_ship in friendly_ships:
             ships_and_kernels(friendly_ship)
             f = pygame.font.Font(None, 48)
@@ -841,7 +811,12 @@ def run_game():
             display.blit(typ, (1000, step))
             hp = f.render(str(friendly_ship.hp), True, (0, 255, 0))
             display.blit(hp, (1150, step))
-            if (friendly_ship.hp <= 0):
+            if (friendly_ships[0].hp <= 0):
+                f = pygame.font.Font(None, 72)
+                final = f.render("FINISH HIM!", True, (255, 0, 0))
+                display.blit(final, (480, 430))
+                game = False
+            elif (friendly_ship.hp <= 0):
                 friendly_ships.remove(friendly_ship)
             step += 35
 
@@ -850,10 +825,12 @@ def run_game():
             final = f3.render("FLAWLESS VICTORY!", True, (0, 255, 0))
             display.blit(final, (360, 430))
             game = False
+            victory = True
 
         pygame.display.update()
         clock.tick(30)
 
     pygame.time.wait(3000)
-
-run_game()
+    friendly_ships.clear()
+    enemy_ships.clear()
+    return victory
