@@ -21,24 +21,24 @@ pygame.display.set_icon(icon)
 #####################################################class##############################################################
 
 class ship_type:
-    def __init__(self, pic_move, pic_stay, deck_width, deck_height, speed, t_speed, hp, gun_distance, guns_left, guns_right):
+    def __init__(self, pic_move, pic_stay, deck_width, deck_height, speed, t_speed, gun_distance, guns_left, guns_right):
         self.pic_move = pic_move
         self.pic_stay = pic_stay
         self.deck_width = deck_width
         self.deck_height = deck_height
         self.speed = speed
         self.t_speed = t_speed
-        self.hp = hp
         self.gun_distance = gun_distance
         self.guns_left = guns_left
         self.guns_right = guns_right
 
 class ship_object(ship_type):
-    def __init__(self, x, y, angle, type, cd_left = 0, cd_right = 0, cd_sail = 0, move=True, target = -1):
+    def __init__(self, x, y, angle, type, hp, cd_left = 0, cd_right = 0, cd_sail = 0, move=True, target = -1):
         self.x = x
         self.y = y
         self.angle = angle
         self.type = type
+        self.hp = hp
         self.ship_type = ship_type
         self.cd_left = cd_left
         self.cd_right = cd_right
@@ -46,35 +46,35 @@ class ship_object(ship_type):
         self.move = move
         self.target = target
         if (type == "barkas"):
-            super().__init__(barkas_move, barkas_stay, barkas_deck_width, barkas_deck_height, 0.8, 1.0, 15, 30, barkas_guns_left, barkas_guns_right)
+            super().__init__(barkas_move, barkas_stay, barkas_deck_width, barkas_deck_height, 0.8, 1.0, 30, barkas_guns_left, barkas_guns_right)
         elif (type == "pink"):
-            super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.6, 15, 30, pink_guns_left, pink_guns_right)
+            super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.6, 30, pink_guns_left, pink_guns_right)
         elif (type == "ladya"):
-            super().__init__(ladya_move, ladya_stay, ladya_deck_width, ladya_deck_height, 1.2, 0.4, 20, 30, ladya_guns_left, ladya_guns_right)
+            super().__init__(ladya_move, ladya_stay, ladya_deck_width, ladya_deck_height, 1.2, 0.4, 30, ladya_guns_left, ladya_guns_right)
         elif (type == "shuna"):
-            super().__init__(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 1.2, 0.8, 20, 30, shuna_guns_left, shuna_guns_right)
+            super().__init__(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 1.2, 0.8, 30, shuna_guns_left, shuna_guns_right)
         elif (type == "lugger"):
-            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 0.8, 25, 30, lugger_guns_left, lugger_guns_right)
+            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 0.8, 30, lugger_guns_left, lugger_guns_right)
         elif (type == "shlup"):
-            super().__init__(shlup_move, shlup_stay, shlup_deck_width, shlup_deck_height, 1.2, 1.0, 30, 40, shlup_guns_left, shlup_guns_right)
+            super().__init__(shlup_move, shlup_stay, shlup_deck_width, shlup_deck_height, 1.2, 1.0, 40, shlup_guns_left, shlup_guns_right)
         elif (type == "bark"):
-            super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 1.6, 0.6, 35, 40, bark_guns_left, bark_guns_right)
+            super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 1.6, 0.6, 40, bark_guns_left, bark_guns_right)
         elif (type == "fleyt"):
-            super().__init__(fleyt_move, fleyt_stay, fleyt_deck_width, fleyt_deck_height, 1.6, 0.4, 40, 40, fleyt_guns_left, fleyt_guns_right)
+            super().__init__(fleyt_move, fleyt_stay, fleyt_deck_width, fleyt_deck_height, 1.6, 0.4, 40, fleyt_guns_left, fleyt_guns_right)
         elif (type == "brig"):
-            super().__init__(brig_move, brig_stay, brig_deck_width, brig_deck_height, 2.0, 0.8, 40, 40, brig_guns_left, brig_guns_right)
+            super().__init__(brig_move, brig_stay, brig_deck_width, brig_deck_height, 2.0, 0.8, 40, brig_guns_left, brig_guns_right)
         elif (type == "karaka"):
-            super().__init__(karaka_move, karaka_stay, karaka_deck_width, karaka_deck_height, 2.0, 0.4, 50, 50, karaka_guns_left, karaka_guns_right)
+            super().__init__(karaka_move, karaka_stay, karaka_deck_width, karaka_deck_height, 2.0, 0.4, 50, karaka_guns_left, karaka_guns_right)
         elif (type == "shebeka"):
-            super().__init__(shebeka_move, shebeka_stay, shebeka_deck_width, shebeka_deck_height, 1.6, 1.0, 50, 50, shebeka_guns_left, shebeka_guns_right)
+            super().__init__(shebeka_move, shebeka_stay, shebeka_deck_width, shebeka_deck_height, 1.6, 1.0, 50, shebeka_guns_left, shebeka_guns_right)
         elif (type == "corvet"):
-            super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 60, 50, corvet_guns_left, corvet_guns_right)
+            super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 50, corvet_guns_left, corvet_guns_right)
         elif (type == "fregat"):
-            super().__init__(fregat_move, fregat_stay, fregat_deck_width, fregat_deck_height, 2.0, 0.8, 75, 60, fregat_guns_left, fregat_guns_right)
+            super().__init__(fregat_move, fregat_stay, fregat_deck_width, fregat_deck_height, 2.0, 0.8, 60, fregat_guns_left, fregat_guns_right)
         elif (type == "tradeship"):
-            super().__init__(tradeship_move, tradeship_stay, tradeship_deck_width, tradeship_deck_height, 2.4, 0.4, 90, 60, tradeship_guns_left, tradeship_guns_right)
+            super().__init__(tradeship_move, tradeship_stay, tradeship_deck_width, tradeship_deck_height, 2.4, 0.4, 60, tradeship_guns_left, tradeship_guns_right)
         elif (type == "warship"):
-            super().__init__(warship_move, warship_stay, warship_deck_width, warship_deck_height, 2.4, 0.8, 90, 60, warship_guns_left, warship_guns_right)
+            super().__init__(warship_move, warship_stay, warship_deck_width, warship_deck_height, 2.4, 0.8, 60, warship_guns_left, warship_guns_right)
     def get_width(self):
         return self.pic_move.get_width() / scale
     def get_height(self):
@@ -410,22 +410,6 @@ def ship_intersection(ship1, ship2):
     dx1 = ac1 * math.cos(math.radians(angle1) + math.pi - math.asin(dh1 / ac1)) + x1
     dy1 = -ac1 * math.sin(math.radians(angle1) + math.pi - math.asin(dh1 / ac1)) + y1
 
-    # dw2 = ship.deck_width / 2
-    # dh2 = ship.deck_height / 2
-    # x = ship.x
-    # y = ship.y
-    # angle = ship.angle
-    #
-    # gip = (dw2 ** 2 + dh2 ** 2) ** 0.5
-    # ax = gip * math.cos(math.radians(angle) + math.asin(dh2 / gip)) + x
-    # ay = -gip * math.sin(math.radians(angle) + math.asin(dh2 / gip)) + y
-    # bx = gip * math.cos(math.radians(angle) - math.asin(dh2 / gip)) + x
-    # by = -gip * math.sin(math.radians(angle) - math.asin(dh2 / gip)) + y
-    # cx = gip * math.cos(math.radians(angle) + math.pi + math.asin(dh2 / gip)) + x
-    # cy = -gip * math.sin(math.radians(angle) + math.pi + math.asin(dh2 / gip)) + y
-    # dx = gip * math.cos(math.radians(angle) + math.pi - math.asin(dh2 / gip)) + x
-    # dy = -gip * math.sin(math.radians(angle) + math.pi - math.asin(dh2 / gip)) + y
-
     x2 = ship2.x
     y2 = ship2.y
     dh2 = ship2.deck_height / 2
@@ -547,17 +531,16 @@ def battle(friendly_ships_list, enemy_ships_list):
 
     i = 0
     for ship in friendly_ships_list:
-        friendly_ships.append(ship_object(i, 0, 0, ship))
+        friendly_ships.append(ship_object(i, 0, 0, ship[0], ship[1]))
         i += 200
 
     i = -len(enemy_ships_list) // 2 * 200
     for ship in enemy_ships_list:
-        enemy_ships.append(ship_object(i, -1000, 180, ship))
+        enemy_ships.append(ship_object(i, -500, 180, ship[0], ship[1]))
         i += 200
 
     friendly_ships[0].move = True
     game = True
-    victory = False
     global scale, center_x, center_y, wave_step
     for i in range(192):
         waves.append([randint(-display_width * 2, display_width * 2), randint(-display_height * 2, display_height * 2), i // 4])
@@ -825,12 +808,15 @@ def battle(friendly_ships_list, enemy_ships_list):
             final = f3.render("FLAWLESS VICTORY!", True, (0, 255, 0))
             display.blit(final, (360, 430))
             game = False
-            victory = True
 
         pygame.display.update()
         clock.tick(30)
 
-    pygame.time.wait(3000)
+    friendly_ships_list.clear()
+    for ship in friendly_ships:
+        friendly_ships_list.append((ship.type, ship.hp))
     friendly_ships.clear()
     enemy_ships.clear()
-    return victory
+    kernels.clear()
+    waves.clear()
+    return friendly_ships_list

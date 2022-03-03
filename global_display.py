@@ -1,4 +1,5 @@
 import pygame
+import math
 import game_display
 
 pygame.init()
@@ -82,14 +83,64 @@ def fleet_move(fleet, angle, speed):
         fleet.x += -0.6 * speed
         fleet.y += -0.3 * speed
 
+def rotate_to_target(fleet, target_fleet):
+    x1 = fleet.x
+    y1 = fleet.y
+    x2 = target_fleet.x
+    y2 = target_fleet.y
+    angle = fleet.angle
+
+    gip = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+    pi = math.pi
+    if (x1 - x2 >= 0):
+        i_angle = math.acos((y2 - y1) / gip)
+    else:
+        i_angle = 2 * pi - math.acos((y2 - y1) / gip)
+
+    if angle == 0:
+        a = 0
+    elif angle == 1:
+        a = math.atan(6 / 3)
+    elif angle == 2:
+        a = math.atan(9 / 2)
+    elif angle == 3:
+        a = 0.5 * pi
+    elif angle == 4:
+        a = pi - math.atan(9 / 2)
+    elif angle == 5:
+        a = pi - math.atan(6 / 3)
+    elif angle == 6:
+        a = pi
+    elif angle == 7:
+        a = pi + math.atan(6 / 3)
+    elif angle == 8:
+        a = pi + math.atan(9 / 2)
+    elif angle == 9:
+        a = 1.5 * pi
+    elif angle == 10:
+        a = 2 * pi - math.atan(9 / 2)
+    elif angle == 11:
+        a = 2 * pi - math.atan(6 / 3)
+
+    dif = a - i_angle
+
+    if (-0.99 * pi < dif < -0.01 * pi) or (1.01 * pi < dif < 1.99 * pi):
+        fleet.angle -= 1
+        if fleet.angle < 0:
+            fleet.angle = 11
+    elif (-1.99 * pi < dif < -1.01 * pi) or (0.01 * pi < dif < 0.99 * pi):
+        fleet.angle += 1
+        if fleet.angle >= 12:
+            fleet.angle = 0
+
 def run_game():
     scale = 2
 
     game = True
 
-    fleets.append(fleet_object(["barkas", "barkas"], barkas_sprites, 200, 70, 0.8, 0, 0, 6))
-    fleets.append(fleet_object(["ladya"], ladya_sprites, 200, 75, 0, 250, 100, 4))
-    fleets.append(fleet_object(["ladya"], ladya_sprites, 200, 75, 0, 0, 100, 4))
+    fleets.append(fleet_object([("barkas", 15), ("barkas", 15)], barkas_sprites, 200, 70, 0.8, 0, 0, 0))
+    fleets.append(fleet_object([("ladya", 20)], ladya_sprites, 200, 75, 1.2, -250, 100, 4))
+    fleets.append(fleet_object([("ladya", 20)], ladya_sprites, 200, 75, 1.2, 0, 100, 4))
 
     while game:
         for event in pygame.event.get():
@@ -127,11 +178,9 @@ def run_game():
             else:
                 fleet_move(fleet, fleet.angle, fleet.speed * 5)
 
-        # for fleet in fleets:
-            # if mode == 0:
-            # elif mode == 1:
-            # elif mode == 2:
-            # elif mode == 3:
+        for fleet in fleets:
+            if fleet != fleets[0]:
+                rotate_to_target(fleet, fleets[0])
 
         image = pygame.transform.smoothscale(fleets[0].ms_sprites[fleets[0].angle], (fleets[0].pic_size / scale, fleets[0].pic_size / scale))
         rect = image.get_rect(center=(center_x, center_y))
@@ -148,17 +197,15 @@ def run_game():
             if fleets[0] != fleet:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
                 if gip < fleets[0].deck_size + fleet.deck_size:
-                    victory = game_display.battle(fleets[0].ships, fleet.ships)
-                    if victory:
+                    fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships)
+                    print(fleets[0].ships)
+                    if len(fleets[0].ships) > 0:
                         fleets.remove(fleet)
                     else:
                         game = False
-                    print(fleets[0].ships, fleet.ships)
 
         pygame.display.update()
 
         clock.tick(10)
-
-    # pygame.time.wait(3000)
 
 run_game()
