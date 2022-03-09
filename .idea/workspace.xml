@@ -21,8 +21,93 @@
   <component name="ChangeListManager">
     <list default="true" id="fc09f26b-96f0-4649-aa74-bfba4886c335" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bark/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bark/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/barkas/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/barkas/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/brig/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/brig/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corvet/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/corvet/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleyt/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fleyt/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fregat/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fregat/sail_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/game_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_display.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/0/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/0/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/0/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/0/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/1/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/1/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/1/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/1/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/10/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/10/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/10/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/10/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/11/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/11/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/11/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/11/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/2/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/2/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/2/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/2/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/3/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/3/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/3/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/3/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/4/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/4/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/4/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/4/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/5/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/5/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/5/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/5/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/6/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/6/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/6/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/6/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/7/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/7/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/7/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/7/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/8/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/8/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/8/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/8/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/9/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/9/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/9/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/barkas/9/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/0/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/0/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/0/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/0/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/1/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/1/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/1/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/1/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/10/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/10/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/10/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/10/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/11/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/11/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/11/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/11/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/2/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/2/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/2/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/2/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/3/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/3/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/3/sail_1(rez).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/3/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/3/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/4/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/4/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/4/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/4/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/5/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/5/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/5/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/5/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/6/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/6/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/6/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/6/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/7/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/7/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/7/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/7/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/8/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/8/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/8/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/8/sail_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/9/sail_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/9/sail_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/9/sail_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/ladya/9/sail_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/global_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_display.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/karaka/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/karaka/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ladya/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ladya/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lugger/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lugger/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pink/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pink/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shebeka/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shebeka/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shlup/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shlup/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuna/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shuna/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tradeship/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tradeship/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/warship/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/warship/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/waves/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/waves/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/waves/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/waves/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/waves/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/waves/6.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,46 +197,46 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="369" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.984@0.0.1280.984" timestamp="1645880335451" />
-    <state x="420" y="234" key="FileChooserDialogImpl" timestamp="1645867420757">
+    <state x="420" y="234" key="FileChooserDialogImpl" timestamp="1646826409653">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1645867420757" />
-    <state width="1259" height="346" key="GridCell.Tab.0.bottom" timestamp="1646332854446">
+    <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1646826409653" />
+    <state width="1259" height="325" key="GridCell.Tab.0.bottom" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1646332854446" />
-    <state width="1259" height="346" key="GridCell.Tab.0.center" timestamp="1646332854446">
+    <state width="1259" height="325" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.0.center" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1646332854446" />
-    <state width="1259" height="346" key="GridCell.Tab.0.left" timestamp="1646332854446">
+    <state width="1259" height="325" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.0.left" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1646332854446" />
-    <state width="1259" height="346" key="GridCell.Tab.0.right" timestamp="1646332854446">
+    <state width="1259" height="325" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.0.right" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1646332854446" />
-    <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1645909546257">
+    <state width="1259" height="325" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1645909546257" />
-    <state width="1259" height="325" key="GridCell.Tab.1.center" timestamp="1645909546257">
+    <state width="1259" height="325" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.1.center" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1645909546257" />
-    <state width="1259" height="325" key="GridCell.Tab.1.left" timestamp="1645909546256">
+    <state width="1259" height="325" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.1.left" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1645909546256" />
-    <state width="1259" height="325" key="GridCell.Tab.1.right" timestamp="1645909546257">
+    <state width="1259" height="325" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state width="1259" height="325" key="GridCell.Tab.1.right" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1645909546257" />
-    <state x="143" y="109" key="SettingsEditor" timestamp="1645282273344">
+    <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
+    <state x="143" y="109" key="SettingsEditor" timestamp="1646767166073">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1645282273344" />
+    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1646767166073" />
     <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1646166298632">
       <screen x="0" y="0" width="1280" height="984" />
     </state>

@@ -21,7 +21,7 @@ pygame.display.set_icon(icon)
 #####################################################class##############################################################
 
 class ship_type:
-    def __init__(self, pic_move, pic_stay, deck_width, deck_height, speed, t_speed, gun_distance, guns_left, guns_right):
+    def __init__(self, pic_move, pic_stay, deck_width, deck_height, speed, t_speed, gun_distance, max_hp, guns_left, guns_right):
         self.pic_move = pic_move
         self.pic_stay = pic_stay
         self.deck_width = deck_width
@@ -29,6 +29,7 @@ class ship_type:
         self.speed = speed
         self.t_speed = t_speed
         self.gun_distance = gun_distance
+        self.max_hp = max_hp
         self.guns_left = guns_left
         self.guns_right = guns_right
 
@@ -46,35 +47,35 @@ class ship_object(ship_type):
         self.move = move
         self.target = target
         if (type == "barkas"):
-            super().__init__(barkas_move, barkas_stay, barkas_deck_width, barkas_deck_height, 0.8, 1.0, 30, barkas_guns_left, barkas_guns_right)
+            super().__init__(barkas_move, barkas_stay, barkas_deck_width, barkas_deck_height, 0.8, 1.0, 30, 15, barkas_guns_left, barkas_guns_right)
         elif (type == "pink"):
-            super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.6, 30, pink_guns_left, pink_guns_right)
+            super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.6, 30, 15, pink_guns_left, pink_guns_right)
         elif (type == "ladya"):
-            super().__init__(ladya_move, ladya_stay, ladya_deck_width, ladya_deck_height, 1.2, 0.4, 30, ladya_guns_left, ladya_guns_right)
+            super().__init__(ladya_move, ladya_stay, ladya_deck_width, ladya_deck_height, 1.2, 0.4, 30, 20, ladya_guns_left, ladya_guns_right)
         elif (type == "shuna"):
-            super().__init__(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 1.2, 0.8, 30, shuna_guns_left, shuna_guns_right)
+            super().__init__(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 1.2, 0.8, 30, 20, shuna_guns_left, shuna_guns_right)
         elif (type == "lugger"):
-            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 0.8, 30, lugger_guns_left, lugger_guns_right)
+            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 0.8, 30, 25, lugger_guns_left, lugger_guns_right)
         elif (type == "shlup"):
-            super().__init__(shlup_move, shlup_stay, shlup_deck_width, shlup_deck_height, 1.2, 1.0, 40, shlup_guns_left, shlup_guns_right)
+            super().__init__(shlup_move, shlup_stay, shlup_deck_width, shlup_deck_height, 1.2, 1.0, 40, 30, shlup_guns_left, shlup_guns_right)
         elif (type == "bark"):
-            super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 1.6, 0.6, 40, bark_guns_left, bark_guns_right)
+            super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 1.6, 0.6, 40, 35, bark_guns_left, bark_guns_right)
         elif (type == "fleyt"):
-            super().__init__(fleyt_move, fleyt_stay, fleyt_deck_width, fleyt_deck_height, 1.6, 0.4, 40, fleyt_guns_left, fleyt_guns_right)
+            super().__init__(fleyt_move, fleyt_stay, fleyt_deck_width, fleyt_deck_height, 1.6, 0.4, 40, 40, fleyt_guns_left, fleyt_guns_right)
         elif (type == "brig"):
-            super().__init__(brig_move, brig_stay, brig_deck_width, brig_deck_height, 2.0, 0.8, 40, brig_guns_left, brig_guns_right)
+            super().__init__(brig_move, brig_stay, brig_deck_width, brig_deck_height, 2.0, 0.8, 40, 40, brig_guns_left, brig_guns_right)
         elif (type == "karaka"):
-            super().__init__(karaka_move, karaka_stay, karaka_deck_width, karaka_deck_height, 2.0, 0.4, 50, karaka_guns_left, karaka_guns_right)
+            super().__init__(karaka_move, karaka_stay, karaka_deck_width, karaka_deck_height, 2.0, 0.4, 50, 60, karaka_guns_left, karaka_guns_right)
         elif (type == "shebeka"):
-            super().__init__(shebeka_move, shebeka_stay, shebeka_deck_width, shebeka_deck_height, 1.6, 1.0, 50, shebeka_guns_left, shebeka_guns_right)
+            super().__init__(shebeka_move, shebeka_stay, shebeka_deck_width, shebeka_deck_height, 1.6, 1.0, 50, 50, shebeka_guns_left, shebeka_guns_right)
         elif (type == "corvet"):
-            super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 50, corvet_guns_left, corvet_guns_right)
+            super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 50, 60, corvet_guns_left, corvet_guns_right)
         elif (type == "fregat"):
-            super().__init__(fregat_move, fregat_stay, fregat_deck_width, fregat_deck_height, 2.0, 0.8, 60, fregat_guns_left, fregat_guns_right)
+            super().__init__(fregat_move, fregat_stay, fregat_deck_width, fregat_deck_height, 2.0, 0.8, 60, 75, fregat_guns_left, fregat_guns_right)
         elif (type == "tradeship"):
-            super().__init__(tradeship_move, tradeship_stay, tradeship_deck_width, tradeship_deck_height, 2.4, 0.4, 60, tradeship_guns_left, tradeship_guns_right)
+            super().__init__(tradeship_move, tradeship_stay, tradeship_deck_width, tradeship_deck_height, 2.4, 0.4, 60, 90, tradeship_guns_left, tradeship_guns_right)
         elif (type == "warship"):
-            super().__init__(warship_move, warship_stay, warship_deck_width, warship_deck_height, 2.4, 0.8, 60, warship_guns_left, warship_guns_right)
+            super().__init__(warship_move, warship_stay, warship_deck_width, warship_deck_height, 2.4, 0.8, 60, 90, warship_guns_left, warship_guns_right)
     def get_width(self):
         return self.pic_move.get_width() / scale
     def get_height(self):
@@ -87,113 +88,113 @@ kernel_hit_image = pygame.image.load('kernel_hit.png')
 kernel_miss_image = pygame.image.load('kernel_miss.png')
 
 wave_step = []
-wave_step.append(pygame.image.load('waves\\1.png'))
-wave_step.append(pygame.image.load('waves\\2.png'))
-wave_step.append(pygame.image.load('waves\\3.png'))
-wave_step.append(pygame.image.load('waves\\4.png'))
-wave_step.append(pygame.image.load('waves\\5.png'))
-wave_step.append(pygame.image.load('waves\\6.png'))
+wave_step.append(pygame.image.load('battle\\waves\\1.png'))
+wave_step.append(pygame.image.load('battle\\waves\\2.png'))
+wave_step.append(pygame.image.load('battle\\waves\\3.png'))
+wave_step.append(pygame.image.load('battle\\waves\\4.png'))
+wave_step.append(pygame.image.load('battle\\waves\\5.png'))
+wave_step.append(pygame.image.load('battle\\waves\\6.png'))
 
-barkas_move = pygame.image.load('barkas\\sail_1.png')
-barkas_stay = pygame.image.load('barkas\\sail_0.png')
+barkas_move = pygame.image.load('battle\\barkas\\sail_1.png')
+barkas_stay = pygame.image.load('battle\\barkas\\sail_0.png')
 barkas_deck_width = 34
 barkas_deck_height = 86
 barkas_guns_left = [(-23, -18), (-23, 6)]
 barkas_guns_right = [(23, -18), (23, 6)]
 
-pink_move = pygame.image.load('pink\\sail_1.png')
-pink_stay = pygame.image.load('pink\\sail_0.png')
+pink_move = pygame.image.load('battle\\pink\\sail_1.png')
+pink_stay = pygame.image.load('battle\\pink\\sail_0.png')
 pink_deck_width = 34
 pink_deck_height = 86
 pink_guns_left = [(-23, -18), (-23, 6)]
 pink_guns_right = [(23, -18), (23, 6)]
 
-ladya_move = pygame.image.load('ladya\\sail_1.png')
-ladya_stay = pygame.image.load('ladya\\sail_0.png')
+ladya_move = pygame.image.load('battle\\ladya\\sail_1.png')
+ladya_stay = pygame.image.load('battle\\ladya\\sail_0.png')
 ladya_deck_width = 34
 ladya_deck_height = 86
 ladya_guns_left = [(-27, -15), (-27, 9)]
 ladya_guns_right = [(27, -15), (27, 9)]
 
-shuna_move = pygame.image.load('shuna\\sail_1.png')
-shuna_stay = pygame.image.load('shuna\\sail_0.png')
+shuna_move = pygame.image.load('battle\\shuna\\sail_1.png')
+shuna_stay = pygame.image.load('battle\\shuna\\sail_0.png')
 shuna_deck_width = 34
 shuna_deck_height = 108
 shuna_guns_left = [(-23, -30), (-23, -6), (-23, 18)]
 shuna_guns_right = [(23, -30), (23, -6), (23, 18)]
 
-lugger_move = pygame.image.load('lugger\\sail_1.png')
-lugger_stay = pygame.image.load('lugger\\sail_0.png')
+lugger_move = pygame.image.load('battle\\lugger\\sail_1.png')
+lugger_stay = pygame.image.load('battle\\lugger\\sail_0.png')
 lugger_deck_width = 34
 lugger_deck_height = 108
 lugger_guns_left = [(-23, -24), (-23, 0), (-23, 24)]
 lugger_guns_right = [(23, -24), (23, 0), (23, 24)]
 
-shlup_move = pygame.image.load('shlup\\sail_1.png')
-shlup_stay = pygame.image.load('shlup\\sail_0.png')
+shlup_move = pygame.image.load('battle\\shlup\\sail_1.png')
+shlup_stay = pygame.image.load('battle\\shlup\\sail_0.png')
 shlup_deck_width = 42
 shlup_deck_height = 122
 shlup_guns_left = [(-27, -24), (-27, -0), (-27, 24)]
 shlup_guns_right = [(27, -24), (27, -0), (27, 24)]
 
-bark_move = pygame.image.load('bark\\sail_1.png')
-bark_stay = pygame.image.load('bark\\sail_0.png')
+bark_move = pygame.image.load('battle\\bark\\sail_1.png')
+bark_stay = pygame.image.load('battle\\bark\\sail_0.png')
 bark_deck_width = 42
 bark_deck_height = 146
 bark_guns_left = [(-27, -36), (-27, -12), (-27, 12), (-27, 36)]
 bark_guns_right = [(27, -36), (27, -12), (27, 12), (27, 36)]
 
-fleyt_move = pygame.image.load('fleyt\\sail_1.png')
-fleyt_stay = pygame.image.load('fleyt\\sail_0.png')
+fleyt_move = pygame.image.load('battle\\fleyt\\sail_1.png')
+fleyt_stay = pygame.image.load('battle\\fleyt\\sail_0.png')
 fleyt_deck_width = 42
 fleyt_deck_height = 146
 fleyt_guns_left = [(-27, -24), (-27, -0), (-27, 24)]
 fleyt_guns_right = [(27, -24), (27, -0), (27, 24)]
 
-brig_move = pygame.image.load('brig\\sail_1.png')
-brig_stay = pygame.image.load('brig\\sail_0.png')
+brig_move = pygame.image.load('battle\\brig\\sail_1.png')
+brig_stay = pygame.image.load('battle\\brig\\sail_0.png')
 brig_deck_width = 42
 brig_deck_height = 170
 brig_guns_left = [(-27, -48), (-27, -24), (-27, -0), (-27, 24), (-27, 48)]
 brig_guns_right = [(27, -48), (27, -24), (27, -0), (27, 24), (27, 48)]
 
-karaka_move = pygame.image.load('karaka\\sail_1.png')
-karaka_stay = pygame.image.load('karaka\\sail_0.png')
+karaka_move = pygame.image.load('battle\\karaka\\sail_1.png')
+karaka_stay = pygame.image.load('battle\\karaka\\sail_0.png')
 karaka_deck_width = 58
 karaka_deck_height = 206
 karaka_guns_left = [(-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48)]
 karaka_guns_right = [(35, -48), (35, -24), (35, 0), (35, 24), (35, 48)]
 
-shebeka_move = pygame.image.load('shebeka\\sail_1.png')
-shebeka_stay = pygame.image.load('shebeka\\sail_0.png')
+shebeka_move = pygame.image.load('battle\\shebeka\\sail_1.png')
+shebeka_stay = pygame.image.load('battle\\shebeka\\sail_0.png')
 shebeka_deck_width = 58
 shebeka_deck_height = 206
 shebeka_guns_left = [(-35, -60), (-35, -36), (-35, -12), (-35, 12), (-35, 36), (-35, 60)]
 shebeka_guns_right = [(35, -60), (35, -36), (35, -12), (35, 12), (35, 36), (35, 60)]
 
-corvet_move = pygame.image.load('corvet\\sail_1.png')
-corvet_stay = pygame.image.load('corvet\\sail_0.png')
+corvet_move = pygame.image.load('battle\\corvet\\sail_1.png')
+corvet_stay = pygame.image.load('battle\\corvet\\sail_0.png')
 corvet_deck_width = 58
 corvet_deck_height = 230
 corvet_guns_left = [(-35, -72), (-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48), (-35, 72)]
 corvet_guns_right = [(35, -72), (35, -48), (35, -24), (35, 0), (35, 24), (35, 48), (35, 72)]
 
-fregat_move = pygame.image.load('fregat\\sail_1.png')
-fregat_stay = pygame.image.load('fregat\\sail_0.png')
+fregat_move = pygame.image.load('battle\\fregat\\sail_1.png')
+fregat_stay = pygame.image.load('battle\\fregat\\sail_0.png')
 fregat_deck_width = 74
 fregat_deck_height = 308
 fregat_guns_left = [(-43, -81), (-43, -57), (-43, -33), (-43, -9), (-43, 15), (-43, 39), (-43, 63), (-43, 87)]
 fregat_guns_right = [(43, -81), (43, -57), (43, -33), (43, -9), (43, 15), (43, 39), (43, 63), (43, 87)]
 
-tradeship_move = pygame.image.load('tradeship\\sail_1.png')
-tradeship_stay = pygame.image.load('tradeship\\sail_0.png')
+tradeship_move = pygame.image.load('battle\\tradeship\\sail_1.png')
+tradeship_stay = pygame.image.load('battle\\tradeship\\sail_0.png')
 tradeship_deck_width = 74
 tradeship_deck_height = 332
 tradeship_guns_left = [(-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75)]
 tradeship_guns_right = [(43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75)]
 
-warship_move = pygame.image.load('warship\\sail_1.png')
-warship_stay = pygame.image.load('warship\\sail_0.png')
+warship_move = pygame.image.load('battle\\warship\\sail_1.png')
+warship_stay = pygame.image.load('battle\\warship\\sail_0.png')
 warship_deck_width = 74
 warship_deck_height = 332
 warship_guns_left = [(-43, -93), (-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75), (-43, 99)]
@@ -215,7 +216,7 @@ def rot_center(image, rect, angle):
     rot_rect = rot_image.get_rect(center=rect.center)
     return rot_image, rot_rect
 
-def dot_in_ship(x, y, x1, y1, x2, y2, x3, y3, x4, y4):
+def dot_in_rect(x, y, x1, y1, x2, y2, x3, y3, x4, y4):
     p21 = [x2 - x1, y2 - y1]
     p41 = [x4 - x1, y4 - y1]
     p21magnitude_squared = p21[0] ** 2 + p21[1] ** 2
@@ -251,7 +252,7 @@ def ships_and_kernels(ship):
     else:
         kernel_hit_size = (kernel_image.get_width() + 1) / scale
     for kernel in kernels:
-        if dot_in_ship(kernel[0], kernel[1], ax, ay, bx, by, cx, cy, dx, dy):
+        if dot_in_rect(kernel[0], kernel[1], ax, ay, bx, by, cx, cy, dx, dy):
             image = pygame.transform.smoothscale(kernel_hit_image, (kernel_hit_size, kernel_hit_size))
             display.blit(image, (center_x + kernel[0] / scale, center_y + kernel[1] / scale))
             kernels.remove(kernel)
@@ -426,14 +427,14 @@ def ship_intersection(ship1, ship2):
     dx2 = ac2 * math.cos(math.radians(angle2) + math.pi - math.asin(dh2 / ac2)) + x2
     dy2 = -ac2 * math.sin(math.radians(angle2) + math.pi - math.asin(dh2 / ac2)) + y2
 
-    if (dot_in_ship(ax1, ay1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
-        dot_in_ship(bx1, by1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
-        dot_in_ship(cx1, cy1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
-        dot_in_ship(dx1, dy1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
-        dot_in_ship(ax2, ay2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
-        dot_in_ship(bx2, by2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
-        dot_in_ship(cx2, cy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
-        dot_in_ship(dx2, dy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)):
+    if (dot_in_rect(ax1, ay1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
+        dot_in_rect(bx1, by1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
+        dot_in_rect(cx1, cy1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
+        dot_in_rect(dx1, dy1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
+        dot_in_rect(ax2, ay2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
+        dot_in_rect(bx2, by2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
+        dot_in_rect(cx2, cy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)) or (
+        dot_in_rect(dx2, dy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)):
         gip = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
         if (ship2 == friendly_ships[0]):
             ship1.x += ship1.speed * (x1 - x2) / gip
@@ -480,8 +481,8 @@ def no_may_shoot_left(ship, target_ship, block_ship):
             downy = block_ship.y + shift * math.cos(math.radians(block_ship.angle))
             upx = block_ship.x - shift * math.sin(math.radians(block_ship.angle))
             upy = block_ship.y - shift * math.cos(math.radians(block_ship.angle))
-            if (dot_in_ship(downx, downy, ax, ay, bx, by, cx, cy, dx, dy)) or (
-                    dot_in_ship(upx, upy, ax, ay, bx, by, cx, cy, dx, dy)):
+            if (dot_in_rect(downx, downy, ax, ay, bx, by, cx, cy, dx, dy)) or (
+                    dot_in_rect(upx, upy, ax, ay, bx, by, cx, cy, dx, dy)):
                 ret = True
             shift += 23
         return ret
@@ -517,8 +518,8 @@ def no_may_shoot_right(ship, target_ship, block_ship):
             downy = block_ship.y + shift * math.cos(math.radians(block_ship.angle))
             upx = block_ship.x - shift * math.sin(math.radians(block_ship.angle))
             upy = block_ship.y - shift * math.cos(math.radians(block_ship.angle))
-            if (dot_in_ship(downx, downy, ax, ay, bx, by, cx, cy, dx, dy)) or (
-                    dot_in_ship(upx, upy, ax, ay, bx, by, cx, cy, dx, dy)):
+            if (dot_in_rect(downx, downy, ax, ay, bx, by, cx, cy, dx, dy)) or (
+                    dot_in_rect(upx, upy, ax, ay, bx, by, cx, cy, dx, dy)):
                 ret = True
             shift += 23
         return ret
@@ -795,6 +796,7 @@ def battle(friendly_ships_list, enemy_ships_list):
             hp = f.render(str(friendly_ship.hp), True, (0, 255, 0))
             display.blit(hp, (1150, step))
             if (friendly_ships[0].hp <= 0):
+                friendly_ships.remove(friendly_ships[0])
                 f = pygame.font.Font(None, 72)
                 final = f.render("FINISH HIM!", True, (255, 0, 0))
                 display.blit(final, (480, 430))
