@@ -17,7 +17,7 @@ display = game_display.display
 clock = pygame.time.Clock()
 
 class fleet_object:
-    def __init__(self, ships, ms_sail1, ms_sail0, pic_size, deck_size, speed, x, y, angle, move=True): #, gold, wood1, wood2, iron, cotton):
+    def __init__(self, ships, ms_sail1, ms_sail0, pic_size, deck_size, speed, x, y, target_x, target_y, angle, type, move=True): #, gold, wood1, wood2, iron, cotton):
         self.ships = ships
         self.ms_sail1 = ms_sail1
         self.ms_sail0 = ms_sail0
@@ -26,7 +26,10 @@ class fleet_object:
         self.speed = speed
         self.x = x
         self.y = y
+        self.target_x = target_x
+        self.target_y = target_y
         self.angle = angle
+        self.type = type
         self.move = move
         # self.gold = gold
         # self.wood1 = wood1
@@ -60,24 +63,53 @@ forposts = []
 
 palms = []
 
+def island_intersection(x1, y1, x2, y2, ax, ay, dx, dy):
+    if x1 == x2 and y1 == y2:
+        if (ax <= x1 <= dx) and (ay <= y1 <= dy):
+            return True
+        else:
+            return False
+    elif x1 == x2 and y1 != y2:
+        if (ax <= x1 <= dx) and ((ay <= y1 <= dy) or (ay <= y2 <= dy)):
+            return True
+        else:
+            return False
+    elif x1 != x2 and y1 == y2:
+        if ((ax <= x1 <= dx) or (ax <= x2 <= dx)) and (ay <= y1 <= dy):
+            return True
+        else:
+            return False
+    else:
+        kx = (y2 - y1) / (x2 - x1)
+        bx = y2 - kx * x2
+        ky = (x2 - x1) / (y2 - y1)
+        by = x2 - ky * y2
+        if ((ay <= kx * ax + bx <= dy) and (min(x1, x2) <= ax <= max(x1, x2)) or (ay <= kx * dx + bx <= dy) and (min(x1, x2) <= dx <= max(x1, x2))) or (
+            (ax <= ky * ay + by <= dx) and (min(y1, y2) <= ay <= max(y1, y2)) or (ax <= ky * dy + by <= dx) and (min(y1, y2) <= dy <= max(y1, y2))):
+            return True
+        else:
+            return False
+
 def palm_key(palm):
     return palm[1]
 
+def ways_key(ways):
+    return ways[2]
+
 def island_generate(type, forpost):
     if type == 0:
-        width = randint(2, 4)
-        height = randint(2, 4)
-        ax = (randint(1, 20 - width) - 10) * 384
-        ay = (randint(1, 20 - height) - 10) * 128
+        width = randint(2, 5)
+        height = randint(2, 5)
+        ax = (randint(0, 24 - width) - 12) * 384
+        ay = (randint(0, 54 - height) - 27) * 128
         w = width * 384
         h = height * 128
         may_be_add = True
         for i in islands:
-            if (game_display.dot_in_rect(1, 1, i[0]+1, i[1]+1, i[0] + i[2] * 384+1, i[1]+1, i[0]+1, i[1] + i[3] * 128+1, i[0] + i[2] * 384+1, i[1] + i[3] * 128+1)) or (
-                game_display.dot_in_rect(ax - 1, ay - 1, i[0], i[1], i[0] + i[2] * 384, i[1], i[0], i[1] + i[3] * 128, i[0] + i[2] * 384, i[1] + i[3] * 128)) or (
-                game_display.dot_in_rect(ax + w + 1, ay - 1, i[0], i[1], i[0] + i[2] * 384, i[1], i[0], i[1] + i[3] * 128, i[0] + i[2] * 384, i[1] + i[3] * 128)) or (
-                game_display.dot_in_rect(ax - 1, ay + h + 1, i[0], i[1], i[0] + i[2] * 384, i[1], i[0], i[1] + i[3] * 128, i[0] + i[2] * 384, i[1] + i[3] * 128)) or (
-                game_display.dot_in_rect(ax + w + 1, ay + h + 1, i[0], i[1], i[0] + i[2] * 384, i[1], i[0], i[1] + i[3] * 128, i[0] + i[2] * 384, i[1] + i[3] * 128)):
+            if (island_intersection(ax - 192, ay + h + 1, ax + w + 192, ay - 64, -384, -128, 384, 128)) or (
+                island_intersection(ax - 192, ay - 64, ax + w + 192, ay + h + 64, -384, -128, 384, 128)) or (
+                island_intersection(ax - 192, ay + h + 1, ax + w + 192, ay - 64, i[0], i[1], i[0] + i[2] * 384, i[1] + i[3] * 128)) or (
+                island_intersection(ax - 192, ay - 64, ax + w + 192, ay + h + 64, i[0], i[1], i[0] + i[2] * 384, i[1] + i[3] * 128)):
                 may_be_add = False
         if may_be_add:
             islands.append([ax, ay, width, height])
@@ -89,7 +121,7 @@ def island_generate(type, forpost):
                 forposts.append([fx, fy])
             for i in range(0, width):
                 for j in range(0, height):
-                    if not ((ax + i * 384 == fx) and (ay + j * 128 == fy)):
+                    if not ((ax + i * 384 == fx - 384) and (ay + j * 128 == fy - 128)):
                         for k in range(10):
                             palms.append([randint(ax + i * 384, ax + (i + 1) * 384), randint(ay + j * 128, ay + (j + 1) * 128)])
             palms.sort(key=palm_key)
@@ -105,40 +137,40 @@ def rot_center(image, rect, angle):
 def fleet_move(fleet, angle, speed):
     if angle == 0:
         fleet.x += 0 * speed
-        fleet.y += -0.4 * speed
+        fleet.y += -0.41 * speed
     elif angle == 1:
-        fleet.x += 0.6 * speed
-        fleet.y += -0.3 * speed
+        fleet.x += 0.64 * speed
+        fleet.y += -0.32 * speed
     elif angle == 2:
         fleet.x += 0.9 * speed
         fleet.y += -0.2 * speed
     elif angle == 3:
-        fleet.x += 1 * speed
+        fleet.x += 1.025 * speed
         fleet.y += 0 * speed
     elif angle == 4:
         fleet.x += 0.9 * speed
         fleet.y += 0.2 * speed
     elif angle == 5:
-        fleet.x += 0.6 * speed
-        fleet.y += 0.3 * speed
+        fleet.x += 0.63 * speed
+        fleet.y += 0.32 * speed
     elif angle == 6:
         fleet.x += 0 * speed
-        fleet.y += 0.4 * speed
+        fleet.y += 0.41 * speed
     elif angle == 7:
-        fleet.x += -0.6 * speed
-        fleet.y += 0.3 * speed
+        fleet.x += -0.64 * speed
+        fleet.y += 0.32 * speed
     elif angle == 8:
         fleet.x += -0.9 * speed
         fleet.y += 0.2 * speed
     elif angle == 9:
-        fleet.x += -1 * speed
+        fleet.x += -1.025 * speed
         fleet.y += 0 * speed
     elif angle == 10:
         fleet.x += -0.9 * speed
         fleet.y += -0.2 * speed
     elif angle == 11:
-        fleet.x += -0.6 * speed
-        fleet.y += -0.3 * speed
+        fleet.x += -0.65 * speed
+        fleet.y += -0.325 * speed
 
 def angle_to_radian(angle):
     if angle == 0:
@@ -166,11 +198,11 @@ def angle_to_radian(angle):
     elif angle == 11:
         return 2 * math.pi - math.atan(6 / 3)
 
-def rotate_to_target(fleet, target_fleet):
+def rotate_to_target(fleet, target_x, target_y):
     x1 = fleet.x
     y1 = fleet.y
-    x2 = target_fleet.x
-    y2 = target_fleet.y
+    x2 = target_x
+    y2 = target_y
     angle = fleet.angle
 
     gip = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
@@ -204,6 +236,16 @@ def rotate_to_target(fleet, target_fleet):
             if fleet.angle < 0:
                 fleet.angle = 11
 
+def islands_check(x, y, t_x, t_y, r):
+    for i in islands:
+        ax = i[0] - 2.5 * r
+        ay = i[1] - r
+        dx = i[0] + i[2] * 384 + 2.5 * r
+        dy = i[1] + i[3] * 128 + r
+        if island_intersection(x, y, t_x, t_y, ax, ay, dx, dy):
+            return False
+    return True
+
 def run_game():
     global scale
 
@@ -212,18 +254,21 @@ def run_game():
     island_x = 0
     island_y = 0
 
-    need_forpost = True
-    while need_forpost:
-        need_forpost = island_generate(0, True)
-    need_forpost = True
-    while need_forpost:
-        need_forpost = island_generate(0, True)
-    for k in range(1, 3):
-        island_generate(0, False)
+    for k in range(0, 3):
+        need_forpost = True
+        while need_forpost:
+            need_forpost = island_generate(0, True)
+    for k in range(0, 5):
+        need_island = True
+        k = 0
+        while need_island and k < 1000:
+            need_island = island_generate(0, False)
+            k += 1
 
-    fleets.append(fleet_object([("barkas", 15), ("barkas", 15)], barkas_sail1, barkas_sail0, 300, 70, 0.8, 0, 0, 0))
-    fleets.append(fleet_object([("ladya", 20)], ladya_sail1, ladya_sail0, 300, 75, 1.2, -250, 100, 4))
-    fleets.append(fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, 500, 100, 4))
+    fleets.append(fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, 0, 0, 0, 0, 1, 0))
+    fleets.append(fleet_object([("ladya", 20)], ladya_sail1, ladya_sail0, 300, 75, 1.2, -500, 200, -500, 200, 4, 1))
+    fleets.append(fleet_object([("barkas", 15), ("barkas", 15)], barkas_sail1, barkas_sail0, 300, 70, 0.8, 1000, 400, 1000, 400, 4, 2))
+    fleets[0].move = False
 
     while game:
         for event in pygame.event.get():
@@ -275,50 +320,108 @@ def run_game():
 
         for fleet in fleets:
             if fleet != fleets[0]:
-                rotate_to_target(fleet, fleets[0])
+                if fleet.type == 1:
+                    gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
+                    if gip < 192:
+                        k = randint(0, len(forposts) - 1)
+                        fleet.target_x = forposts[k][0] - 192
+                        fleet.target_y = forposts[k][1] + 64
+                elif fleet.type == 2:
+                    gip = (fleet.x ** 2 + 6.25 * fleet.y ** 2) ** 0.5
+                    if gip < 100000:
+                        fleet.target_x = -island_x
+                        fleet.target_y = -island_y
+                    else:
+                        gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
+                        if gip < 320:
+                            cross_island = True
+                            while cross_island:
+                                cross_island = False
+                                fleet.target_x = island_x + randint(0, 24 * 384) - 12 * 384
+                                fleet.target_y = island_y + randint(0, 56 * 128) - 28 * 128
+                                for i in islands:
+                                    ax = island_x + i[0] - fleet.deck_size
+                                    ay = island_y + i[1] - fleet.deck_size / 2.5
+                                    dx = island_x + i[0] + i[2] * 384 + fleet.deck_size
+                                    dy = island_y + i[1] + i[3] * 128 + fleet.deck_size / 2.5
+                                    if game_display.dot_in_rect(fleet.target_x, fleet.target_y, ax, ay, ax, dy, dx, ay, dx, dy):
+                                        cross_island = True
+
+        for fleet in fleets:
+            if fleet != fleets[0]:
+                cross_island = False
+                island_angles = []
+                fx = fleet.x - island_x
+                fy = fleet.y - island_y
+                for i in islands:
+                    ax = i[0] - 80
+                    ay = i[1] - 32
+                    dx = i[0] + i[2] * 384 + 80
+                    dy = i[1] + i[3] * 128 + 32
+                    if island_intersection(fx, fy, fleet.target_x, fleet.target_y, ax, ay, dx, dy):
+                        cross_island = True
+                        if islands_check(fx, fy, ax, ay, 16):
+                            island_angles.append([ax, ay, ((ax - fleet.target_x) ** 2 + (ay - fleet.target_y) ** 2) ** 0.5])
+                        if islands_check(fx, fy, ax, dy, 16):
+                            island_angles.append([ax, dy, ((ax - fleet.target_x) ** 2 + (dy - fleet.target_y) ** 2) ** 0.5])
+                        if islands_check(fx, fy, dx, ay, 16):
+                            island_angles.append([dx, ay, ((dx - fleet.target_x) ** 2 + (ay - fleet.target_y) ** 2) ** 0.5])
+                        if islands_check(fx, fy, dx, dy, 16):
+                            island_angles.append([dx, dy, ((dx - fleet.target_x) ** 2 + (dy - fleet.target_y) ** 2) ** 0.5])
+                if cross_island and len(island_angles) > 0:
+                    island_angles.sort(key=ways_key)
+                    rotate_to_target(fleet, island_x + island_angles[0][0], island_y + island_angles[0][1])
+                else:
+                    rotate_to_target(fleet, island_x + fleet.target_x, island_y + fleet.target_y)
 
         for fleet in fleets:
             if fleet.move == True:
                 if fleet == fleets[0]:
-                    if fleet.angle == 6:
-                        island_x += 0 * fleet.speed * 5
-                        island_y += -0.4 * fleet.speed * 5
-                    elif fleet.angle == 7:
-                        island_x += 0.6 * fleet.speed * 5
-                        island_y += -0.3 * fleet.speed * 5
-                    elif fleet.angle == 8:
-                        island_x += 0.9 * fleet.speed * 5
-                        island_y += -0.2 * fleet.speed * 5
-                    elif fleet.angle == 9:
-                        island_x += 1 * fleet.speed * 5
-                        island_y += 0 * fleet.speed * 5
-                    elif fleet.angle == 10:
-                        island_x += 0.9 * fleet.speed * 5
-                        island_y += 0.2 * fleet.speed * 5
-                    elif fleet.angle == 11:
-                        island_x += 0.6 * fleet.speed * 5
-                        island_y += 0.3 * fleet.speed * 5
-                    elif fleet.angle == 0:
-                        island_x += 0 * fleet.speed * 5
-                        island_y += 0.4 * fleet.speed * 5
-                    elif fleet.angle == 1:
-                        island_x += -0.6 * fleet.speed * 5
-                        island_y += 0.3 * fleet.speed * 5
-                    elif fleet.angle == 2:
-                        island_x += -0.9 * fleet.speed * 5
-                        island_y += 0.2 * fleet.speed * 5
-                    elif fleet.angle == 3:
-                        island_x += -1 * fleet.speed * 5
-                        island_y += 0 * fleet.speed * 5
-                    elif fleet.angle == 4:
-                        island_x += -0.9 * fleet.speed * 5
-                        island_y += -0.2 * fleet.speed * 5
-                    elif fleet.angle == 5:
-                        island_x += -0.6 * fleet.speed * 5
-                        island_y += -0.3 * fleet.speed * 5
-                    for other_fleet in fleets:
-                        if other_fleet != fleets[0]:
-                            fleet_move(other_fleet, (fleets[0].angle + 6) % 12, fleets[0].speed * 5)
+                    fleet_move(fleet, fleet.angle, fleet.speed * 5)
+                    if islands_check(fleet.x - island_x, fleet.y - island_y, fleet.x - island_x, fleet.y - island_y, 40):
+                        if fleet.angle == 6:
+                            island_x += 0 * fleet.speed * 5
+                            island_y += -0.41 * fleet.speed * 5
+                        elif fleet.angle == 7:
+                            island_x += 0.64 * fleet.speed * 5
+                            island_y += -0.32 * fleet.speed * 5
+                        elif fleet.angle == 8:
+                            island_x += 0.9 * fleet.speed * 5
+                            island_y += -0.2 * fleet.speed * 5
+                        elif fleet.angle == 9:
+                            island_x += 1.025 * fleet.speed * 5
+                            island_y += 0 * fleet.speed * 5
+                        elif fleet.angle == 10:
+                            island_x += 0.9 * fleet.speed * 5
+                            island_y += 0.2 * fleet.speed * 5
+                        elif fleet.angle == 11:
+                            island_x += 0.64 * fleet.speed * 5
+                            island_y += 0.32 * fleet.speed * 5
+                        elif fleet.angle == 0:
+                            island_x += 0 * fleet.speed * 5
+                            island_y += 0.41 * fleet.speed * 5
+                        elif fleet.angle == 1:
+                            island_x += -0.64 * fleet.speed * 5
+                            island_y += 0.32 * fleet.speed * 5
+                        elif fleet.angle == 2:
+                            island_x += -0.9 * fleet.speed * 5
+                            island_y += 0.2 * fleet.speed * 5
+                        elif fleet.angle == 3:
+                            island_x += -1.025 * fleet.speed * 5
+                            island_y += 0 * fleet.speed * 5
+                        elif fleet.angle == 4:
+                            island_x += -0.9 * fleet.speed * 5
+                            island_y += -0.2 * fleet.speed * 5
+                        elif fleet.angle == 5:
+                            island_x += -0.64 * fleet.speed * 5
+                            island_y += -0.32 * fleet.speed * 5
+                        for other_fleet in fleets:
+                            if other_fleet != fleets[0]:
+                                fleet_move(other_fleet, (fleets[0].angle + 6) % 12, fleets[0].speed * 5)
+                    else:
+                        fleet.move = False
+                    fleet.x = 0
+                    fleet.y = 0
                 else:
                     fleet_move(fleet, fleet.angle, fleet.speed * 5)
 
@@ -371,7 +474,7 @@ def run_game():
             display.blit(surf, r)
 
         for palm in palms:
-            rect = image_forpost1.get_rect(center=(center_x + (island_x + palm[0]) / scale, center_y + (island_y + palm[1]) / scale))
+            rect = image_palm.get_rect(center=(center_x + (island_x + palm[0]) / scale, center_y + (island_y + palm[1]) / scale))
             surf, r = rot_center(image_palm, rect, 0)
             display.blit(surf, r)
 
@@ -387,7 +490,7 @@ def run_game():
 ########################################################battle##########################################################
 
         for fleet in fleets:
-            if fleets[0] != fleet:
+            if (fleets[0] != fleet) and fleet.type == 2:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
                 if gip < fleets[0].deck_size + fleet.deck_size:
                     fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships)
