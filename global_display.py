@@ -17,7 +17,7 @@ display = game_display.display
 clock = pygame.time.Clock()
 
 class fleet_object:
-    def __init__(self, ships, ms_sail1, ms_sail0, pic_size, deck_size, speed, x, y, target_x, target_y, angle, type, move=True): #, gold, wood1, wood2, iron, cotton):
+    def __init__(self, ships, ms_sail1, ms_sail0, pic_size, deck_size, speed, x, y, target_x, target_y, angle, type, gold, move=True): #, wood1, wood2, iron, cotton):
         self.ships = ships
         self.ms_sail1 = ms_sail1
         self.ms_sail0 = ms_sail0
@@ -31,7 +31,7 @@ class fleet_object:
         self.angle = angle
         self.type = type
         self.move = move
-        # self.gold = gold
+        self.gold = gold
         # self.wood1 = wood1
         # self.wood2 = wood2
         # self.iron = iron
@@ -106,9 +106,9 @@ def island_generate(type, forpost):
         h = height * 128
         may_be_add = True
         for i in islands:
-            if (island_intersection(ax - 192, ay + h + 1, ax + w + 192, ay - 64, -384, -128, 384, 128)) or (
+            if (island_intersection(ax - 192, ay + h + 64, ax + w + 192, ay - 64, -384, -128, 384, 128)) or (
                 island_intersection(ax - 192, ay - 64, ax + w + 192, ay + h + 64, -384, -128, 384, 128)) or (
-                island_intersection(ax - 192, ay + h + 1, ax + w + 192, ay - 64, i[0], i[1], i[0] + i[2] * 384, i[1] + i[3] * 128)) or (
+                island_intersection(ax - 192, ay + h + 64, ax + w + 192, ay - 64, i[0], i[1], i[0] + i[2] * 384, i[1] + i[3] * 128)) or (
                 island_intersection(ax - 192, ay - 64, ax + w + 192, ay + h + 64, i[0], i[1], i[0] + i[2] * 384, i[1] + i[3] * 128)):
                 may_be_add = False
         if may_be_add:
@@ -248,27 +248,60 @@ def islands_check(x, y, t_x, t_y, r):
 
 def run_game():
     global scale
+    menu = 0
 
     game = True
+
+    stop = 0
 
     island_x = 0
     island_y = 0
 
-    for k in range(0, 3):
+    for forpost_islands in range(0, 3):
         need_forpost = True
         while need_forpost:
             need_forpost = island_generate(0, True)
-    for k in range(0, 5):
+    for empty_islands in range(0, 7):
         need_island = True
         k = 0
         while need_island and k < 1000:
             need_island = island_generate(0, False)
             k += 1
 
-    fleets.append(fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, 0, 0, 0, 0, 1, 0))
-    fleets.append(fleet_object([("ladya", 20)], ladya_sail1, ladya_sail0, 300, 75, 1.2, -500, 200, -500, 200, 4, 1))
-    fleets.append(fleet_object([("barkas", 15), ("barkas", 15)], barkas_sail1, barkas_sail0, 300, 70, 0.8, 1000, 400, 1000, 400, 4, 2))
+    fleets.append(fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, 0, 0, 0, 0, 0, 0, 500))
     fleets[0].move = False
+
+    for traders in range(5):
+        cross_island = True
+        while cross_island:
+            x = island_x + randint(0, 24 * 384) - 12 * 384
+            y = island_y + randint(0, 56 * 128) - 28 * 128
+            if islands_check(x, y, x, y, 32):
+                cross_island = False
+        fleets.append(fleet_object([("ladya", 20)], ladya_sail1, ladya_sail0, 300, 75, 1.2, x, y, x, y, 0, 1, 2000))
+        ladya_count = randint(0, 2)
+        for j in range(ladya_count):
+            fleets[len(fleets) - 1].ships.append(("ladya", 20))
+    for pirates in range(5):
+        cross_island = True
+        while cross_island:
+            x = island_x + randint(0, 24 * 384) - 12 * 384
+            y = island_y + randint(0, 56 * 128) - 28 * 128
+            if islands_check(x, y, x, y, 32):
+                cross_island = False
+            if island_intersection(x, y, x, y, -384, -128, 384, 128):
+                cross_island = True
+        fleet_type = randint(0, 1)
+        if fleet_type == 0:
+            fleets.append(fleet_object([("barkas", 15)], barkas_sail1, barkas_sail0, 300, 75, 0.8, x, y, x, y, 0, 2, 1000))
+            barkas_count = randint(0, 2)
+            for j in range(barkas_count):
+                fleets[len(fleets) - 1].ships.append(("barkas", 15))
+        elif fleet_type == 1:
+            fleets.append(fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, x, y, x, y, 0, 2, 1000))
+            shuna_count = randint(0, 2)
+            for j in range(shuna_count):
+                fleets[len(fleets) - 1].ships.append(("shuna", 20))
 
     while game:
         for event in pygame.event.get():
@@ -328,7 +361,7 @@ def run_game():
                         fleet.target_y = forposts[k][1] + 64
                 elif fleet.type == 2:
                     gip = (fleet.x ** 2 + 6.25 * fleet.y ** 2) ** 0.5
-                    if gip < 100000:
+                    if gip < 1000:
                         fleet.target_x = -island_x
                         fleet.target_y = -island_y
                     else:
@@ -490,17 +523,119 @@ def run_game():
 ########################################################battle##########################################################
 
         for fleet in fleets:
-            if (fleets[0] != fleet) and fleet.type == 2:
-                gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
-                if gip < fleets[0].deck_size + fleet.deck_size:
-                    fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships)
-                    if len(fleets[0].ships) > 0:
-                        fleets.remove(fleet)
-                    else:
-                        game = False
+            if fleet.type == 0:
+                f = pygame.font.Font(None, 48 // scale)
+                info = f.render('PLAYER', True, (0, 255, 0))
+                display.blit(info, (center_x + (fleet.x - 50) / scale, center_y + (fleet.y - 48) / scale))
+            elif fleet.type == 1:
+                f = pygame.font.Font(None, 48 // scale)
+                info = f.render('TRADERS', True, (0, 0, 255))
+                display.blit(info, (center_x + (fleet.x - 70) / scale, center_y + (fleet.y - 48) / scale))
+            elif fleet.type == 2:
+                f = pygame.font.Font(None, 48 // scale)
+                info = f.render('PIRATES', True, (128, 128, 128))
+                display.blit(info, (center_x + (fleet.x - 60) / scale, center_y + (fleet.y - 48) / scale))
+            k = 0
+            for ship in fleet.ships:
+                f = pygame.font.Font(None, 32 // scale)
+                info = f.render(ship[0] + ' ' + str(ship[1]), True, (0, 0, 0))
+                display.blit(info, (center_x + (fleet.x - 40) / scale, center_y + (fleet.y + k) / scale))
+                k += 32
+
+        f = pygame.font.Font(None, 36)
+        coord = f.render('COORDINATES: ' + str(int(-island_x)) + ' ' + str(int(-island_y)), True, (0, 255, 0))
+        display.blit(coord, (10, 10))
+
+        f = pygame.font.Font(None, 36)
+        coord = f.render('FORPOSTS:', True, (0, 0, 0))
+        display.blit(coord, (10, 46))
+        step = 82
+        for forpost in forposts:
+            fx = forpost[0] - 192
+            fy = forpost[1] + 64
+            f = pygame.font.Font(None, 36)
+            forp = f.render(str(int(fx)) + ' ' + str(int(fy)), True, (0, 0, 0))
+            display.blit(forp, (10, step))
+            step += 36
+            gip = ((fx + island_x) ** 2 + 6.25 * (fy + island_y) ** 2) ** 0.5
+            if gip < 192:
+                if stop > 0:
+                    stop -= 1
+                if menu == 0:
+                    f = pygame.font.Font(None, 30)
+                    b1 = f.render("buy barkas - 500 gold - (5)", True, (255, 0, 0))
+                    display.blit(b1, (480, 400))
+                    b2 = f.render("buy pink - 1000 gold - (6)", True, (255, 0, 0))
+                    display.blit(b2, (480, 430))
+                    b3 = f.render("buy ladya - 1000 gold - (7)", True, (255, 0, 0))
+                    display.blit(b3, (480, 460))
+                    b4 = f.render("buy shuna - 1500 gold - (8)", True, (255, 0, 0))
+                    display.blit(b4, (480, 490))
+                    b5 = f.render("buy lugger - 2500 gold - (9)", True, (255, 0, 0))
+                    display.blit(b5, (480, 520))
+                    b6 = f.render("buy ship - (b)   repair - (r)", True, (0, 0, 0))
+                    display.blit(b6, (480, 520))
+                    b7 = f.render("sold ship - (s)", True, (0, 0, 0))
+                    display.blit(b7, (480, 520))
+                    keys = pygame.key.get_pressed()
+                    if (stop == 0) and (len(fleets[0].ships) <= 5):
+                        if keys[pygame.K_5]:
+                            fleets[0].ships.append(("barkas", 15))
+                            stop = 10
+                        elif keys[pygame.K_6]:
+                            fleets[0].ships.append(("ladya", 20))
+                            stop = 10
+                        elif keys[pygame.K_7]:
+                            fleets[0].ships.append(("shuna", 20))
+                            stop = 10
+                        elif keys[pygame.K_r]:
+                            menu = 1
+                    # elif keys[pygame.K_8]:
+                    #     scale = 8
+                    # elif keys[pygame.K_9]:
+                    #     scale = 8
+                elif menu == 1:
+                    f = pygame.font.Font(None, 30)
+                    b1 = f.render("buy barkas - 500 gold - (5)", True, (255, 0, 0))
+                    display.blit(b1, (480, 400))
+                    b2 = f.render("buy pink - 1000 gold - (6)", True, (255, 0, 0))
+                    display.blit(b2, (480, 430))
+                    b3 = f.render("buy ladya - 1000 gold - (7)", True, (255, 0, 0))
+                    display.blit(b3, (480, 460))
+                    b4 = f.render("buy shuna - 1500 gold - (8)", True, (255, 0, 0))
+                    display.blit(b4, (480, 490))
+                    b5 = f.render("buy lugger - 2500 gold - (9)", True, (255, 0, 0))
+                    display.blit(b5, (480, 520))
+                    b6 = f.render("buy ship - (b)   repair - (r)", True, (0, 0, 0))
+                    display.blit(b6, (480, 520))
+                    if keys[pygame.K_5]:
+                        fleets[0].ships.append(("barkas", 15))
+                        stop = 10
+                    elif keys[pygame.K_6]:
+                        fleets[0].ships.append(("ladya", 20))
+                        stop = 10
+                    elif keys[pygame.K_7]:
+                        fleets[0].ships.append(("shuna", 20))
+                        stop = 10
+                    elif keys[pygame.K_b]:
+                        menu = 0
+
+        for fleet in fleets:
+            if fleet.type == 2:
+                if (fleets[0] != fleet):
+                    gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
+                    if gip < fleets[0].deck_size + fleet.deck_size:
+                        fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships)
+                        if len(fleets[0].ships) > 0:
+                            fleets.remove(fleet)
+                        else:
+                            # fleets[0] = fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, 0, 0, 0, 0, 0, 0)
+                            # island_x = 0
+                            # island_y = 0
+                            game = 0
 
         pygame.display.update()
 
-        clock.tick(5)
+        clock.tick(50)
 
 run_game()
