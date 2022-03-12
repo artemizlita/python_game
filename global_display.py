@@ -45,6 +45,12 @@ for i in range(0, 12):
     barkas_sail1.append(pygame.image.load('global\\barkas\\' + str(i) + '\\sail_1.png'))
     barkas_sail0.append(pygame.image.load('global\\barkas\\' + str(i) + '\\sail_0.png'))
 
+pink_sail1 = []
+pink_sail0 = []
+for i in range(0, 12):
+    pink_sail1.append(pygame.image.load('global\\pink\\' + str(i) + '\\sail_1.png'))
+    pink_sail0.append(pygame.image.load('global\\pink\\' + str(i) + '\\sail_0.png'))
+
 ladya_sail1 = []
 ladya_sail0 = []
 for i in range(0, 12):
@@ -268,7 +274,7 @@ def run_game():
             need_island = island_generate(0, False)
             k += 1
 
-    fleets.append(fleet_object([("shuna", 20)], shuna_sail1, shuna_sail0, 400, 90, 1.2, 0, 0, 0, 0, 0, 0, 500))
+    fleets.append(fleet_object([("pink", 15)], pink_sail1, pink_sail0, 375, 75, 1.2, 0, 0, 0, 0, 0, 0, 500))
     fleets[0].move = False
 
     for traders in range(5):
