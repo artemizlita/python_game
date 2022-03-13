@@ -816,7 +816,7 @@ def battle(friendly_ships_list, enemy_ships_list):
 
     friendly_ships_list.clear()
     for ship in friendly_ships:
-        friendly_ships_list.append((ship.type, ship.hp))
+        friendly_ships_list.append([ship.type, ship.hp, ship.max_hp, len(ship.guns_left), ship.speed])
     friendly_ships.clear()
     enemy_ships.clear()
     kernels.clear()
