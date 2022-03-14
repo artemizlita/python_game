@@ -797,18 +797,23 @@ def battle(friendly_ships_list, enemy_ships_list):
             display.blit(hp, (1150, step))
             if (friendly_ships[0].hp <= 0):
                 friendly_ships.remove(friendly_ships[0])
-                f = pygame.font.Font(None, 72)
-                final = f.render("FINISH HIM!", True, (255, 0, 0))
-                display.blit(final, (480, 430))
-                game = False
+                if (len(friendly_ships) == 0):
+                    game = False
+                else:
+                    for ship_shift in friendly_ships:
+                        if (ship_shift != friendly_ships[0]):
+                            ship_shift.x -= friendly_ships[0].x
+                            ship_shift.y -= friendly_ships[0].y
+                    for ship_shift in enemy_ships:
+                        ship_shift.x -= friendly_ships[0].x
+                        ship_shift.y -= friendly_ships[0].y
+                    friendly_ships[0].x = 0
+                    friendly_ships[0].y = 0
             elif (friendly_ship.hp <= 0):
                 friendly_ships.remove(friendly_ship)
             step += 35
 
         if (len(enemy_ships) == 0):
-            f3 = pygame.font.Font(None, 72)
-            final = f3.render("FLAWLESS VICTORY!", True, (0, 255, 0))
-            display.blit(final, (360, 430))
             game = False
 
         pygame.display.update()
