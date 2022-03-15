@@ -22,45 +22,6 @@
     <list default="true" id="fc09f26b-96f0-4649-aa74-bfba4886c335" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/e/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/e/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/e/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/een/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/een/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/een/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ees/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ees/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ees/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/enn/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/enn/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/enn/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ess/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ess/sail_0(old).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ess/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ess/sail_1(old).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/ess/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/n/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/n/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/n/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/s/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/s/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/s/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/w/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/w/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/w/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wnn/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wnn/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wnn/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wss/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wss/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wss/sail_1(old).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wss/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wwn/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wwn/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wwn/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wws/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wws/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/lugger/wws/sail_1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/global_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_display.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -159,22 +120,22 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1646826409653" />
-    <state width="1259" height="346" key="GridCell.Tab.0.bottom" timestamp="1647291308205">
+    <state width="1259" height="343" key="GridCell.Tab.0.bottom" timestamp="1647377118213">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1647291308205" />
-    <state width="1259" height="346" key="GridCell.Tab.0.center" timestamp="1647291308205">
+    <state width="1259" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1647377118213" />
+    <state width="1259" height="343" key="GridCell.Tab.0.center" timestamp="1647377118213">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1647291308205" />
-    <state width="1259" height="346" key="GridCell.Tab.0.left" timestamp="1647291308205">
+    <state width="1259" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1647377118213" />
+    <state width="1259" height="343" key="GridCell.Tab.0.left" timestamp="1647377118213">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1647291308205" />
-    <state width="1259" height="346" key="GridCell.Tab.0.right" timestamp="1647291308205">
+    <state width="1259" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1647377118213" />
+    <state width="1259" height="343" key="GridCell.Tab.0.right" timestamp="1647377118213">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="346" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1647291308205" />
+    <state width="1259" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1647377118213" />
     <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
@@ -195,9 +156,9 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1646939952590" />
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1647181542066">
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1647369092892">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1647181542066" />
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1647369092892" />
   </component>
 </project>

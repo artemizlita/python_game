@@ -5,14 +5,15 @@ from random import randint
 pygame.init()
 pygame.font.init()
 
-display_width = 1200
-display_height = 900
+# display = pygame.display.set_mode((display_width, display_height))
+display = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+display_width = display.get_width()
+display_height = display.get_height()
 scale = 4
 center_x = display_width / 2
 center_y = display_height / 2
 wave_step = 0
 
-display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Ship game')
 
 icon = pygame.image.load('icon.png')
@@ -535,9 +536,9 @@ def battle(friendly_ships_list, enemy_ships_list):
         friendly_ships.append(ship_object(i, 0, 0, ship[0], ship[1]))
         i += 200
 
-    i = -len(enemy_ships_list) // 2 * 200
+    i = -(len(enemy_ships_list) - 1) * 100 + (len(friendly_ships_list) - 1) * 100
     for ship in enemy_ships_list:
-        enemy_ships.append(ship_object(i, -500, 180, ship[0], ship[1]))
+        enemy_ships.append(ship_object(i, -1000, 180, ship[0], ship[1]))
         i += 200
 
     friendly_ships[0].move = True
@@ -588,6 +589,8 @@ def battle(friendly_ships_list, enemy_ships_list):
             scale = 2
         elif keys[pygame.K_3]:
             scale = 4
+        if keys[pygame.K_ESCAPE]:
+            quit()
 
         if friendly_ships[0].cd_left > 0:
             friendly_ships[0].cd_left -= 1
@@ -740,6 +743,9 @@ def battle(friendly_ships_list, enemy_ships_list):
             rect = image.get_rect(center=(center_x + enemy_ship.x / scale, center_y + enemy_ship.y / scale))
             surf, r = rot_center(image, rect, enemy_ship.angle)
             display.blit(surf, r)
+            f = pygame.font.Font(None, 48 / scale)
+            typ = f.render(str(enemy_ship.hp), True, (255, 0, 0))
+            display.blit(typ, (center_x + enemy_ship.x / scale, center_y + enemy_ship.y / scale))
 
         for friendly_ship in friendly_ships:
 
@@ -753,6 +759,9 @@ def battle(friendly_ships_list, enemy_ships_list):
             rect = image.get_rect(center=(center_x + friendly_ship.x / scale, center_y + friendly_ship.y / scale))
             surf, r = rot_center(image, rect, friendly_ship.angle)
             display.blit(surf, r)
+            f = pygame.font.Font(None, 48 / scale)
+            typ = f.render(str(friendly_ship.hp), True, (0, 255, 0))
+            display.blit(typ, (center_x + friendly_ship.x / scale, center_y + friendly_ship.y / scale))
 
 #######################################################damage###########################################################
 
@@ -792,9 +801,9 @@ def battle(friendly_ships_list, enemy_ships_list):
             ships_and_kernels(friendly_ship)
             f = pygame.font.Font(None, 48)
             typ = f.render(friendly_ship.type, True, (255, 255, 0))
-            display.blit(typ, (1000, step))
+            display.blit(typ, (display_width - 200, step))
             hp = f.render(str(friendly_ship.hp), True, (0, 255, 0))
-            display.blit(hp, (1150, step))
+            display.blit(hp, (display_width - 50, step))
             if (friendly_ships[0].hp <= 0):
                 friendly_ships.remove(friendly_ships[0])
                 if (len(friendly_ships) == 0):
@@ -815,6 +824,13 @@ def battle(friendly_ships_list, enemy_ships_list):
 
         if (len(enemy_ships) == 0):
             game = False
+
+        f = pygame.font.Font(None, 20)
+        coord = f.render("(a)/(d) - turn     (w)/(s) - move/stop", True, (0, 0, 0))
+        display.blit(coord, (10, display_height - 50))
+        f = pygame.font.Font(None, 20)
+        coord = f.render("(q)/(e) - shot     (1)/(2)/(3) - scale", True, (0, 0, 0))
+        display.blit(coord, (10, display_height - 30))
 
         pygame.display.update()
         clock.tick(30)
