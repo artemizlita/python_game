@@ -1,6 +1,7 @@
 import pygame
 import math
 import game_display
+import copy
 from random import randint
 
 pygame.init()
@@ -286,9 +287,16 @@ def traders_generate(fleet_rank):
     f = randint(0, len(forposts) - 1)
     x = forposts[f][0] + randint(0, 384) - 384
     y = forposts[f][1] + 64
+    k = randint(0, len(forposts) - 1)
+    gip = ((forposts[k][0] - 192 + island_x - x) ** 2 + 6.25 * (forposts[k][1] + 64 + island_y - y) ** 2) ** 0.5
+    while gip <= 192:
+        k = randint(0, len(forposts) - 1)
+        gip = ((forposts[k][0] - 192 + island_x - x) ** 2 + 6.25 * (forposts[k][1] + 64 + island_y - y) ** 2) ** 0.5
+    target_x = forposts[k][0] - 192
+    target_y = forposts[k][1] + 64
     if fleet_rank == 0:
         fleets.append(fleet_object([["ladya", 20, 20, 2, 1.2]], ladya_sail1, ladya_sail0, 300, 75, 1.2,
-                         island_x + x, island_y + y, x, y, 0, 1, 750))
+                         island_x + x, island_y + y, target_x, target_y, 0, 1, randint(0, 750)))
         guard_type = randint(0, 1)
         if guard_type == 0:
             pink_count = randint(0, 1)
@@ -299,10 +307,10 @@ def traders_generate(fleet_rank):
             shuna_count = randint(0, 1)
             for j in range(shuna_count):
                 fleets[len(fleets) - 1].ships.append(["shuna", 20, 20, 3, 1.2])
-                fleets[len(fleets) - 1].gold += randint(0, 1000)
+                fleets[len(fleets) - 1].gold += randint(0, 1100)
     elif fleet_rank == 1:
         fleets.append(fleet_object([["ladya", 20, 20, 2, 1.2], ["ladya", 20, 20, 2, 1.2]], ladya_sail1, ladya_sail0, 300, 75, 1.2,
-                                island_x + x, island_y + y, x, y, 0, 1, 1500))
+                                island_x + x, island_y + y, target_x, target_y, 0, 1, randint(0, 1500)))
         pink_count = randint(0, 1)
         for j in range(pink_count):
             fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
@@ -340,7 +348,7 @@ def pirate_generate(fleet_rank):
                 fleets[len(fleets) - 1].gold += randint(0, 750)
         elif fleet_type == 2:
             fleets.append(fleet_object([["shuna", 20, 20, 3, 1.2]], shuna_sail1, shuna_sail0, 400, 90, 1.2,
-                                       island_x + x, island_y + y, x, y, 0, 2, randint(0, 1000)))
+                                       island_x + x, island_y + y, x, y, 0, 2, randint(0, 1100)))
             pink_count = randint(0, 1)
             for j in range(pink_count):
                 fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
@@ -482,20 +490,19 @@ def run_game():
                     ay = i[1]
                     dx = i[0] + i[2] * 384
                     dy = i[1] + i[3] * 128
-                    if island_intersection(fx, fy, fleet.target_x, fleet.target_y, ax - fleet.deck_size, ay - fleet.deck_size / 2.5,
-                                           dx + fleet.deck_size, dy + fleet.deck_size / 2.5):
+                    if island_intersection(fx, fy, fleet.target_x, fleet.target_y, ax - 60, ay - 24, dx + 60, dy + 24):
                         cross_island = True
-                        ax -= 160
-                        ay -= 64
-                        dx += 160
-                        dy += 64
-                        if islands_check(fx, fy, ax, ay, fleet.deck_size / 2.5):
+                        ax -= fleet.deck_size
+                        ay -= fleet.deck_size / 2.5
+                        dx += fleet.deck_size
+                        dy += fleet.deck_size / 2.5
+                        if islands_check(fx, fy, ax, ay, 24):
                             island_angles.append([ax, ay, ((ax - fleet.target_x) ** 2 + (ay - fleet.target_y) ** 2) ** 0.5])
-                        if islands_check(fx, fy, ax, dy, fleet.deck_size / 2.5):
+                        if islands_check(fx, fy, ax, dy, 24):
                             island_angles.append([ax, dy, ((ax - fleet.target_x) ** 2 + (dy - fleet.target_y) ** 2) ** 0.5])
-                        if islands_check(fx, fy, dx, ay, fleet.deck_size / 2.5):
+                        if islands_check(fx, fy, dx, ay, 24):
                             island_angles.append([dx, ay, ((dx - fleet.target_x) ** 2 + (ay - fleet.target_y) ** 2) ** 0.5])
-                        if islands_check(fx, fy, dx, dy, fleet.deck_size / 2.5):
+                        if islands_check(fx, fy, dx, dy, 24):
                             island_angles.append([dx, dy, ((dx - fleet.target_x) ** 2 + (dy - fleet.target_y) ** 2) ** 0.5])
                 if cross_island and len(island_angles) > 0:
                     island_angles.sort(key=ways_key)
@@ -560,11 +567,13 @@ def run_game():
             if fleet != fleets[0]:
                 if fleet.type == 1:
                     gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
-                    if gip < 32:
-                        k = randint(0, len(forposts) - 1)
+                    if gip < 192:
+                        while gip < 192:
+                            k = randint(0, len(forposts) - 1)
+                            gip = ((forposts[k][0] - 192 + island_x - fleet.x) ** 2 + 6.25 * (forposts[k][1] + 64 + island_y - fleet.y) ** 2) ** 0.5
                         fleet.target_x = forposts[k][0] - 192
                         fleet.target_y = forposts[k][1] + 64
-                        fleet.gold += 1500
+                        fleet.gold += randint(0, 1000)
                         for ship in fleet.ships:
                             while fleet.gold > 0 and ship[2] > ship[1]:
                                 ship[1] += 1
@@ -573,7 +582,7 @@ def run_game():
                                 ship[1] -= 1
                                 fleet.gold += 50
                 elif fleet.type == 2:
-                    mingip = 10240
+                    mingip = 640
                     for other_fleet in fleets:
                         if other_fleet.type != 2:
                             gip = ((fleet.x - other_fleet.x) ** 2 + 6.25 * (fleet.y - other_fleet.y) ** 2) ** 0.5
@@ -581,7 +590,7 @@ def run_game():
                                 fleet.target_x = -island_x + other_fleet.x
                                 fleet.target_y = -island_y + other_fleet.y
                                 mingip = gip
-                    if mingip >= 10240:
+                    if mingip >= 640:
                         gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                         if gip < 32:
                             cross_island = True
@@ -590,10 +599,10 @@ def run_game():
                                 fleet.target_x = randint(0, map_width * 384) - map_width * 384 // 2
                                 fleet.target_y = randint(0, map_height * 128) - map_height * 128 // 2
                                 for i in islands:
-                                    ax = island_x + i[0] - fleet.deck_size
-                                    ay = island_y + i[1] - fleet.deck_size / 2.5
-                                    dx = island_x + i[0] + i[2] * 384 + fleet.deck_size
-                                    dy = island_y + i[1] + i[3] * 128 + fleet.deck_size / 2.5
+                                    ax = i[0] - fleet.deck_size
+                                    ay = i[1] - fleet.deck_size / 2.5
+                                    dx = i[0] + i[2] * 384 + fleet.deck_size
+                                    dy = i[1] + i[3] * 128 + fleet.deck_size / 2.5
                                     if game_display.dot_in_rect(fleet.target_x, fleet.target_y, ax, ay, ax, dy, dx, ay, dx, dy):
                                         cross_island = True
 
@@ -607,31 +616,40 @@ def run_game():
             for i in range(1, w + 1):
                 for j in range(1, h + 1):
                     if i == 1 and j == 1:
-                        rect = image_1se.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1se.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                          center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1se, rect, 0)
                     elif i == w and j == 1:
-                        rect = image_1sw.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1sw.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                          center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1sw, rect, 0)
                     elif i == 1 and j == h:
-                        rect = image_1ne.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1ne.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                          center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1ne, rect, 0)
                     elif i == w and j == h:
-                        rect = image_1nw.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1nw.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                          center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1nw, rect, 0)
                     elif i == 1 and j != 1 and j != h:
-                        rect = image_1nse.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1nse.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                           center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1nse, rect, 0)
                     elif i == w and j != 1 and j != h:
-                        rect = image_1nsw.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1nsw.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                           center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1nsw, rect, 0)
                     elif i != 1 and i != w and j == 1:
-                        rect = image_1swe.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1swe.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                           center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1swe, rect, 0)
                     elif i != 1 and i != w and j == h:
-                        rect = image_1nwe.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1nwe.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                           center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1nwe, rect, 0)
                     else:
-                        rect = image_1nswe.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale, center_y + (island_y + ay + 128 * j - 64) / scale))
+                        rect = image_1nswe.get_rect(center=(center_x + (island_x + ax + 384 * i - 192) / scale,
+                                                            center_y + (island_y + ay + 128 * j - 64) / scale))
                         surf, r = rot_center(image_1nswe, rect, 0)
                     display.blit(surf, r)
 
@@ -650,7 +668,9 @@ def run_game():
             surf, r = rot_center(image_palm, rect, 0)
             display.blit(surf, r)
 
-        for fleet in fleets:
+        fleets_paint = copy.copy(fleets)
+        fleets_paint.sort(key=lambda f: f.y)
+        for fleet in fleets_paint:
             if fleet.move == True:
                 image = pygame.transform.smoothscale(fleet.ms_sail1[fleet.angle], (fleet.pic_size / scale, fleet.pic_size / scale))
             else:
