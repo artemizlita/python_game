@@ -150,10 +150,10 @@ def island_generate(type, forpost):
                 fy = ay + h
                 forposts.append([fx, fy])
             for i in range(0, width):
-                for j in range(0, height):
+                for j in range(1, height):
                     if not ((ax + i * 384 == fx - 384) and (ay + j * 128 == fy - 128)):
                         for k in range(10):
-                            palms.append([randint(ax + i * 384, ax + (i + 1) * 384), randint(ay + j * 128, ay + (j + 1) * 128)])
+                            palms.append([randint(ax + i * 384 + 64, ax + (i + 1) * 384 - 64), randint(ay + j * 128, ay + (j + 1) * 128)])
             palms.sort(key=palm_key)
             return False
         else:
@@ -340,7 +340,7 @@ def pirate_generate(fleet_rank):
                 fleets[len(fleets) - 1].ships.append(["barkas", 15, 15, 2, 0.8])
                 fleets[len(fleets) - 1].gold += randint(0, 600)
         elif fleet_type == 1:
-            fleets.append(fleet_object([["pink", 15, 15, 2, 0.8]], pink_sail1, pink_sail0, 350, 70, 1.2,
+            fleets.append(fleet_object([["pink", 15, 15, 2, 1.2]], pink_sail1, pink_sail0, 350, 70, 1.2,
                                        island_x + x, island_y + y, x, y, 0, 2, randint(0, 750)))
             pink_count = randint(0, 1)
             for j in range(pink_count):
@@ -424,9 +424,9 @@ def run_game():
     # fleets.append(fleet_object([["lugger", 25, 25, 3, 1.6]], lugger_sail1, lugger_sail0, 500, 100, 1.6, 0, 0, 0, 0, 0, 0, 500))
     fleets[0].move = False
 
-    for traders in range(5):
+    for traders in range(3):
         traders_generate(0)
-    for pirates in range(10):
+    for pirates in range(7):
         pirate_generate(0)
 
     while game:
@@ -702,7 +702,7 @@ def run_game():
                 k += 32
 
         f = pygame.font.Font(None, 36)
-        coord = f.render('GOLD: ' + str(fleets[0].gold), True, (255, 0, 0))
+        coord = f.render('GOLD: ' + str(int(fleets[0].gold)), True, (255, 0, 0))
         display.blit(coord, (10, 10))
         f = pygame.font.Font(None, 20)
         coord = f.render("(m) - minimap       (Esc) - close game", True, (0, 0, 0))
@@ -734,7 +734,7 @@ def run_game():
                     step = 0
                     for ship in fleets[0].ships:
                         f = pygame.font.Font(None, 30)
-                        b = f.render("repair " + str(ship[0]) + " - " + str((ship[2] - ship[1]) * 50) + " gold (" + str(step + 1) + ")", True, (255, 0, 0))
+                        b = f.render("repair " + str(ship[0]) + " - " + str((ship[2] - ship[1]) * 80) + " gold (" + str(step + 1) + ")", True, (255, 0, 0))
                         display.blit(b, (480, 400 + 30 * step))
                         step += 1
                     b6 = f.render("buy ship - (b)   repair - (r)", True, (0, 0, 0))
@@ -746,42 +746,42 @@ def run_game():
                         if keys[pygame.K_1]:
                             while fleets[0].gold > 0 and fleets[0].ships[0][2] > fleets[0].ships[0][1]:
                                 fleets[0].ships[0][1] += 1
-                                fleets[0].gold -= 50
+                                fleets[0].gold -= 80
                             if fleets[0].gold < 0:
                                 fleets[0].ships[0][1] -= 1
-                                fleets[0].gold += 50
+                                fleets[0].gold += 80
                         elif keys[pygame.K_2]:
                             if len(fleets[0].ships) >= 2:
                                 while fleets[0].gold > 0 and fleets[0].ships[1][2] > fleets[0].ships[1][1]:
                                     fleets[0].ships[1][1] += 1
-                                    fleets[0].gold -= 50
+                                    fleets[0].gold -= 80
                                 if fleets[0].gold < 0:
                                     fleets[0].ships[1][1] -= 1
-                                    fleets[0].gold += 50
+                                    fleets[0].gold += 80
                         elif keys[pygame.K_3]:
                             if len(fleets[0].ships) >= 3:
                                 while fleets[0].gold > 0 and fleets[0].ships[2][2] > fleets[0].ships[2][1]:
                                     fleets[0].ships[2][1] += 1
-                                    fleets[0].gold -= 50
+                                    fleets[0].gold -= 80
                                 if fleets[0].gold < 0:
                                     fleets[0].ships[2][1] -= 1
-                                    fleets[0].gold += 50
+                                    fleets[0].gold += 80
                         elif keys[pygame.K_4]:
                             if len(fleets[0].ships) >= 4:
                                 while fleets[0].gold > 0 and fleets[0].ships[3][2] > fleets[0].ships[3][1]:
                                     fleets[0].ships[3][1] += 1
-                                    fleets[0].gold -= 50
+                                    fleets[0].gold -= 80
                                 if fleets[0].gold < 0:
                                     fleets[0].ships[3][1] -= 1
-                                    fleets[0].gold += 50
+                                    fleets[0].gold += 80
                         elif keys[pygame.K_5]:
                             if len(fleets[0].ships) >= 5:
                                 while fleets[0].gold > 0 and fleets[0].ships[4][2] > fleets[0].ships[4][1]:
                                     fleets[0].ships[4][1] += 1
-                                    fleets[0].gold -= 50
+                                    fleets[0].gold -= 80
                                 if fleets[0].gold < 0:
                                     fleets[0].ships[4][1] -= 1
-                                    fleets[0].gold += 50
+                                    fleets[0].gold += 80
                 elif menu == 1:
                     f = pygame.font.Font(None, 30)
                     b1 = f.render("buy barkas - 1200 gold - (1)", True, (255, 0, 0))
@@ -839,7 +839,7 @@ def run_game():
                     step = 0
                     for ship in fleets[0].ships:
                         f = pygame.font.Font(None, 30)
-                        b = f.render("sold " + str(ship[0]) + " - " + str(ship[1] // ship[2] * ships_dict[ship[0]][4] // 2) + " gold (" + str(
+                        b = f.render("sold " + str(ship[0]) + " - " + str(int(ship[1] / ship[2] * ships_dict[ship[0]][4] // 2)) + " gold (" + str(
                             step + 1) + ")", True, (255, 0, 0))
                         display.blit(b, (480, 400 + 30 * step))
                         step += 1
@@ -851,29 +851,44 @@ def run_game():
                     if stop == 0:
                         if keys[pygame.K_1]:
                             if len(fleets[0].ships) >= 2:
-                                fleets[0].gold += fleets[0].ships[0][1] / fleets[0].ships[0][2] * ships_dict[fleets[0].ships[0][0]][4] // 2
+                                fleets[0].gold += (fleets[0].ships[0][1] / fleets[0].ships[0][2] * ships_dict[fleets[0].ships[0][0]][4]) // 2
                                 fleets[0].ships.remove(fleets[0].ships[0])
                                 stop = 10
+                                fleets[0].ships.sort(key=ships_speed_key)
+                                if (len(fleets[0].ships) > 0):
+                                    fleets[0].speed = fleets[0].ships[0][4]
                         elif keys[pygame.K_2]:
                             if len(fleets[0].ships) >= 2:
-                                fleets[0].gold += fleets[0].ships[1][1] / fleets[0].ships[1][2] * ships_dict[fleets[0].ships[1][0]][4] // 2
+                                fleets[0].gold += (fleets[0].ships[1][1] / fleets[0].ships[1][2] * ships_dict[fleets[0].ships[1][0]][4]) // 2
                                 fleets[0].ships.remove(fleets[0].ships[1])
                                 stop = 10
+                                fleets[0].ships.sort(key=ships_speed_key)
+                                if (len(fleets[0].ships) > 0):
+                                    fleets[0].speed = fleets[0].ships[0][4]
                         elif keys[pygame.K_3]:
                             if len(fleets[0].ships) >= 3:
-                                fleets[0].gold += fleets[0].ships[2][1] / fleets[0].ships[2][2] * ships_dict[fleets[0].ships[2][0]][4] // 2
+                                fleets[0].gold += (fleets[0].ships[2][1] / fleets[0].ships[2][2] * ships_dict[fleets[0].ships[2][0]][4]) // 2
                                 fleets[0].ships.remove(fleets[0].ships[2])
                                 stop = 10
+                                fleets[0].ships.sort(key=ships_speed_key)
+                                if (len(fleets[0].ships) > 0):
+                                    fleets[0].speed = fleets[0].ships[0][4]
                         elif keys[pygame.K_4]:
                             if len(fleets[0].ships) >= 4:
-                                fleets[0].gold += fleets[0].ships[3][1] / fleets[0].ships[3][2] * ships_dict[fleets[0].ships[3][0]][4] // 2
+                                fleets[0].gold += (fleets[0].ships[3][1] / fleets[0].ships[3][2] * ships_dict[fleets[0].ships[3][0]][4]) // 2
                                 fleets[0].ships.remove(fleets[0].ships[3])
                                 stop = 10
+                                fleets[0].ships.sort(key=ships_speed_key)
+                                if (len(fleets[0].ships) > 0):
+                                    fleets[0].speed = fleets[0].ships[0][4]
                         elif keys[pygame.K_5]:
                             if len(fleets[0].ships) >= 5:
-                                fleets[0].gold += fleets[0].ships[4][1] / fleets[0].ships[4][2] * ships_dict[fleets[0].ships[4][0]][4] // 2
+                                fleets[0].gold += (fleets[0].ships[4][1] / fleets[0].ships[4][2] * ships_dict[fleets[0].ships[4][0]][4]) // 2
                                 fleets[0].ships.remove(fleets[0].ships[4])
                                 stop = 10
+                                fleets[0].ships.sort(key=ships_speed_key)
+                                if (len(fleets[0].ships) > 0):
+                                    fleets[0].speed = fleets[0].ships[0][4]
         if not (forpost_zone):
             f = pygame.font.Font(None, 20)
             coord = f.render("(1)/(2)/(3)/(4)/(5) - change flagman ship", True, (0, 0, 0))
@@ -985,6 +1000,8 @@ def run_game():
                                 if len(fleets[0].ships) > 0:
                                     fleets[0].gold += fleet.gold
                                     fleets.remove(fleet)
+                                    rank = randint(0, 1)
+                                    pirate_generate(rank)
                                     fleets[0].ships.sort(key=ships_speed_key)
                                     if (len(fleets[0].ships) > 0):
                                         fleets[0].speed = fleets[0].ships[0][4]
