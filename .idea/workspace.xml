@@ -21,6 +21,30 @@
   <component name="ChangeListManager">
     <list default="true" id="fc09f26b-96f0-4649-aa74-bfba4886c335" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/0ne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/0nw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/0se.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/0sw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1e.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1n.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1ne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1ns.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1nse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1nsw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1nswe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1nw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1nwe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1s.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1se.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1sw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1swe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/1we.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/island_sprite/forpost1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost_zone.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/island_sprite/forpost_zone.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/lugger_0.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/lugger_1.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/global_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_display.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,22 +143,22 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1646826409653" />
-    <state width="1259" height="343" key="GridCell.Tab.0.bottom" timestamp="1647630555278">
+    <state width="1259" height="343" key="GridCell.Tab.0.bottom" timestamp="1648155739316">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1647630555278" />
-    <state width="1259" height="343" key="GridCell.Tab.0.center" timestamp="1647630555278">
+    <state width="1259" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1648155739316" />
+    <state width="1259" height="343" key="GridCell.Tab.0.center" timestamp="1648155739316">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1647630555278" />
-    <state width="1259" height="343" key="GridCell.Tab.0.left" timestamp="1647630555277">
+    <state width="1259" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1648155739316" />
+    <state width="1259" height="343" key="GridCell.Tab.0.left" timestamp="1648155739316">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1647630555277" />
-    <state width="1259" height="343" key="GridCell.Tab.0.right" timestamp="1647630555278">
+    <state width="1259" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1648155739316" />
+    <state width="1259" height="343" key="GridCell.Tab.0.right" timestamp="1648155739316">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1647630555278" />
+    <state width="1259" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1648155739316" />
     <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
@@ -155,9 +179,9 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1646939952590" />
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1647369092892">
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1648043510470">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1647369092892" />
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1648043510470" />
   </component>
 </project>
