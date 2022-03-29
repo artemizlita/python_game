@@ -21,31 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fc09f26b-96f0-4649-aa74-bfba4886c335" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/island_sprite/forpost1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/island_sprite/sand/1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/0ne.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/0nw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/0se.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/0sw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1n.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1ne.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1ns.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1nse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1nsw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1nswe.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1nw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1nwe.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1s.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1se.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1sw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1swe.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/1we.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/forpost1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/forpost_zone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/island_sprite_old/palm.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/global_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_display.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,30 +111,30 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="369" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.984@0.0.1280.984" timestamp="1645880335451" />
-    <state x="483" y="382" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1647251070426">
+    <state x="483" y="382" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1648530035634">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="483" y="382" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1280.984@0.0.1280.984" timestamp="1647251070426" />
+    <state x="483" y="382" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1280.984@0.0.1280.984" timestamp="1648530035634" />
     <state x="420" y="234" key="FileChooserDialogImpl" timestamp="1646826409653">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1646826409653" />
-    <state width="1259" height="343" key="GridCell.Tab.0.bottom" timestamp="1648322777398">
+    <state width="1237" height="343" key="GridCell.Tab.0.bottom" timestamp="1648565948455">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1648322777398" />
-    <state width="1259" height="343" key="GridCell.Tab.0.center" timestamp="1648322777398">
+    <state width="1237" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1648565948455" />
+    <state width="1237" height="343" key="GridCell.Tab.0.center" timestamp="1648565948455">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1648322777398" />
-    <state width="1259" height="343" key="GridCell.Tab.0.left" timestamp="1648322777398">
+    <state width="1237" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1648565948455" />
+    <state width="1237" height="343" key="GridCell.Tab.0.left" timestamp="1648565948455">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1648322777398" />
-    <state width="1259" height="343" key="GridCell.Tab.0.right" timestamp="1648322777398">
+    <state width="1237" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1648565948455" />
+    <state width="1237" height="343" key="GridCell.Tab.0.right" timestamp="1648565948455">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1648322777398" />
+    <state width="1237" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1648565948455" />
     <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
@@ -176,13 +151,13 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
-    <state x="143" y="109" key="SettingsEditor" timestamp="1646939952590">
+    <state x="143" y="109" key="SettingsEditor" timestamp="1648370381001">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1646939952590" />
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1648043510470">
+    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1648370381001" />
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1648544951355">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1648043510470" />
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1648544951355" />
   </component>
 </project>
