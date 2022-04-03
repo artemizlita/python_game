@@ -65,10 +65,10 @@ class ship_object(ship_type):
             super().__init__(fleyt_move, fleyt_stay, fleyt_deck_width, fleyt_deck_height, 1.6, 0.4, 40, 40, fleyt_guns_left, fleyt_guns_right)
         elif (type == "brig"):
             super().__init__(brig_move, brig_stay, brig_deck_width, brig_deck_height, 2.0, 0.8, 40, 40, brig_guns_left, brig_guns_right)
-        elif (type == "karaka"):
-            super().__init__(karaka_move, karaka_stay, karaka_deck_width, karaka_deck_height, 2.0, 0.4, 50, 60, karaka_guns_left, karaka_guns_right)
-        elif (type == "shebeka"):
-            super().__init__(shebeka_move, shebeka_stay, shebeka_deck_width, shebeka_deck_height, 1.6, 1.0, 50, 50, shebeka_guns_left, shebeka_guns_right)
+        elif (type == "pinas"):
+            super().__init__(pinas_move, pinas_stay, pinas_deck_width, pinas_deck_height, 2.0, 0.4, 50, 60, pinas_guns_left, pinas_guns_right)
+        elif (type == "galera"):
+            super().__init__(galera_move, galera_stay, galera_deck_width, galera_deck_height, 1.6, 1.0, 50, 50, galera_guns_left, galera_guns_right)
         elif (type == "corvet"):
             super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 50, 60, corvet_guns_left, corvet_guns_right)
         elif (type == "fregat"):
@@ -159,19 +159,19 @@ brig_deck_height = 170
 brig_guns_left = [(-27, -48), (-27, -24), (-27, -0), (-27, 24), (-27, 48)]
 brig_guns_right = [(27, -48), (27, -24), (27, -0), (27, 24), (27, 48)]
 
-karaka_move = pygame.image.load('battle\\karaka\\sail_1.png')
-karaka_stay = pygame.image.load('battle\\karaka\\sail_0.png')
-karaka_deck_width = 58
-karaka_deck_height = 206
-karaka_guns_left = [(-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48)]
-karaka_guns_right = [(35, -48), (35, -24), (35, 0), (35, 24), (35, 48)]
+galera_move = pygame.image.load('battle\\galera\\sail_1.png')
+galera_stay = pygame.image.load('battle\\galera\\sail_0.png')
+galera_deck_width = 58
+galera_deck_height = 206
+galera_guns_left = [(-35, -60), (-35, -36), (-35, -12), (-35, 12), (-35, 36), (-35, 60)]
+galera_guns_right = [(35, -60), (35, -36), (35, -12), (35, 12), (35, 36), (35, 60)]
 
-shebeka_move = pygame.image.load('battle\\shebeka\\sail_1.png')
-shebeka_stay = pygame.image.load('battle\\shebeka\\sail_0.png')
-shebeka_deck_width = 58
-shebeka_deck_height = 206
-shebeka_guns_left = [(-35, -60), (-35, -36), (-35, -12), (-35, 12), (-35, 36), (-35, 60)]
-shebeka_guns_right = [(35, -60), (35, -36), (35, -12), (35, 12), (35, 36), (35, 60)]
+pinas_move = pygame.image.load('battle\\pinas\\sail_1.png')
+pinas_stay = pygame.image.load('battle\\pinas\\sail_0.png')
+pinas_deck_width = 58
+pinas_deck_height = 230
+pinas_guns_left = [(-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48)]
+pinas_guns_right = [(35, -48), (35, -24), (35, 0), (35, 24), (35, 48)]
 
 corvet_move = pygame.image.load('battle\\corvet\\sail_1.png')
 corvet_stay = pygame.image.load('battle\\corvet\\sail_0.png')
