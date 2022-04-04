@@ -21,45 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fc09f26b-96f0-4649-aa74-bfba4886c335" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle/shebeka/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle/shebeka/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/0/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/0/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/0/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/1/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/1/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/1/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/10/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/10/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/10/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/11/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/11/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/11/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/2/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/2/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/2/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/3/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/3/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/3/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/4/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/4/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/4/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/5/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/5/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/5/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/6/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/6/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/6/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/7/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/7/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/7/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/8/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/8/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/8/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/9/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/9/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/shebeka/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/ship_tree.png" beforeDir="false" afterPath="$PROJECT_DIR$/global/island_sprite/ship_tree.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/global_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_display.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -158,22 +120,22 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1646826409653" />
-    <state width="1259" height="343" key="GridCell.Tab.0.bottom" timestamp="1649022000105">
+    <state width="1259" height="343" key="GridCell.Tab.0.bottom" timestamp="1649105734086">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1649022000105" />
-    <state width="1259" height="343" key="GridCell.Tab.0.center" timestamp="1649022000105">
+    <state width="1259" height="343" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1649105734086" />
+    <state width="1259" height="343" key="GridCell.Tab.0.center" timestamp="1649105734085">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1649022000105" />
-    <state width="1259" height="343" key="GridCell.Tab.0.left" timestamp="1649022000104">
+    <state width="1259" height="343" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1649105734085" />
+    <state width="1259" height="343" key="GridCell.Tab.0.left" timestamp="1649105734085">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1649022000104" />
-    <state width="1259" height="343" key="GridCell.Tab.0.right" timestamp="1649022000105">
+    <state width="1259" height="343" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1649105734085" />
+    <state width="1259" height="343" key="GridCell.Tab.0.right" timestamp="1649105734085">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1649022000105" />
+    <state width="1259" height="343" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1649105734085" />
     <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1646859192856">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
