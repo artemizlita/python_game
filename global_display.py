@@ -166,18 +166,18 @@ for i in range(0, 12):
 
 ships_dict = {"barkas": [barkas_sail1, barkas_sail0, 300, 70, 1200, 100, 15, 2, 0.8],
               "pink": [pink_sail1, pink_sail0, 350, 70, 1500, 60, 15, 2, 1.2],
-              "ladya": [ladya_sail1, ladya_sail0, 300, 75, 1600, 40, 20, 2, 1.2],
               "shuna": [shuna_sail1, shuna_sail0, 400, 90, 2200, 80, 20, 3, 1.2],
               "lugger": [lugger_sail1, lugger_sail0, 500, 100, 3000, 80, 25, 3, 1.6],
+              "ladya": [ladya_sail1, ladya_sail0, 300, 75, 1600, 40, 20, 2, 1.2],
               "shlup": [shlup_sail1, shlup_sail0, 500, 100, 3600, 100, 30, 3, 1.2],
-              "fleyt": [fleyt_sail1, fleyt_sail0, 600, 120, 4200, 40, 35, 3, 1.6],
               "bark": [bark_sail1, bark_sail0, 600, 120, 5000, 60, 35, 4, 1.6],
               "brig": [brig_sail1, brig_sail0, 700, 140, 7000, 80, 40, 5, 2.0],
+              "fleyt": [fleyt_sail1, fleyt_sail0, 600, 120, 4200, 40, 35, 3, 1.6],
               "galera": [galera_sail1, galera_sail0, 600, 170, 10000, 100, 50, 6, 1.6],
-              "pinas": [pinas_sail1, pinas_sail0, 900, 190, 12000, 40, 60, 5, 2.0],
               "corvet": [corvet_sail1, corvet_sail0, 1000, 190, 15000, 60, 60, 7, 2.4],
+              "pinas": [pinas_sail1, pinas_sail0, 900, 190, 12000, 40, 60, 5, 2.0],
               "fregat": [fregat_sail1, fregat_sail0, 1100, 250, 20000, 80, 75, 8, 2.0],
-              "tradeship": [tradeship_sail1, tradeship_sail0, 1300, 270, 22000, 40, 90, 7, 2.4]}
+              "tradeship": [tradeship_sail1, tradeship_sail0, 1300, 270, 25000, 40, 90, 7, 2.4]}
 
 fraction_relations = {'RED': 0, 'GREEN': 0, 'BLUE': 0, 'PIRATE': 0}
 
@@ -374,8 +374,8 @@ def fleet_move(fleet, angle, speed):
         fleet.x += 0 * speed
         fleet.y += -0.41 * speed
     elif angle == 1:
-        fleet.x += 0.64 * speed
-        fleet.y += -0.32 * speed
+        fleet.x += 0.65 * speed
+        fleet.y += -0.325 * speed
     elif angle == 2:
         fleet.x += 0.9 * speed
         fleet.y += -0.2 * speed
@@ -386,14 +386,14 @@ def fleet_move(fleet, angle, speed):
         fleet.x += 0.9 * speed
         fleet.y += 0.2 * speed
     elif angle == 5:
-        fleet.x += 0.63 * speed
-        fleet.y += 0.32 * speed
+        fleet.x += 0.65 * speed
+        fleet.y += 0.325 * speed
     elif angle == 6:
         fleet.x += 0 * speed
         fleet.y += 0.41 * speed
     elif angle == 7:
-        fleet.x += -0.64 * speed
-        fleet.y += 0.32 * speed
+        fleet.x += -0.65 * speed
+        fleet.y += 0.325 * speed
     elif angle == 8:
         fleet.x += -0.9 * speed
         fleet.y += 0.2 * speed
@@ -838,7 +838,7 @@ def auto_battle_step(fleet, other_fleet):
     elif (len(other_fleet.ships) > 0) and (len(fleet.ships) == 0):
         sum = 0
         for ship in other_fleet.ships:
-            sum += ships_dict[ship[0]][4] // 2
+            sum += ships_dict[ship[0]][4]
         other_fleet.gold += fleet.gold
         if other_fleet.gold > sum:
             other_fleet.gold = sum
@@ -847,7 +847,7 @@ def auto_battle_step(fleet, other_fleet):
     elif (len(other_fleet.ships) == 0) and (len(fleet.ships) > 0):
         sum = 0
         for ship in fleet.ships:
-            sum += ships_dict[ship[0]][4] // 2
+            sum += ships_dict[ship[0]][4]
         fleet.gold += other_fleet.gold
         if fleet.gold > sum:
             fleet.gold = sum
@@ -1252,26 +1252,63 @@ def run_game():
                 if fleet.type == 1:
                     gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                     if gip < 32:
-                        while gip < i_width/2:
+                        k = 0
+                        while gip < i_width/2 or forposts[k][5] == 'PIRATE':
                             k = randint(0, len(forposts) - 1)
-                            gip = ((forposts[k][0] - i_width/2 + island_x - fleet.x) ** 2 + 6.25 * (forposts[k][1] + i_height/2 + island_y - fleet.y) ** 2) ** 0.5
+                            gip = ((forposts[k][0] - i_width/2 + island_x - fleet.x) ** 2 + 6.25 * (
+                                    forposts[k][1] + i_height/2 + island_y - fleet.y) ** 2) ** 0.5
                         fleet.target_x = forposts[k][0] - i_width/2
                         fleet.target_y = forposts[k][1] + i_height/2
                         profit = 0
                         max = 0
                         for ship in fleet.ships:
                             profit += randint(0, ships_dict[ship[0]][4] // 10)
-                            max += ships_dict[ship[0]][4] // 2
+                            max += ships_dict[ship[0]][4]
                         fleet.gold += profit
                         if fleet.gold > max:
                             fleet.gold = max
-                        for ship in fleet.ships:
-                            while fleet.gold > 0 and ship[2] > ship[1]:
-                                ship[1] += 1
-                                fleet.gold -= 80
-                            if fleet.gold < 0:
-                                ship[1] -= 1
-                                fleet.gold += 80
+                        if fleet.rank == 0:
+                            for ship in fleet.ships:
+                                while fleet.gold > 0 and ship[2] > ship[1]:
+                                    ship[1] += 1
+                                    fleet.gold -= 80
+                                if fleet.gold < 0:
+                                    ship[1] -= 1
+                                    fleet.gold += 80
+                            t = randint(1, 4)
+                            trade_ship = list(ships_dict.keys())[t]
+                            while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
+                                fleet.gold -= ships_dict[trade_ship][4]
+                                fleet.ships.append([trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
+                                                    ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                        elif fleet.rank == 1:
+                            for ship in fleet.ships:
+                                while fleet.gold > 0 and ship[2] > ship[1]:
+                                    ship[1] += 1
+                                    fleet.gold -= 120
+                                if fleet.gold < 0:
+                                    ship[1] -= 1
+                                    fleet.gold += 120
+                            t = randint(6, 8)
+                            trade_ship = list(ships_dict.keys())[t]
+                            while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
+                                fleet.gold -= ships_dict[trade_ship][4]
+                                fleet.ships.append([trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
+                                                    ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                        elif fleet.rank == 2:
+                            for ship in fleet.ships:
+                                while fleet.gold > 0 and ship[2] > ship[1]:
+                                    ship[1] += 1
+                                    fleet.gold -= 160
+                                if fleet.gold < 0:
+                                    ship[1] -= 1
+                                    fleet.gold += 160
+                            t = randint(10, 11)
+                            trade_ship = list(ships_dict.keys())[t]
+                            while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
+                                fleet.gold -= ships_dict[trade_ship][4]
+                                fleet.ships.append([trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
+                                                    ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
                 elif fleet.type == 2:
                     mingip = (fleet.rank + 2) * i_width / 2
                     for other_fleet in fleets:
@@ -1281,7 +1318,67 @@ def run_game():
                                 fleet.target_x = -island_x + other_fleet.x
                                 fleet.target_y = -island_y + other_fleet.y
                                 mingip = gip
-                    if mingip >= (fleet.rank + 2) * i_width / 2:
+                    max_gold = 0
+                    for ship in fleet.ships:
+                        max_gold += ships_dict[ship[0]][4]
+                    if fleet.gold >= max_gold:
+                        mingip = 99999
+                        k = -1
+                        for f in range(0, len(forposts)):
+                            gip = ((forposts[f][0] - i_width / 2 + island_x - fleet.x) ** 2 + 6.25 * (
+                                    forposts[f][1] + i_height / 2 + island_y - fleet.y) ** 2) ** 0.5
+                            if gip < mingip and forposts[f][5] == 'PIRATE':
+                                mingip = gip
+                                k = f
+                        fleet.target_x = forposts[k][0] - i_width / 2
+                        fleet.target_y = forposts[k][1] + i_height / 2
+                        if mingip < i_width / 2:
+                            if fleet.rank == 0:
+                                for ship in fleet.ships:
+                                    while fleet.gold > 0 and ship[2] > ship[1]:
+                                        ship[1] += 1
+                                        fleet.gold -= 80
+                                    if fleet.gold < 0:
+                                        ship[1] -= 1
+                                        fleet.gold += 80
+                                t = randint(0, 3)
+                                trade_ship = list(ships_dict.keys())[t]
+                                while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
+                                    fleet.gold -= ships_dict[trade_ship][4]
+                                    fleet.ships.append(
+                                        [trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
+                                         ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                            elif fleet.rank == 1:
+                                for ship in fleet.ships:
+                                    while fleet.gold > 0 and ship[2] > ship[1]:
+                                        ship[1] += 1
+                                        fleet.gold -= 120
+                                    if fleet.gold < 0:
+                                        ship[1] -= 1
+                                        fleet.gold += 120
+                                t = randint(5, 7)
+                                trade_ship = list(ships_dict.keys())[t]
+                                while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
+                                    fleet.gold -= ships_dict[trade_ship][4]
+                                    fleet.ships.append(
+                                        [trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
+                                         ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                            elif fleet.rank == 2:
+                                for ship in fleet.ships:
+                                    while fleet.gold > 0 and ship[2] > ship[1]:
+                                        ship[1] += 1
+                                        fleet.gold -= 160
+                                    if fleet.gold < 0:
+                                        ship[1] -= 1
+                                        fleet.gold += 160
+                                t = randint(9, 10)
+                                trade_ship = list(ships_dict.keys())[t]
+                                while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
+                                    fleet.gold -= ships_dict[trade_ship][4]
+                                    fleet.ships.append(
+                                        [trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
+                                         ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                    elif mingip >= (fleet.rank + 2) * i_width / 2:
                         gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                         if gip < 32:
                             side = randint(1, 4)
@@ -1311,13 +1408,14 @@ def run_game():
                         # gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                         if (-i_width / 2 < fleet.target_x + island_x - fleet.x < i_width / 2) or (
                             -i_height / 2 < fleet.target_y + island_y - fleet.y < i_height / 2):
-                            mingip = ((forposts[0][0] - i_width/2 + island_x - fleet.x) ** 2 + 6.25 * (forposts[0][1] + i_height/2 + island_y - fleet.y) ** 2) ** 0.5
-                            k = 0
+                            mingip = 99999
+                            k = -1
                             for f in range(0, len(forposts)):
                                 gip = ((forposts[f][0] - i_width/2 + island_x - fleet.x) ** 2 + 6.25 * (forposts[f][1] + i_height/2 + island_y - fleet.y) ** 2) ** 0.5
-                                if gip < mingip:
+                                if gip < mingip and forposts[f][5] == fleet.fraction:
                                     mingip = gip
                                     k = f
+                                print(forposts[k][5], fleet.fraction)
                             fleet.target_x = forposts[k][0] - i_width/2
                             fleet.target_y = forposts[k][1] + i_height/2
                             if mingip < i_width / 2:
@@ -1331,9 +1429,9 @@ def run_game():
                                         if fleet.gold < 0:
                                             ship[1] -= 1
                                             fleet.gold += 80
-                                        while fleet.gold >= 3000 and len(fleet.ships) < 5:
-                                            fleet.gold -= 3000
-                                            fleet.ships.append(["lugger", 25, 25, 3, 1.6])
+                                    while fleet.gold >= 3000 and len(fleet.ships) < 5:
+                                        fleet.gold -= 3000
+                                        fleet.ships.append(["lugger", 25, 25, 3, 1.6])
                                 elif fleet.rank == 1:
                                     for ship in fleet.ships:
                                         while fleet.gold > 0 and ship[2] > ship[1]:
@@ -1342,9 +1440,9 @@ def run_game():
                                         if fleet.gold < 0:
                                             ship[1] -= 1
                                             fleet.gold += 120
-                                        while fleet.gold >= 7000 and len(fleet.ships) < 5:
-                                            fleet.gold -= 7000
-                                            fleet.ships.append(["brig", 40, 40, 5, 2.0])
+                                    while fleet.gold >= 7000 and len(fleet.ships) < 5:
+                                        fleet.gold -= 7000
+                                        fleet.ships.append(["brig", 40, 40, 5, 2.0])
                                 elif fleet.rank == 2:
                                     for ship in fleet.ships:
                                         while fleet.gold > 0 and ship[2] > ship[1]:
@@ -1353,9 +1451,9 @@ def run_game():
                                         if fleet.gold < 0:
                                             ship[1] -= 1
                                             fleet.gold += 160
-                                        while fleet.gold >= 15000 and len(fleet.ships) < 5:
-                                            fleet.gold -= 15000
-                                            fleet.ships.append(["corvet", 60, 60, 7, 2.4])
+                                    while fleet.gold >= 15000 and len(fleet.ships) < 5:
+                                        fleet.gold -= 15000
+                                        fleet.ships.append(["corvet", 60, 60, 7, 2.4])
                 elif fleet.type == 4:
                     gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                     if gip < 32:
@@ -1370,7 +1468,7 @@ def run_game():
                                 k = f
                         max_gold = 0
                         for ship in other_fleet.ships:
-                            max_gold += ships_dict[ship[0]][4] // 2
+                            max_gold += ships_dict[ship[0]][4]
                         if mingip < 32 and fleet.gold > 0:
                             fleet.move = False
                             fleet_move(fleet, (fleet.angle + 6) % 12, fleet.speed * 5)
@@ -2026,39 +2124,69 @@ def run_game():
 
         if keys[pygame.K_m]:
             display.fill((0, 162, 232))
-            m_sand_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1ne.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1nse = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nse.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1nsw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nsw.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1nswe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nswe.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1nw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nw.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1nwe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nwe.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1se = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1se.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1sw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1sw.png'),((i_width+16) / 17, (i_height+184) / 17))
-            m_sand_1swe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1swe.png'),((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1ne.png'),
+                                                      ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1nse = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nse.png'),
+                                                       ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1nsw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nsw.png'),
+                                                       ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1nswe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nswe.png'),
+                                                        ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1nw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nw.png'),
+                                                      ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1nwe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1nwe.png'),
+                                                       ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1se = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1se.png'),
+                                                      ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1sw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1sw.png'),
+                                                      ((i_width+16) / 17, (i_height+184) / 17))
+            m_sand_1swe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1swe.png'),
+                                                       ((i_width+16) / 17, (i_height+184) / 17))
 
-            m_grass_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1ne.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1nse = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nse.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1nsw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nsw.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1nswe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nswe.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1nw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nw.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1nwe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nwe.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1se = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1se.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1sw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1sw.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_grass_1swe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1swe.png'),((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1ne.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1nse = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nse.png'),
+                                                        ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1nsw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nsw.png'),
+                                                        ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1nswe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nswe.png'),
+                                                         ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1nw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nw.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1nwe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1nwe.png'),
+                                                        ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1se = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1se.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1sw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1sw.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_grass_1swe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\grass\\1swe.png'),
+                                                        ((i_width + 16) / 17, (i_height + 184) / 17))
 
-            m_snow_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1ne.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1nse = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nse.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1nsw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nsw.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1nswe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nswe.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1nw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nw.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1nwe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nwe.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1se = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1se.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1sw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1sw.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_snow_1swe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1swe.png'),((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1ne.png'),
+                                                      ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1nse = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nse.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1nsw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nsw.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1nswe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nswe.png'),
+                                                        ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1nw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nw.png'),
+                                                      ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1nwe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1nwe.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1se = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1se.png'),
+                                                      ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1sw = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1sw.png'),
+                                                      ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_snow_1swe = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\snow\\1swe.png'),
+                                                       ((i_width + 16) / 17, (i_height + 184) / 17))
 
-            m_image_forpost1 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost1.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_image_forpost2 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost2.png'),((i_width + 16) / 17, (i_height + 184) / 17))
-            m_image_forpost3 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost3.png'),((i_width + 16) / 17, (i_height + 204) / 17))
+            m_image_forpost1 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost1.png'),
+                                                            ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_image_forpost2 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost2.png'),
+                                                            ((i_width + 16) / 17, (i_height + 184) / 17))
+            m_image_forpost3 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost3.png'),
+                                                            ((i_width + 16) / 17, (i_height + 204) / 17))
 
             for island in islands:
                 ax = island[0]
@@ -2302,6 +2430,10 @@ def run_game():
                     fraction_relations[fleet.fraction] -= len(fleet.ships)
                     battle_with_player(fleet)
 
+        for fleet in fleets:
+            if len(fleet.ships) == 0:
+                fleets.remove(fleet)
+
         f = pygame.font.Font(None, 36)
         forp = f.render(str(sum * 10), True, (255, 0, 0))
         display.blit(forp, (display_width - 80, 50))
@@ -2310,7 +2442,7 @@ def run_game():
         game_time += 1
         if game_time % (600 * 6) == 0:
             for forpost in forposts:
-                if forpost[6] == 'grass':
+                if forpost[6] == 'grass' or forpost[6] == 'snow':
                     forpost[2] = 2
         if game_time % (1800 * 6) == 0:
             for forpost in forposts:
