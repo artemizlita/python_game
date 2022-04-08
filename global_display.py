@@ -27,13 +27,9 @@ display = game_display.display
 clock = pygame.time.Clock()
 
 class fleet_object:
-    def __init__(self, ships, ms_sail1, ms_sail0, pic_size, deck_size, speed, x, y, target_x, target_y, angle, type,
-                 fraction, gold, rank, move=True): #, wood1, wood2, iron, cotton):
+    def __init__(self, ships, speed, x, y, target_x, target_y, angle, type,
+                 fraction, gold, rank, move=True):
         self.ships = ships
-        self.ms_sail1 = ms_sail1
-        self.ms_sail0 = ms_sail0
-        self.pic_size = pic_size
-        self.deck_size = deck_size
         self.speed = speed
         self.x = x
         self.y = y
@@ -45,10 +41,28 @@ class fleet_object:
         self.gold = gold
         self.rank = rank
         self.move = move
-        # self.wood1 = wood1
-        # self.wood2 = wood2
-        # self.iron = iron
-        # self.cotton = cotton
+
+class ship_type:
+    def __init__(self, ms_sail1, ms_sail0, pic_size, deck_size, cost, t_speed, max_hp, gun_count, speed):
+        self.ms_sail1 = ms_sail1
+        self.ms_sail0 = ms_sail0
+        self.pic_size = pic_size
+        self.deck_size = deck_size
+        self.cost = cost
+        self.t_speed = t_speed
+        self.max_hp = max_hp
+        self.gun_count = gun_count
+        self.speed = speed
+
+class forpost:
+    def __init__(self, x, y, rank, sold_1, sold_2, fraction, land):
+        self.x = x
+        self.y = y
+        self.rank = rank
+        self.sold_1 = sold_1
+        self.sold_2 = sold_2
+        self.fraction = fraction
+        self.land = land
 
 fleets = []
 
@@ -164,20 +178,29 @@ for i in range(0, 12):
     tradeship_sail1.append(pygame.transform.smoothscale(image_sail_1, (1300 / scale, 1300 / scale)))
     tradeship_sail0.append(pygame.transform.smoothscale(image_sail_0, (1300 / scale, 1300 / scale)))
 
-ships_dict = {"barkas": [barkas_sail1, barkas_sail0, 300, 70, 1200, 100, 15, 2, 0.8],
-              "pink": [pink_sail1, pink_sail0, 350, 70, 1500, 60, 15, 2, 1.2],
-              "shuna": [shuna_sail1, shuna_sail0, 400, 90, 2200, 80, 20, 3, 1.2],
-              "lugger": [lugger_sail1, lugger_sail0, 500, 100, 3000, 80, 25, 3, 1.6],
-              "ladya": [ladya_sail1, ladya_sail0, 300, 75, 1600, 40, 20, 2, 1.2],
-              "shlup": [shlup_sail1, shlup_sail0, 500, 100, 3600, 100, 30, 3, 1.2],
-              "bark": [bark_sail1, bark_sail0, 600, 120, 5000, 60, 35, 4, 1.6],
-              "brig": [brig_sail1, brig_sail0, 700, 140, 7000, 80, 40, 5, 2.0],
-              "fleyt": [fleyt_sail1, fleyt_sail0, 600, 120, 4200, 40, 35, 3, 1.6],
-              "galera": [galera_sail1, galera_sail0, 600, 170, 10000, 100, 50, 6, 1.6],
-              "corvet": [corvet_sail1, corvet_sail0, 1000, 190, 15000, 60, 60, 7, 2.4],
-              "pinas": [pinas_sail1, pinas_sail0, 900, 190, 12000, 40, 60, 5, 2.0],
-              "fregat": [fregat_sail1, fregat_sail0, 1100, 250, 20000, 80, 75, 8, 2.0],
-              "tradeship": [tradeship_sail1, tradeship_sail0, 1300, 270, 25000, 40, 90, 7, 2.4]}
+warship_sail1 = []
+warship_sail0 = []
+for i in range(0, 12):
+    image_sail_1 = pygame.image.load('global\\warship\\' + str(i) + '\\sail_1.png')
+    image_sail_0 = pygame.image.load('global\\warship\\' + str(i) + '\\sail_0.png')
+    warship_sail1.append(pygame.transform.smoothscale(image_sail_1, (1300 / scale, 1300 / scale)))
+    warship_sail0.append(pygame.transform.smoothscale(image_sail_0, (1300 / scale, 1300 / scale)))
+
+ship_stats = {"barkas": ship_type(barkas_sail1, barkas_sail0, 300, 70, 1200, 100, 15, 2, 0.8),
+              "pink": ship_type(pink_sail1, pink_sail0, 350, 70, 1500, 60, 15, 2, 1.2),
+              "shuna": ship_type(shuna_sail1, shuna_sail0, 400, 90, 2200, 80, 20, 3, 1.2),
+              "lugger": ship_type(lugger_sail1, lugger_sail0, 500, 100, 3000, 80, 25, 3, 1.6),
+              "ladya": ship_type(ladya_sail1, ladya_sail0, 300, 75, 1600, 40, 20, 2, 1.2),
+              "shlup": ship_type(shlup_sail1, shlup_sail0, 500, 100, 3600, 100, 30, 3, 1.2),
+              "bark": ship_type(bark_sail1, bark_sail0, 600, 120, 5000, 60, 35, 4, 1.6),
+              "brig": ship_type(brig_sail1, brig_sail0, 700, 140, 7000, 80, 40, 5, 2.0),
+              "fleyt": ship_type(fleyt_sail1, fleyt_sail0, 600, 120, 4200, 40, 35, 3, 1.6),
+              "galera": ship_type(galera_sail1, galera_sail0, 600, 170, 10000, 100, 50, 6, 1.6),
+              "corvet": ship_type(corvet_sail1, corvet_sail0, 1000, 190, 15000, 60, 60, 7, 2.4),
+              "pinas": ship_type(pinas_sail1, pinas_sail0, 900, 190, 12000, 40, 60, 5, 2.0),
+              "fregat": ship_type(fregat_sail1, fregat_sail0, 1100, 250, 20000, 80, 75, 8, 2.0),
+              "warship": ship_type(warship_sail1, warship_sail0, 1300, 270, 30000, 80, 90, 9, 2.4),
+              "tradeship": ship_type(tradeship_sail1, tradeship_sail0, 1300, 270, 25000, 40, 90, 7, 2.4)}
 
 fraction_relations = {'RED': 0, 'GREEN': 0, 'BLUE': 0, 'PIRATE': 0}
 
@@ -266,7 +289,7 @@ def island_generate(forpost, fraction, land):
             fy = ay + h
             trade_ship1 = randint(0, 4)
             trade_ship2 = randint(0, 4)
-            forposts.append([fx, fy, forpost, list(ships_dict.keys())[trade_ship1], list(ships_dict.keys())[trade_ship2], fraction, land])
+            forposts.append([fx, fy, forpost, list(ship_stats.keys())[trade_ship1], list(ship_stats.keys())[trade_ship2], fraction, land])
         if land == 'sand':
             for i in range(0, width):
                 for j in range(0, height):
@@ -488,7 +511,7 @@ def islands_check(x, y, t_x, t_y, r):
             return False
     return True
 
-def traders_generate(fleet_rank, fraction):
+def traders_generate(fraction):
     our_forposts = []
     for forpost in forposts:
         if forpost[5] == fraction:
@@ -505,72 +528,67 @@ def traders_generate(fleet_rank, fraction):
     target_y = forposts[k][1] + i_height/2
     if our_forposts[f][6] == 'sand':
         if our_forposts[f][2] == 1:
-            fleets.append(fleet_object([["ladya", 20, 20, 2, 1.2]], ladya_sail1, ladya_sail0, 300, 75, 1.2,
-                                       island_x + x, island_y + y, target_x, target_y, 0, 1, fraction, randint(160, 320), fleet_rank))
-            guard_type = randint(0, 1)
-            if guard_type == 0:
-                pink_count = randint(0, 1)
-                for j in range(pink_count):
-                    fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
-                    fleets[len(fleets) - 1].gold += randint(120, 240)
-            else:
-                shuna_count = randint(0, 1)
-                for j in range(shuna_count):
-                    fleets[len(fleets) - 1].ships.append(["shuna", 20, 20, 3, 1.2])
-                    fleets[len(fleets) - 1].gold += randint(220, 440)
-        elif our_forposts[f][2] == 2:
-            fleets.append(fleet_object([["fleyt", 35, 35, 3, 1.6], ["fleyt", 35, 35, 3, 1.6]], fleyt_sail1, fleyt_sail0, 600, 120, 1.6,
-                                       island_x + x, island_y + y, target_x, target_y, 0, 1, fraction, randint(450, 900), fleet_rank))
-            guard_type = randint(0, 1)
-            if guard_type == 0:
-                bark_count = randint(0, 1)
-                for j in range(bark_count):
-                    fleets[len(fleets) - 1].ships.append(["bark", 35, 35, 4, 1.6])
-                    fleets[len(fleets) - 1].gold += randint(550, 1100)
-            else:
-                brig_count = randint(0, 1)
-                for j in range(brig_count):
-                    fleets[len(fleets) - 1].ships.append(["brig", 40, 40, 5, 2.0])
-                    fleets[len(fleets) - 1].gold += randint(700, 1400)
-        elif our_forposts[f][2] == 3:
-            fleets.append(fleet_object([["pinas", 60, 60, 5, 2.0], ["pinas", 60, 60, 5, 2.0]], pinas_sail1, pinas_sail0, 900, 190, 2.0,
-                                       island_x + x, island_y + y, target_x, target_y, 0, 1, fraction, randint(1200, 2400), fleet_rank))
-            corvet_count = randint(0, 1)
-            for j in range(corvet_count):
-                fleets[len(fleets) - 1].ships.append(["corvet", 60, 60, 7, 2.4])
-                fleets[len(fleets) - 1].gold += randint(1500, 3000)
-    elif our_forposts[f][6] == 'grass':
-        if our_forposts[f][2] == 1:
-            fleets.append(fleet_object([["ladya", 20, 20, 2, 1.2], ["ladya", 20, 20, 2, 1.2]], ladya_sail1, ladya_sail0, 300, 75, 1.2,
-                                       island_x + x, island_y + y, target_x, target_y, 0, 1, fraction, randint(320, 640), fleet_rank))
-            pink_count = randint(0, 1)
-            for j in range(pink_count):
-                fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
-                fleets[len(fleets) - 1].gold += randint(150, 300)
+            fleets.append(fleet_object([["ladya", 20]], 1.2, island_x + x, island_y + y, target_x, target_y,
+                                       0, 1, fraction, randint(160, 320), our_forposts[f][2] - 1))
             shuna_count = randint(0, 1)
             for j in range(shuna_count):
-                fleets[len(fleets) - 1].ships.append(["shuna", 20, 20, 3, 1.2])
+                fleets[len(fleets) - 1].ships.append(["shuna", 20])
                 fleets[len(fleets) - 1].gold += randint(220, 440)
         elif our_forposts[f][2] == 2:
-            fleets.append(fleet_object([["fleyt", 35, 35, 3, 1.6], ["fleyt", 35, 35, 3, 1.6], ["fleyt", 35, 35, 3, 1.6]],
-                                       fleyt_sail1, fleyt_sail0, 600, 120, 1.6, island_x + x, island_y + y, target_x, target_y,
-                                       0, 1, fraction, randint(900, 1800), fleet_rank))
-            bark_count = randint(0, 1)
+            fleets.append(fleet_object([["fleyt", 40]], 1.6, island_x + x, island_y + y, target_x, target_y,
+                                       0, 1, fraction, randint(450, 900), our_forposts[f][2] - 1))
+            bark_count = randint(1, 2)
             for j in range(bark_count):
-                fleets[len(fleets) - 1].ships.append(["bark", 35, 35, 4, 1.6])
+                fleets[len(fleets) - 1].ships.append(["bark", 35])
+                fleets[len(fleets) - 1].gold += randint(550, 1100)
+        elif our_forposts[f][2] == 3:
+            fleets.append(fleet_object([["pinas", 60]], 2.0, island_x + x, island_y + y, target_x, target_y,
+                                       0, 1, fraction, randint(1200, 2400), our_forposts[f][2] - 1))
+            galera_count = randint(1, 2)
+            for j in range(galera_count):
+                fleets[len(fleets) - 1].ships.append(["galera", 50])
+                fleets[len(fleets) - 1].gold += randint(1000, 2000)
+    elif our_forposts[f][6] == 'grass':
+        if our_forposts[f][2] == 1:
+            fleets.append(fleet_object([["ladya", 20], ["ladya", 20]], 1.2, island_x + x, island_y + y, target_x, target_y,
+                                        0, 1, fraction, randint(320, 640), our_forposts[f][2] - 1))
+            shuna_count = randint(1, 2)
+            for j in range(shuna_count):
+                fleets[len(fleets) - 1].ships.append(["shuna", 20])
+                fleets[len(fleets) - 1].gold += randint(220, 440)
+        elif our_forposts[f][2] == 2:
+            fleets.append(fleet_object([["fleyt", 35], ["fleyt", 35]], 1.6, island_x + x, island_y + y, target_x, target_y,
+                                       0, 1, fraction, randint(900, 1800), our_forposts[f][2] - 1))
+            bark_count = randint(1, 2)
+            for j in range(bark_count):
+                fleets[len(fleets) - 1].ships.append(["bark", 35])
                 fleets[len(fleets) - 1].gold += randint(550, 1100)
             brig_count = randint(0, 1)
             for j in range(brig_count):
-                fleets[len(fleets) - 1].ships.append(["brig", 40, 40, 5, 2.0])
+                fleets[len(fleets) - 1].ships.append(["brig", 40])
                 fleets[len(fleets) - 1].gold += randint(700, 1400)
         elif our_forposts[f][2] == 3:
-            fleets.append(fleet_object([["pinas", 60, 60, 5, 2.0], ["pinas", 60, 60, 5, 2.0], ["pinas", 60, 60, 5, 2.0]],
-                                       pinas_sail1, pinas_sail0, 900, 190, 2.0, island_x + x, island_y + y, target_x, target_y,
-                                       0, 1, fraction, randint(2400, 4800), fleet_rank))
-            corvet_count = randint(0, 2)
+            fleets.append(fleet_object([["pinas", 60], ["pinas", 60]], 2.0, island_x + x, island_y + y, target_x, target_y,
+                                       0, 1, fraction, randint(2400, 4800), our_forposts[f][2] - 1))
+            galera_count = randint(1, 2)
+            for j in range(galera_count):
+                fleets[len(fleets) - 1].ships.append(["galera", 50])
+                fleets[len(fleets) - 1].gold += randint(1000, 2000)
+            corvet_count = randint(0, 1)
             for j in range(corvet_count):
-                fleets[len(fleets) - 1].ships.append(["corvet", 60, 60, 7, 2.4])
+                fleets[len(fleets) - 1].ships.append(["corvet", 60])
                 fleets[len(fleets) - 1].gold += randint(1500, 3000)
+        elif our_forposts[f][2] == 4:
+            fleets.append(fleet_object([["tradeship", 90], ["tradeship", 90]], 2.4, island_x + x, island_y + y, target_x, target_y,
+                                       0, 1, fraction, randint(5000, 10000), our_forposts[f][2] - 1))
+            fregat_count = randint(1, 2)
+            for j in range(fregat_count):
+                fleets[len(fleets) - 1].ships.append(["fregat", 75])
+                fleets[len(fleets) - 1].gold += randint(2000, 4000)
+            warship_count = randint(0, 1)
+            for j in range(warship_count):
+                fleets[len(fleets) - 1].ships.append(["warship", 90])
+                fleets[len(fleets) - 1].gold += randint(3000, 6000)
 
 def pirates_generate(fleet_rank):
     cross_island = True
@@ -603,130 +621,174 @@ def pirates_generate(fleet_rank):
         if fleet_rank == 0:
             fleet_type = randint(0, 2)
             if fleet_type == 0:
-                fleets.append(fleet_object([["barkas", 15, 15, 2, 0.8]], barkas_sail1, barkas_sail0, 300, 70, 0.8,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(120, 240), fleet_rank))
+                fleets.append(fleet_object([["barkas", 15]], 0.8, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(120, 240), fleet_rank))
                 barkas_count = randint(0, 1)
                 for j in range(barkas_count):
-                    fleets[len(fleets) - 1].ships.append(["barkas", 15, 15, 2, 0.8])
+                    fleets[len(fleets) - 1].ships.append(["barkas", 15])
                     fleets[len(fleets) - 1].gold += randint(120, 240)
             elif fleet_type == 1:
-                fleets.append(fleet_object([["pink", 15, 15, 2, 1.2]], pink_sail1, pink_sail0, 350, 70, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(150, 300), fleet_rank))
+                fleets.append(fleet_object([["pink", 15]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(150, 300), fleet_rank))
                 pink_count = randint(0, 1)
                 for j in range(pink_count):
-                    fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["pink", 15])
                     fleets[len(fleets) - 1].gold += randint(150, 300)
             elif fleet_type == 2:
-                fleets.append(fleet_object([["shuna", 20, 20, 3, 1.2]], shuna_sail1, shuna_sail0, 400, 90, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(220, 440), fleet_rank))
+                fleets.append(fleet_object([["shuna", 20]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(220, 440), fleet_rank))
                 pink_count = randint(0, 1)
                 for j in range(pink_count):
-                    fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["pink", 15])
                     fleets[len(fleets) - 1].gold += randint(150, 300)
         elif fleet_rank == 1:
             fleet_type = randint(0, 1)
             if fleet_type == 0:
-                fleets.append(fleet_object([["shlup", 30, 30, 3, 1.2]], shlup_sail1, shlup_sail0, 500, 100, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, 0, randint(350, 700), fleet_rank))
+                fleets.append(fleet_object([["shlup", 30]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(350, 700), fleet_rank))
                 shlup_count = randint(1, 2)
                 for j in range(shlup_count):
-                    fleets[len(fleets) - 1].ships.append(["shlup", 30, 30, 3, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["shlup", 30])
                     fleets[len(fleets) - 1].gold += randint(350, 700)
             elif fleet_type == 1:
-                fleets.append(fleet_object([["bark", 35, 35, 4, 1.6]], bark_sail1, bark_sail0, 600, 120, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, 0, randint(550, 1100), fleet_rank))
+                fleets.append(fleet_object([["bark", 35]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(550, 1100), fleet_rank))
                 bark_count = randint(0, 1)
                 for j in range(bark_count):
-                    fleets[len(fleets) - 1].ships.append(["bark", 35, 35, 4, 1.6])
+                    fleets[len(fleets) - 1].ships.append(["bark", 35])
                     fleets[len(fleets) - 1].gold += randint(550, 1100)
                 shlup_count = randint(0, 1)
                 for j in range(shlup_count):
-                    fleets[len(fleets) - 1].ships.append(["shlup", 30, 30, 3, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["shlup", 30])
                     fleets[len(fleets) - 1].gold += randint(350, 700)
         elif fleet_rank == 2:
-            fleets.append(fleet_object([["galera", 50, 50, 6, 1.6]], galera_sail1, galera_sail0, 600, 170, 1.6,
-                                        island_x + x, island_y + y, x, y, 0, 2, 0, randint(1000, 2000), fleet_rank))
-            galera_count = randint(1, 2)
-            for j in range(galera_count):
-                fleets[len(fleets) - 1].ships.append(["galera", 50, 50, 6, 1.6])
-                fleets[len(fleets) - 1].gold += randint(1000, 2000)
+            fleet_type = randint(0, 1)
+            if fleet_type == 0:
+                fleets.append(fleet_object([["galera", 50]], 1.6, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(1000, 2000), fleet_rank))
+                galera_count = randint(0, 1)
+                for j in range(galera_count):
+                    fleets[len(fleets) - 1].ships.append(["galera", 50])
+                    fleets[len(fleets) - 1].gold += randint(1000, 2000)
+                brig_count = randint(0, 1)
+                for j in range(brig_count):
+                    fleets[len(fleets) - 1].ships.append(["brig", 40])
+                    fleets[len(fleets) - 1].gold += randint(700, 1400)
+            if fleet_type == 1:
+                fleets.append(fleet_object([["corvet", 60]], 2.4, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(1500, 3000), fleet_rank))
+                brig_count = randint(1, 2)
+                for j in range(brig_count):
+                    fleets[len(fleets) - 1].ships.append(["brig", 40])
+                    fleets[len(fleets) - 1].gold += randint(700, 1400)
+        elif fleet_rank == 3:
+            fleets.append(fleet_object([["fregat", 75]], 2.0, island_x + x, island_y + y, x, y,
+                                       0, 2, '-', randint(2000, 4000), fleet_rank))
+            fregat_count = randint(0, 1)
+            for j in range(fregat_count):
+                fleets[len(fleets) - 1].ships.append(["fregat", 75])
+                fleets[len(fleets) - 1].gold += randint(2000, 4000)
+            corvet_count = randint(0, 1)
+            for j in range(corvet_count):
+                fleets[len(fleets) - 1].ships.append(["corvet", 60])
+                fleets[len(fleets) - 1].gold += randint(1500, 3000)
     elif islands[i][4] == 'grass' or islands[i][4] == 'snow':
         if fleet_rank == 0:
             fleet_type = randint(0, 2)
             if fleet_type == 0:
-                fleets.append(fleet_object([["pink", 15, 15, 2, 1.2]], pink_sail1, pink_sail0, 350, 90, 0.8,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(150, 300), fleet_rank))
+                fleets.append(fleet_object([["pink", 15]], 0.8, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(150, 300), fleet_rank))
                 pink_count = randint(0, 1)
                 for j in range(pink_count):
-                    fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["pink", 15])
                     fleets[len(fleets) - 1].gold += randint(150, 300)
                 barkas_count = randint(1, 2)
                 for j in range(barkas_count):
-                    fleets[len(fleets) - 1].ships.append(["barkas", 15, 15, 2, 0.8])
+                    fleets[len(fleets) - 1].ships.append(["barkas", 15])
                     fleets[len(fleets) - 1].gold += randint(120, 240)
             elif fleet_type == 1:
-                fleets.append(fleet_object([["shuna", 20, 20, 3, 1.2]], shuna_sail1, shuna_sail0, 400, 90, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(220, 440), fleet_rank))
+                fleets.append(fleet_object([["shuna", 20]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(220, 440), fleet_rank))
                 shuna_count = randint(0, 1)
                 for j in range(shuna_count):
-                    fleets[len(fleets) - 1].ships.append(["shuna", 20, 20, 3, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["shuna", 20])
                     fleets[len(fleets) - 1].gold += randint(220, 440)
                 pink_count = randint(1, 2)
                 for j in range(pink_count):
-                    fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["pink", 15])
                     fleets[len(fleets) - 1].gold += randint(150, 300)
             elif fleet_type == 2:
-                fleets.append(fleet_object([["lugger", 25, 25, 3, 1.6]], lugger_sail1, lugger_sail0, 500, 100, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(300, 600), fleet_rank))
-                shuna_count = 1
+                fleets.append(fleet_object([["lugger", 25]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(300, 600), fleet_rank))
+                shuna_count = randint(1, 2)
                 for j in range(shuna_count):
-                    fleets[len(fleets) - 1].ships.append(["shuna", 20, 20, 3, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["shuna", 20])
                     fleets[len(fleets) - 1].gold += randint(22, 440)
-                lugger_count = randint(0, 1)
-                for j in range(lugger_count):
-                    fleets[len(fleets) - 1].ships.append(["lugger", 25, 25, 3, 1.6])
-                    fleets[len(fleets) - 1].gold += randint(300, 600)
-                pink_count = randint(0, 1)
+                pink_count = randint(1, 2)
                 for j in range(pink_count):
-                    fleets[len(fleets) - 1].ships.append(["pink", 15, 15, 2, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["pink", 15])
                     fleets[len(fleets) - 1].gold += randint(150, 300)
         elif fleet_rank == 1:
             fleet_type = randint(0, 1)
             if fleet_type == 0:
-                fleets.append(fleet_object([["bark", 35, 35, 4, 1.6]], bark_sail1, bark_sail0, 600, 120, 1.2,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(550, 1100), fleet_rank))
+                fleets.append(fleet_object([["bark", 35]], 1.2, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(550, 1100), fleet_rank))
                 shlup_count = randint(2, 3)
                 for j in range(shlup_count):
-                    fleets[len(fleets) - 1].ships.append(["shlup", 30, 30, 3, 1.2])
+                    fleets[len(fleets) - 1].ships.append(["shlup", 30])
                     fleets[len(fleets) - 1].gold += randint(350, 700)
                 bark_count = randint(0, 1)
                 for j in range(bark_count):
-                    fleets[len(fleets) - 1].ships.append(["bark", 35, 35, 4, 1.6])
+                    fleets[len(fleets) - 1].ships.append(["bark", 35])
                     fleets[len(fleets) - 1].gold += randint(550, 1100)
             elif fleet_type == 1:
-                fleets.append(fleet_object([["brig", 40, 40, 5, 2.0]], brig_sail1, brig_sail0, 700, 140, 1.6,
-                                           island_x + x, island_y + y, x, y, 0, 2, '-', randint(700, 1400), fleet_rank))
+                fleets.append(fleet_object([["brig", 40]], 1.6, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(700, 1400), fleet_rank))
                 brig_count = randint(0, 1)
                 for j in range(brig_count):
-                    fleets[len(fleets) - 1].ships.append(["brig", 40, 40, 5, 2.0])
+                    fleets[len(fleets) - 1].ships.append(["brig", 40])
                     fleets[len(fleets) - 1].gold += randint(700, 1400)
                 bark_count = randint(2, 3)
                 for j in range(bark_count):
-                    fleets[len(fleets) - 1].ships.append(["bark", 35, 35, 4, 1.6])
+                    fleets[len(fleets) - 1].ships.append(["bark", 35])
                     fleets[len(fleets) - 1].gold += randint(550, 1100)
         elif fleet_rank == 2:
-            fleets.append(fleet_object([["corvet", 60, 60, 7, 2.4]], corvet_sail1, corvet_sail0, 1000, 190, 1.6,
-                                        island_x + x, island_y + y, x, y, 0, 2, 0, randint(1500, 3000), fleet_rank))
-            galera_count = randint(2, 3)
-            for j in range(galera_count):
-                fleets[len(fleets) - 1].ships.append(["galera", 50, 50, 6, 1.6])
-                fleets[len(fleets) - 1].gold += randint(1000, 2000)
-            corvet_count = randint(0, 1)
+            fleet_type = randint(0, 1)
+            if fleet_type == 0:
+                fleets.append(fleet_object([["galera", 60]], 1.6, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(1000, 2000), fleet_rank))
+                galera_count = randint(1, 2)
+                for j in range(galera_count):
+                    fleets[len(fleets) - 1].ships.append(["galera", 50])
+                    fleets[len(fleets) - 1].gold += randint(1000, 2000)
+                brig_count = randint(1, 2)
+                for j in range(brig_count):
+                    fleets[len(fleets) - 1].ships.append(["brig", 40])
+                    fleets[len(fleets) - 1].gold += randint(700, 1400)
+            elif fleet_type == 1:
+                fleets.append(fleet_object([["corvet", 60]], 1.6, island_x + x, island_y + y, x, y,
+                                           0, 2, '-', randint(1500, 3000), fleet_rank))
+                brig_count = randint(2, 3)
+                for j in range(brig_count):
+                    fleets[len(fleets) - 1].ships.append(["brig", 40])
+                    fleets[len(fleets) - 1].gold += randint(700, 1400)
+                corvet_count = randint(0, 1)
+                for j in range(corvet_count):
+                    fleets[len(fleets) - 1].ships.append(["corvet", 60])
+                    fleets[len(fleets) - 1].gold += randint(1500, 3000)
+        elif fleet_rank == 3:
+            fleets.append(fleet_object([["warship", 90]], 2.4, island_x + x, island_y + y, x, y,
+                                       0, 2, '-', randint(3000, 6000), fleet_rank))
+            fregat_count = randint(1, 2)
+            for j in range(fregat_count):
+                fleets[len(fleets) - 1].ships.append(["fregat", 75])
+                fleets[len(fleets) - 1].gold += randint(2000, 4000)
+            corvet_count = randint(1, 2)
             for j in range(corvet_count):
-                fleets[len(fleets) - 1].ships.append(["corvet", 60, 60, 7, 2.4])
+                fleets[len(fleets) - 1].ships.append(["corvet", 60])
                 fleets[len(fleets) - 1].gold += randint(1500, 3000)
 
-def war_fleet_generate(fleet_rank, fraction):
+def war_fleet_generate(fraction):
     towns = []
     for forpost in forposts:
         if forpost[5] == fraction:
@@ -735,28 +797,35 @@ def war_fleet_generate(fleet_rank, fraction):
     x = towns[f][0] + randint(0, i_width) - i_width
     y = towns[f][1] + i_height
     if towns[f][2] == 1:
-        fleets.append(fleet_object([["lugger", 25, 25, 3, 1.6]], lugger_sail1, lugger_sail0, 500, 100, 1.6,
-                                   island_x + x, island_y + y, x, y, 0, 3, fraction, randint(300, 600), towns[f][2]))
+        fleets.append(fleet_object([["lugger", 25]], 1.6, island_x + x, island_y + y, x, y,
+                                   0, 3, fraction, randint(300, 600), towns[f][2] - 1))
         lugger_count = randint(1, 3)
         for j in range(lugger_count):
-            fleets[len(fleets) - 1].ships.append(["lugger", 25, 25, 3, 1.6])
+            fleets[len(fleets) - 1].ships.append(["lugger", 25])
             fleets[len(fleets) - 1].gold += randint(300, 600)
     elif towns[f][2] == 2:
-        fleets.append(fleet_object([["brig", 40, 40, 5, 2.0]], brig_sail1, brig_sail0, 700, 140, 2.0,
-                                   island_x + x, island_y + y, x, y, 0, 3, fraction, randint(700, 1400), towns[f][2]))
+        fleets.append(fleet_object([["brig", 40]], 2.0, island_x + x, island_y + y, x, y,
+                                   0, 3, fraction, randint(700, 1400), towns[f][2] - 1))
         brig_count = randint(2, 4)
         for j in range(brig_count):
-            fleets[len(fleets) - 1].ships.append(["brig", 40, 40, 5, 2.0])
+            fleets[len(fleets) - 1].ships.append(["brig", 40])
             fleets[len(fleets) - 1].gold += randint(700, 1400)
     elif towns[f][2] == 3:
-        fleets.append(fleet_object([["corvet", 60, 60, 7, 2.4]], corvet_sail1, corvet_sail0, 1000, 190, 1.6,
-                                   island_x + x, island_y + y, x, y, 0, 2, 0, randint(1500, 3000), towns[f][2]))
+        fleets.append(fleet_object([["corvet", 60]], 1.6, island_x + x, island_y + y, x, y,
+                                   0, 3, fraction, randint(1500, 3000), towns[f][2] - 1))
         corvet_count = randint(2, 4)
         for j in range(corvet_count):
-            fleets[len(fleets) - 1].ships.append(["corvet", 60, 60, 7, 2.4])
+            fleets[len(fleets) - 1].ships.append(["corvet", 60])
             fleets[len(fleets) - 1].gold += randint(1500, 3000)
+    elif towns[f][2] == 4:
+        fleets.append(fleet_object([["warship", 90]], 2.4, island_x + x, island_y + y, x, y,
+                                   0, 3, fraction, randint(3000, 6000), towns[f][2] - 1))
+        warship_count = randint(2, 4)
+        for j in range(warship_count):
+            fleets[len(fleets) - 1].ships.append(["warship", 90])
+            fleets[len(fleets) - 1].gold += randint(3000, 6000)
 
-def fishers_generate(fleet_rank, fraction):
+def fishers_generate(fraction):
     camps = []
     for forpost in forposts:
         if forpost[5] == fraction:
@@ -765,43 +834,39 @@ def fishers_generate(fleet_rank, fraction):
     x = camps[f][0] + randint(0, i_width) - i_width
     y = camps[f][1] + i_height/2
     if camps[f][2] == 1:
-        fleets.append(fleet_object([["barkas", 15, 15, 2, 0.8]], barkas_sail1, barkas_sail0, 300, 70, 0.8,
-                                    island_x + x, island_y + y, x, y, 0, 4, fraction, 0, camps[f][2]))
+        fleets.append(fleet_object([["barkas", 15]], 0.8, island_x + x, island_y + y, x, y,
+                                   0, 4, fraction, 0, camps[f][2] - 1))
+    elif camps[f][2] == 2:
+        fleets.append(fleet_object([["barkas", 15]], 0.8, island_x + x, island_y + y, x, y,
+                                   0, 4, fraction, 0, camps[f][2] - 1))
         barkas_count = randint(0, 1)
         for j in range(barkas_count):
-            fleets[len(fleets) - 1].ships.append(["barkas", 15, 15, 2, 0.8])
-            fleets[len(fleets) - 1].gold += 0
-    elif camps[f][2] == 2:
-        fleets.append(fleet_object([["shlup", 30, 30, 3, 1.2]], shlup_sail1, shlup_sail0, 500, 100, 1.2,
-                                   island_x + x, island_y + y, x, y, 0, 4, fraction, 0, camps[f][2]))
-        shlup_count = randint(1, 2)
-        for j in range(shlup_count):
-            fleets[len(fleets) - 1].ships.append(["shlup", 30, 30, 3, 1.2])
+            fleets[len(fleets) - 1].ships.append(["barkas", 15])
             fleets[len(fleets) - 1].gold += 0
     elif camps[f][2] == 3:
-        fleets.append(fleet_object([["galera", 50, 50, 6, 1.6]], galera_sail1, galera_sail0, 600, 170, 1.6,
-                                   island_x + x, island_y + y, x, y, 0, 4, fraction, 0, camps[f][2]))
+        fleets.append(fleet_object([["shlup", 30]], 1.2, island_x + x, island_y + y, x, y,
+                                   0, 4, fraction, 0, camps[f][2] - 1))
+        shlup_count = randint(1, 2)
+        for j in range(shlup_count):
+            fleets[len(fleets) - 1].ships.append(["shlup", 30])
+            fleets[len(fleets) - 1].gold += 0
+    elif camps[f][2] == 4:
+        fleets.append(fleet_object([["galera", 50]], 1.6, island_x + x, island_y + y, x, y, 0, 4,
+                                   fraction, 0, camps[f][2] - 1))
         galera_count = randint(1, 2)
         for j in range(galera_count):
-            fleets[len(fleets) - 1].ships.append(["galera", 50, 50, 6, 1.6])
+            fleets[len(fleets) - 1].ships.append(["galera", 50])
             fleets[len(fleets) - 1].gold += 0
 
 def battle_with_player(fleet):
     fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships)
     if len(fleets[0].ships) > 0:
         fleets[0].gold += fleet.gold
+        new_fleet_generate(fleet)
         fleets.remove(fleet)
-        rank = randint(0, 1)
-        pirates_generate(rank)
-        fleets[0].ships.sort(key=ships_speed_key)
-        if (len(fleets[0].ships) > 0):
-            fleets[0].speed = fleets[0].ships[0][4]
-        fleets[0].ships.sort(key=ships_rank_key)
-        if (len(fleets[0].ships) > 0):
-            fleets[0].ms_sail1 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][0]
-            fleets[0].ms_sail0 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][1]
-            fleets[0].pic_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][2]
-            fleets[0].deck_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][3]
+        for ship in fleets[0].ships:
+            if ship_stats[ship[0]].speed < fleets[0].speed:
+                fleets[0].speed = ship_stats[ship[0]].speed
     else:
         quit()
 
@@ -811,34 +876,22 @@ def auto_battle_step(fleet, other_fleet):
         r2 = randint(0, len(other_fleet.ships) - 1)
         rt1 = randint(0, len(fleet.ships) - 1)
         rt2 = randint(0, len(other_fleet.ships) - 1)
-        fleet.ships[rt1][1] -= randint(other_fleet.ships[r2][3] - 2, other_fleet.ships[r2][3])
-        other_fleet.ships[rt2][1] -= randint(fleet.ships[r1][3] - 2, fleet.ships[r1][3])
+        fleet.ships[rt1][1] -= randint(ship_stats[other_fleet.ships[r2][0]].gun_count - 2, ship_stats[other_fleet.ships[r2][0]].gun_count)
+        other_fleet.ships[rt2][1] -= randint(ship_stats[fleet.ships[r1][0]].gun_count - 2, ship_stats[fleet.ships[r1][0]].gun_count)
         if fleet.ships[rt1][1] <= 0:
             fleet.ships.remove(fleet.ships[rt1])
-            fleet.ships.sort(key=ships_speed_key)
-            if (len(fleet.ships) > 0):
-                fleet.speed = fleet.ships[0][4]
-            fleet.ships.sort(key=ships_rank_key)
-            if (len(fleet.ships) > 0):
-                fleet.ms_sail1 = ships_dict[fleet.ships[len(fleet.ships) - 1][0]][0]
-                fleet.ms_sail0 = ships_dict[fleet.ships[len(fleet.ships) - 1][0]][1]
-                fleet.pic_size = ships_dict[fleet.ships[len(fleet.ships) - 1][0]][2]
-                fleet.deck_size = ships_dict[fleet.ships[len(fleet.ships) - 1][0]][3]
+            for ship in fleet.ships:
+                if ship_stats[ship[0]].speed < fleet.speed:
+                    fleet.speed = ship_stats[ship[0]].speed
         if other_fleet.ships[rt2][1] <= 0:
             other_fleet.ships.remove(other_fleet.ships[rt2])
-            other_fleet.ships.sort(key=ships_speed_key)
-            if (len(other_fleet.ships) > 0):
-                other_fleet.speed = other_fleet.ships[0][4]
-            other_fleet.ships.sort(key=ships_rank_key)
-            if (len(other_fleet.ships) > 0):
-                other_fleet.ms_sail1 = ships_dict[other_fleet.ships[len(other_fleet.ships) - 1][0]][0]
-                other_fleet.ms_sail0 = ships_dict[other_fleet.ships[len(other_fleet.ships) - 1][0]][1]
-                other_fleet.pic_size = ships_dict[other_fleet.ships[len(other_fleet.ships) - 1][0]][2]
-                other_fleet.deck_size = ships_dict[other_fleet.ships[len(other_fleet.ships) - 1][0]][3]
-    elif (len(other_fleet.ships) > 0) and (len(fleet.ships) == 0):
+            for ship in other_fleet.ships:
+                if ship_stats[ship[0]].speed < other_fleet.speed:
+                    other_fleet.speed = ship_stats[ship[0]].speed
+    if (len(other_fleet.ships) > 0) and (len(fleet.ships) == 0):
         sum = 0
         for ship in other_fleet.ships:
-            sum += ships_dict[ship[0]][4]
+            sum += ship_stats[ship[0]].cost
         other_fleet.gold += fleet.gold
         if other_fleet.gold > sum:
             other_fleet.gold = sum
@@ -847,7 +900,7 @@ def auto_battle_step(fleet, other_fleet):
     elif (len(other_fleet.ships) == 0) and (len(fleet.ships) > 0):
         sum = 0
         for ship in fleet.ships:
-            sum += ships_dict[ship[0]][4]
+            sum += ship_stats[ship[0]].cost
         fleet.gold += other_fleet.gold
         if fleet.gold > sum:
             fleet.gold = sum
@@ -863,12 +916,14 @@ def new_fleet_generate(fleet):
     r = randint(0, game_time // 6)
     if r <= 600 and game_time // 6 <= 1800:
         rank = 0
-    elif 600 < r <= 1800:
+    elif 600 < r <= 1800 and game_time // 6 <= 3600:
         rank = 1
-    else:
+    elif 1800 < r <= 3600:
         rank = 2
+    else:
+        rank = 3
     if fleet.type == 1:
-        traders_generate(rank, fleet.fraction)
+        traders_generate(fleet.fraction)
         mingip = -1
         b_f_num = -1
         for b_f in range(len(fleets) - 1):
@@ -886,9 +941,9 @@ def new_fleet_generate(fleet):
     elif fleet.type == 2:
         pirates_generate(rank)
     elif fleet.type == 3:
-        war_fleet_generate(rank, fleet.fraction)
+        war_fleet_generate(fleet.fraction)
     elif fleet.type == 4:
-        fishers_generate(rank, fleet.fraction)
+        fishers_generate(fleet.fraction)
         mingip = -1
         b_f_num = -1
         for b_f in range(len(fleets) - 1):
@@ -964,18 +1019,6 @@ def run_game():
             text += 36
             pygame.display.update()
 
-    # for sand in range(map_width // 2 - 8):
-    #     f = randint(0, 2)
-    #     if f == 0:
-    #         fraction = 'RED'
-    #     elif f == 1:
-    #         fraction = 'GREEN'
-    #     elif f == 2:
-    #         fraction = 'BLUE'
-    #     need_island = True
-    #     while need_island:
-    #         need_island = island_generate(1, fraction, 'sand')
-
     k = 0
     land = 'sand'
     while k < 100 or land == 'grass':
@@ -1009,15 +1052,15 @@ def run_game():
             text += 36
             pygame.display.update()
 
-    # fleets.append(fleet_object([["tradeship", 90, 90, 7, 2.4]], tradeship_sail1, tradeship_sail0, 1300, 270, 2.4, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
-    fleets.append(fleet_object([["pink", 15, 15, 2, 1.2]], pink_sail1, pink_sail0, 350, 75, 1.2, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
+    # fleets.append(fleet_object([["warship", 90]], 2.4, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
+    fleets.append(fleet_object([["pink", 15], ["ladya", 20], ["lugger", 25]], 1.2, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
     fleets[0].move = False
 
     for forpost in forposts:
         if forpost[5] != 'PIRATE':
-            traders_generate(0, forpost[5])
-            war_fleet_generate(0, forpost[5])
-            fishers_generate(0, forpost[5])
+            traders_generate(forpost[5])
+            war_fleet_generate(forpost[5])
+            fishers_generate(forpost[5])
     for island in islands:
         pirates_generate(0)
 
@@ -1084,6 +1127,8 @@ def run_game():
                                                   ((i_width + 16) / scale, (i_height + 184) / scale))
     image_forpost3 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost3.png'),
                                                   ((i_width + 16) / scale, (i_height + 204) / scale))
+    image_forpost4 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost4.png'),
+                                                  ((i_width + 16) / scale, (i_height + 264) / scale))
     image_forpost_zone = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost_zone.png'),
                                                       ((i_width + 16) / scale, (i_height + 184) / scale))
 
@@ -1160,10 +1205,10 @@ def run_game():
                     dx = i[0] + i[2] * i_width
                     dy = i[1] + i[3] * i_height
                     if island_intersection(fx, fy, fleet.target_x, fleet.target_y, ax - 60, ay - 24, dx + 60, dy + 24):
-                        ax -= fleet.deck_size
-                        ay -= fleet.deck_size / 2.5
-                        dx += fleet.deck_size
-                        dy += fleet.deck_size / 2.5
+                        ax -= ship_stats[fleet.ships[0][0]].deck_size
+                        ay -= ship_stats[fleet.ships[0][0]].deck_size / 2.5
+                        dx += ship_stats[fleet.ships[0][0]].deck_size
+                        dy += ship_stats[fleet.ships[0][0]].deck_size / 2.5
                         if islands_check(fx, fy, ax, ay, 24):
                             if ((ax - fleet.target_x) ** 2 + (ay - fleet.target_y) ** 2) ** 0.5 < gip:
                                 gip = ((ax - fleet.target_x) ** 2 + (ay - fleet.target_y) ** 2) ** 0.5
@@ -1193,7 +1238,8 @@ def run_game():
             if fleet.move == True:
                 if fleet == fleets[0]:
                     fleet_move(fleet, fleet.angle, fleet.speed * 5)
-                    if islands_check(fleet.x - island_x, fleet.y - island_y, fleet.x - island_x, fleet.y - island_y, fleet.deck_size / 2.5):
+                    if islands_check(fleet.x - island_x, fleet.y - island_y, fleet.x - island_x, fleet.y - island_y,
+                                     ship_stats[fleet.ships[0][0]].deck_size / 2.5):
                         if fleet.angle == 6:
                             island_x += 0 * fleet.speed * 5
                             island_y += -0.41 * fleet.speed * 5
@@ -1262,53 +1308,34 @@ def run_game():
                         profit = 0
                         max = 0
                         for ship in fleet.ships:
-                            profit += randint(0, ships_dict[ship[0]][4] // 10)
-                            max += ships_dict[ship[0]][4]
+                            profit += randint(0, ship_stats[ship[0]].cost // 10)
+                            max += ship_stats[ship[0]].cost
                         fleet.gold += profit
                         if fleet.gold > max:
                             fleet.gold = max
                         if fleet.rank == 0:
-                            for ship in fleet.ships:
-                                while fleet.gold > 0 and ship[2] > ship[1]:
-                                    ship[1] += 1
-                                    fleet.gold -= 80
-                                if fleet.gold < 0:
-                                    ship[1] -= 1
-                                    fleet.gold += 80
+                            repair_cost = 80
                             t = randint(1, 4)
-                            trade_ship = list(ships_dict.keys())[t]
-                            while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
-                                fleet.gold -= ships_dict[trade_ship][4]
-                                fleet.ships.append([trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
-                                                    ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
                         elif fleet.rank == 1:
-                            for ship in fleet.ships:
-                                while fleet.gold > 0 and ship[2] > ship[1]:
-                                    ship[1] += 1
-                                    fleet.gold -= 120
-                                if fleet.gold < 0:
-                                    ship[1] -= 1
-                                    fleet.gold += 120
+                            repair_cost = 120
                             t = randint(6, 8)
-                            trade_ship = list(ships_dict.keys())[t]
-                            while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
-                                fleet.gold -= ships_dict[trade_ship][4]
-                                fleet.ships.append([trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
-                                                    ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
                         elif fleet.rank == 2:
-                            for ship in fleet.ships:
-                                while fleet.gold > 0 and ship[2] > ship[1]:
-                                    ship[1] += 1
-                                    fleet.gold -= 160
-                                if fleet.gold < 0:
-                                    ship[1] -= 1
-                                    fleet.gold += 160
+                            repair_cost = 160
                             t = randint(10, 11)
-                            trade_ship = list(ships_dict.keys())[t]
-                            while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
-                                fleet.gold -= ships_dict[trade_ship][4]
-                                fleet.ships.append([trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
-                                                    ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                        elif fleet.rank == 3:
+                            repair_cost = 200
+                            t = randint(13, 14)
+                        for ship in fleet.ships:
+                            while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
+                                ship[1] += 1
+                                fleet.gold -= repair_cost
+                            if fleet.gold < 0:
+                                ship[1] -= 1
+                                fleet.gold += repair_cost
+                        trade_ship = list(ship_stats.keys())[t]
+                        while fleet.gold >= ship_stats[trade_ship].cost and len(fleet.ships) < 5:
+                            fleet.gold -= ship_stats[trade_ship].cost
+                            fleet.ships.append([trade_ship, ship_stats[trade_ship].max_hp])
                 elif fleet.type == 2:
                     mingip = (fleet.rank + 2) * i_width / 2
                     for other_fleet in fleets:
@@ -1320,7 +1347,7 @@ def run_game():
                                 mingip = gip
                     max_gold = 0
                     for ship in fleet.ships:
-                        max_gold += ships_dict[ship[0]][4]
+                        max_gold += ship_stats[ship[0]].cost
                     if fleet.gold >= max_gold:
                         mingip = 99999
                         k = -1
@@ -1334,50 +1361,28 @@ def run_game():
                         fleet.target_y = forposts[k][1] + i_height / 2
                         if mingip < i_width / 2:
                             if fleet.rank == 0:
-                                for ship in fleet.ships:
-                                    while fleet.gold > 0 and ship[2] > ship[1]:
-                                        ship[1] += 1
-                                        fleet.gold -= 80
-                                    if fleet.gold < 0:
-                                        ship[1] -= 1
-                                        fleet.gold += 80
+                                repair_cost = 80
                                 t = randint(0, 3)
-                                trade_ship = list(ships_dict.keys())[t]
-                                while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
-                                    fleet.gold -= ships_dict[trade_ship][4]
-                                    fleet.ships.append(
-                                        [trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
-                                         ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
                             elif fleet.rank == 1:
-                                for ship in fleet.ships:
-                                    while fleet.gold > 0 and ship[2] > ship[1]:
-                                        ship[1] += 1
-                                        fleet.gold -= 120
-                                    if fleet.gold < 0:
-                                        ship[1] -= 1
-                                        fleet.gold += 120
+                                repair_cost = 120
                                 t = randint(5, 7)
-                                trade_ship = list(ships_dict.keys())[t]
-                                while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
-                                    fleet.gold -= ships_dict[trade_ship][4]
-                                    fleet.ships.append(
-                                        [trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
-                                         ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
                             elif fleet.rank == 2:
-                                for ship in fleet.ships:
-                                    while fleet.gold > 0 and ship[2] > ship[1]:
-                                        ship[1] += 1
-                                        fleet.gold -= 160
-                                    if fleet.gold < 0:
-                                        ship[1] -= 1
-                                        fleet.gold += 160
-                                t = randint(9, 10)
-                                trade_ship = list(ships_dict.keys())[t]
-                                while fleet.gold >= ships_dict[trade_ship][4] and len(fleet.ships) < 5:
-                                    fleet.gold -= ships_dict[trade_ship][4]
-                                    fleet.ships.append(
-                                        [trade_ship, ships_dict[trade_ship][6], ships_dict[trade_ship][6],
-                                         ships_dict[trade_ship][7], ships_dict[trade_ship][8]])
+                                repair_cost = 160
+                                t = randint(8, 10)
+                            elif fleet.rank == 3:
+                                repair_cost = 200
+                                t = randint(11, 13)
+                            for ship in fleet.ships:
+                                while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
+                                    ship[1] += 1
+                                    fleet.gold -= repair_cost
+                                if fleet.gold < 0:
+                                    ship[1] -= 1
+                                    fleet.gold += repair_cost
+                            trade_ship = list(ship_stats.keys())[t]
+                            while fleet.gold >= ship_stats[trade_ship].cost and len(fleet.ships) < 5:
+                                fleet.gold -= ship_stats[trade_ship].cost
+                                fleet.ships.append([trade_ship, ship_stats[trade_ship].max_hp])
                     elif mingip >= (fleet.rank + 2) * i_width / 2:
                         gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                         if gip < 32:
@@ -1415,7 +1420,6 @@ def run_game():
                                 if gip < mingip and forposts[f][5] == fleet.fraction:
                                     mingip = gip
                                     k = f
-                                print(forposts[k][5], fleet.fraction)
                             fleet.target_x = forposts[k][0] - i_width/2
                             fleet.target_y = forposts[k][1] + i_height/2
                             if mingip < i_width / 2:
@@ -1423,7 +1427,7 @@ def run_game():
                                 fleet_move(fleet, (fleet.angle + 6) % 12, fleet.speed * 5)
                                 if fleet.rank == 0:
                                     for ship in fleet.ships:
-                                        while fleet.gold > 0 and ship[2] > ship[1]:
+                                        while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
                                             ship[1] += 1
                                             fleet.gold -= 80
                                         if fleet.gold < 0:
@@ -1431,10 +1435,10 @@ def run_game():
                                             fleet.gold += 80
                                     while fleet.gold >= 3000 and len(fleet.ships) < 5:
                                         fleet.gold -= 3000
-                                        fleet.ships.append(["lugger", 25, 25, 3, 1.6])
+                                        fleet.ships.append(["lugger", 25])
                                 elif fleet.rank == 1:
                                     for ship in fleet.ships:
-                                        while fleet.gold > 0 and ship[2] > ship[1]:
+                                        while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
                                             ship[1] += 1
                                             fleet.gold -= 120
                                         if fleet.gold < 0:
@@ -1442,10 +1446,10 @@ def run_game():
                                             fleet.gold += 120
                                     while fleet.gold >= 7000 and len(fleet.ships) < 5:
                                         fleet.gold -= 7000
-                                        fleet.ships.append(["brig", 40, 40, 5, 2.0])
+                                        fleet.ships.append(["brig", 40])
                                 elif fleet.rank == 2:
                                     for ship in fleet.ships:
-                                        while fleet.gold > 0 and ship[2] > ship[1]:
+                                        while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
                                             ship[1] += 1
                                             fleet.gold -= 160
                                         if fleet.gold < 0:
@@ -1453,7 +1457,18 @@ def run_game():
                                             fleet.gold += 160
                                     while fleet.gold >= 15000 and len(fleet.ships) < 5:
                                         fleet.gold -= 15000
-                                        fleet.ships.append(["corvet", 60, 60, 7, 2.4])
+                                        fleet.ships.append(["corvet", 60])
+                                elif fleet.rank == 3:
+                                    for ship in fleet.ships:
+                                        while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
+                                            ship[1] += 1
+                                            fleet.gold -= 200
+                                        if fleet.gold < 0:
+                                            ship[1] -= 1
+                                            fleet.gold += 200
+                                    while fleet.gold >= 30000 and len(fleet.ships) < 5:
+                                        fleet.gold -= 30000
+                                        fleet.ships.append(["warship", 90])
                 elif fleet.type == 4:
                     gip = ((fleet.target_x + island_x - fleet.x) ** 2 + 6.25 * (fleet.target_y + island_y - fleet.y) ** 2) ** 0.5
                     if gip < 32:
@@ -1468,34 +1483,23 @@ def run_game():
                                 k = f
                         max_gold = 0
                         for ship in other_fleet.ships:
-                            max_gold += ships_dict[ship[0]][4]
+                            max_gold += ship_stats[ship[0]].cost
                         if mingip < 32 and fleet.gold > 0:
                             fleet.move = False
                             fleet_move(fleet, (fleet.angle + 6) % 12, fleet.speed * 5)
-                            if fleet.rank == 0:
-                                for ship in fleet.ships:
-                                    while fleet.gold > 0 and ship[2] > ship[1]:
-                                        ship[1] += 1
-                                        fleet.gold -= 80
-                                    if fleet.gold < 0:
-                                        ship[1] -= 1
-                                        fleet.gold += 80
-                            elif fleet.rank == 1:
-                                for ship in fleet.ships:
-                                    while fleet.gold > 0 and ship[2] > ship[1]:
-                                        ship[1] += 1
-                                        fleet.gold -= 120
-                                    if fleet.gold < 0:
-                                        ship[1] -= 1
-                                        fleet.gold += 120
+                            if fleet.rank == 0 or fleet.rank == 1:
+                                repair_cost = 80
                             elif fleet.rank == 2:
-                                for ship in fleet.ships:
-                                    while fleet.gold > 0 and ship[2] > ship[1]:
-                                        ship[1] += 1
-                                        fleet.gold -= 160
-                                    if fleet.gold < 0:
-                                        ship[1] -= 1
-                                        fleet.gold += 160
+                                repair_cost = 120
+                            elif fleet.rank == 3:
+                                repair_cost = 160
+                            for ship in fleet.ships:
+                                while fleet.gold > 0 and ship_stats[ship[0]].max_hp > ship[1]:
+                                    ship[1] += 1
+                                    fleet.gold -= repair_cost
+                                if fleet.gold < 0:
+                                    ship[1] -= 1
+                                    fleet.gold += repair_cost
                             fleet.gold -= 10
                             if fleet.gold < 0:
                                 fleet.gold = 0
@@ -1518,7 +1522,7 @@ def run_game():
                             fleet.target_x = fx
                             fleet.target_y = fy
                             for ship in fleet.ships:
-                                fleet.gold += ships_dict[ship[0]][4] // 20
+                                fleet.gold += ship_stats[ship[0]].cost // 20
 
         sum += time.clock() - t0
         print("change_target ", time.clock() - t0)
@@ -1808,6 +1812,15 @@ def run_game():
                     info = f.render('CITY', True, color)
                     display.blit(info, (center_x - 20 + (island_x + fx - i_width / 2) / scale,
                                         center_y + (island_y + fy - (i_height - 10) / 2) / scale))
+                elif forpost[2] == 4:
+                    rect = image_forpost4.get_rect(center=(center_x + (island_x + fx - i_width / 2) / scale,
+                                                           center_y + (island_y + fy - i_height / 2) / scale))
+                    surf, r = rot_center(image_forpost4, rect, 0)
+                    display.blit(surf, r)
+                    f = pygame.font.Font(None, 48 // scale)
+                    info = f.render('CASTLE', True, color)
+                    display.blit(info, (center_x - 20 + (island_x + fx - i_width / 2) / scale,
+                                        center_y + (island_y + fy - (i_height - 10) / 2) / scale))
                 rect = image_forpost_zone.get_rect(center=(center_x + (island_x + fx - i_width/2) / scale,
                                                            center_y + (island_y + fy + i_height/2) / scale))
                 surf, r = rot_center(image_forpost_zone, rect, 0)
@@ -1820,12 +1833,12 @@ def run_game():
         fleets_paint = copy.copy(fleets)
         fleets_paint.sort(key=lambda f: f.y)
         for fleet in fleets_paint:
-            if (-display_width - fleet.pic_size < fleet.x < display_width + fleet.pic_size) and (
-                -display_height - fleet.pic_size < fleet.y < display_height + fleet.pic_size):
+            if (-display_width - ship_stats[fleet.ships[0][0]].pic_size < fleet.x < display_width + ship_stats[fleet.ships[0][0]].pic_size) and (
+                -display_height - ship_stats[fleet.ships[0][0]].pic_size < fleet.y < display_height + ship_stats[fleet.ships[0][0]].pic_size):
                 if fleet.move == True:
-                    image = fleet.ms_sail1[fleet.angle]
+                    image = ship_stats[fleet.ships[0][0]].ms_sail1[fleet.angle]
                 else:
-                    image = fleet.ms_sail0[fleet.angle]
+                    image = ship_stats[fleet.ships[0][0]].ms_sail0[fleet.angle]
                 rect = image.get_rect(center=(center_x + fleet.x / scale, center_y + fleet.y / scale))
                 surf, r = rot_center(image, rect, 0)
                 display.blit(surf, r)
@@ -1838,8 +1851,8 @@ def run_game():
         t0 = time.clock()
 
         for fleet in fleets:
-            if (-display_width - fleet.pic_size < fleet.x < display_width + fleet.pic_size) and (
-                    -display_height - fleet.pic_size < fleet.y < display_height + fleet.pic_size):
+            if (-display_width - ship_stats[fleet.ships[0][0]].pic_size < fleet.x < display_width + ship_stats[fleet.ships[0][0]].pic_size) and (
+                    -display_height - ship_stats[fleet.ships[0][0]].pic_size < fleet.y < display_height + ship_stats[fleet.ships[0][0]].pic_size):
                 if fleet.fraction == 'RED':
                     color = (255, 0, 0)
                 elif fleet.fraction == 'GREEN':
@@ -1872,7 +1885,7 @@ def run_game():
                 k = 0
                 f = pygame.font.SysFont(None, 32 // scale)
                 for ship in fleet.ships:
-                    info = f.render(ship[0] + " " + str(ship[1]) + "/" + str(ship[2]), True, (0, 0, 0))
+                    info = f.render(ship[0] + " " + str(ship[1]) + "/" + str(ship_stats[ship[0]].max_hp), True, (0, 0, 0))
                     display.blit(info, (center_x + (fleet.x - 50) / scale, center_y + (fleet.y + k) / scale))
                     k += 32
 
@@ -1968,8 +1981,8 @@ def run_game():
                         name = pygame.font.Font(None, 32)
                         b1 = name.render('buy ship - (Q)', True, (255, 0, 0))
                         display.blit(b1, (0.1 * display_width - 50, center_y * 2 / 3 - 200))
-                        image = pygame.transform.smoothscale(ships_dict[forpost[3]][1][(game_time // 5) % 12],
-                                                            (ships_dict[forpost[3]][2] / 2, ships_dict[forpost[3]][2] / 2))
+                        image = pygame.transform.smoothscale(ship_stats[forpost[3]].ms_sail1[(game_time // 5) % 12],
+                                                            (ship_stats[forpost[3]].pic_size / 2, ship_stats[forpost[3]].pic_size / 2))
                         rect = image.get_rect(center=(0.1 * display_width, center_y * 2 / 3))
                         surf, r = rot_center(image, rect, 0)
                         display.blit(surf, r)
@@ -1977,24 +1990,24 @@ def run_game():
                         b1 = name.render(forpost[3], True, (0, 0, 0))
                         display.blit(b1, (0.1 * display_width - 30, center_y * 2 / 3 + 30))
                         name = pygame.font.Font(None, 24)
-                        b1 = name.render('health:  ' + str(ships_dict[forpost[3]][6]) + ' / ' + str(ships_dict[forpost[3]][6]), True, (255, 0, 0))
+                        b1 = name.render('health:  ' + str(ship_stats[forpost[3]].max_hp) + ' / ' + str(ship_stats[forpost[3]].max_hp), True, (255, 0, 0))
                         display.blit(b1, (0.1 * display_width - 50, center_y * 2 / 3 + 62))
                         name = pygame.font.Font(None, 24)
-                        b1 = name.render('speed: ' + str(int(ships_dict[forpost[3]][8] * 5)) + ' knots', True, (0, 0, 255))
+                        b1 = name.render('speed: ' + str(int(ship_stats[forpost[3]].speed * 5)) + ' knots', True, (0, 0, 255))
                         display.blit(b1, (0.1 * display_width - 50, center_y * 2 / 3 + 86))
                         name = pygame.font.Font(None, 24)
-                        b1 = name.render('turn speed: ' + str(ships_dict[forpost[3]][5]) + '%', True, (0, 0, 255))
+                        b1 = name.render('turn speed: ' + str(ship_stats[forpost[3]].t_speed) + '%', True, (0, 0, 255))
                         display.blit(b1, (0.1 * display_width - 50, center_y * 2 / 3 + 110))
                         name = pygame.font.Font(None, 24)
-                        b1 = name.render('cost: ' + str(ships_dict[forpost[3]][4]) + ' gold', True, (64, 64, 64))
+                        b1 = name.render('cost: ' + str(ship_stats[forpost[3]].cost) + ' gold', True, (64, 64, 64))
                         display.blit(b1, (0.1 * display_width - 50, center_y * 2 / 3 + 134))
 
                     if forpost[4] != '-':
                         name = pygame.font.Font(None, 32)
                         b1 = name.render('buy ship - (E)', True, (255, 0, 0))
                         display.blit(b1, (0.9 * display_width - 50, center_y * 2 / 3 - 200))
-                        image = pygame.transform.smoothscale(ships_dict[forpost[4]][1][(game_time // 5) % 12],
-                                                            (ships_dict[forpost[4]][2] / 2, ships_dict[forpost[4]][2] / 2))
+                        image = pygame.transform.smoothscale(ship_stats[forpost[4]].ms_sail1[(game_time // 5) % 12],
+                                                             (ship_stats[forpost[4]].pic_size / 2, ship_stats[forpost[4]].pic_size / 2))
                         rect = image.get_rect(center=(0.9 * display_width, center_y * 2 / 3))
                         surf, r = rot_center(image, rect, 0)
                         display.blit(surf, r)
@@ -2002,24 +2015,24 @@ def run_game():
                         b1 = name.render(forpost[4], True, (0, 0, 0))
                         display.blit(b1, (0.9 * display_width - 30, center_y * 2 / 3 + 30))
                         name = pygame.font.Font(None, 24)
-                        b1 = name.render('health:  ' + str(ships_dict[forpost[4]][6]) + ' / ' + str(ships_dict[forpost[4]][6]), True, (255, 0, 0))
+                        b1 = name.render('health:  ' + str(ship_stats[forpost[3]].max_hp) + ' / ' + str(ship_stats[forpost[3]].max_hp), True, (255, 0, 0))
                         display.blit(b1, (0.9 * display_width - 50, center_y * 2 / 3 + 62))
-                        b1 = name.render('speed: ' + str(int(ships_dict[forpost[4]][8] * 5)) + ' knots', True, (0, 0, 255))
+                        b1 = name.render('speed: ' + str(int(ship_stats[forpost[3]].speed * 5)) + ' knots', True, (0, 0, 255))
                         display.blit(b1, (0.9 * display_width - 50, center_y * 2 / 3 + 86))
-                        b1 = name.render('turn speed: ' + str(ships_dict[forpost[4]][5]) + '%', True, (0, 0, 255))
+                        b1 = name.render('turn speed: ' + str(ship_stats[forpost[4]].t_speed) + '%', True, (0, 0, 255))
                         display.blit(b1, (0.9 * display_width - 50, center_y * 2 / 3 + 110))
-                        b1 = name.render('cost: ' + str(ships_dict[forpost[4]][4]) + ' gold', True, (64, 64, 64))
+                        b1 = name.render('cost: ' + str(ship_stats[forpost[4]].cost) + ' gold', True, (64, 64, 64))
                         display.blit(b1, (0.9 * display_width - 50, center_y * 2 / 3 + 134))
 
                     for m in range(len(fleets[0].ships)):
                         ship = fleets[0].ships[m]
                         if m == menu:
-                            image = pygame.transform.smoothscale(ships_dict[ship[0]][0][(game_time // 5) % 12],
-                                                             (ships_dict[ship[0]][2] / 2, ships_dict[ship[0]][2] / 2))
+                            image = pygame.transform.smoothscale(ship_stats[ship[0]].ms_sail1[(game_time // 5) % 12],
+                                                             (ship_stats[ship[0]].pic_size / 2, ship_stats[ship[0]].pic_size / 2))
                             color = (0, 0, 255)
                         else:
-                            image = pygame.transform.smoothscale(ships_dict[ship[0]][1][(game_time // 5) % 12],
-                                                             (ships_dict[ship[0]][2] / 2,ships_dict[ship[0]][2] / 2))
+                            image = pygame.transform.smoothscale(ship_stats[ship[0]].ms_sail_0[(game_time // 5) % 12],
+                                                             (ship_stats[ship[0]].pic_size / 2, ship_stats[ship[0]].pic_size / 2))
                             color = (0, 0, 0)
                         rect = image.get_rect(center=(center_x + step, center_y * 5 / 3))
                         surf, r = rot_center(image, rect, 0)
@@ -2028,18 +2041,24 @@ def run_game():
                         b1 = name.render(ship[0], True, color)
                         display.blit(b1, (center_x + step - 30, center_y * 5 / 3 + 30))
                         name = pygame.font.Font(None, 24)
-                        b1 = name.render('health:  ' + str(int(ship[1])) + ' / ' + str(int(ship[2])), True, (255, 0, 0))
+                        b1 = name.render('health:  ' + str(int(ship[1])) + ' / ' + str(int(ship_stats[ship[0]].max_hp)), True, (255, 0, 0))
                         display.blit(b1, (center_x + step - 50, center_y * 5 / 3 + 62))
                         if menu == m:
-                            if ships_dict[ship[0]][4] <= 3000:
+                            if ship_stats[ship[0]].cost <= 3000:
                                 cost = 80
-                            else:
+                            elif ship_stats[ship[0]].cost <= 7000:
                                 cost = 120
+                            elif ship_stats[ship[0]].cost <= 15000:
+                                cost = 160
+                            else:
+                                cost = 200
                             name = pygame.font.Font(None, 24)
-                            b1 = name.render('repair: ' + str((ship[2] - ship[1]) * cost) + ' gold - (R)', True, (64, 64, 64))
+                            hp = ship[1]
+                            max_hp = ship_stats[ship[0]].max_hp
+                            b1 = name.render('repair: ' + str((max_hp - hp) * cost) + ' gold - (R)', True, (64, 64, 64))
                             display.blit(b1, (center_x + step - 50, center_y * 5 / 3 + 86))
                             name = pygame.font.Font(None, 24)
-                            b1 = name.render('sold: ' + str(int(ship[1] / ship[2] * ships_dict[ship[0]][4] // 2)) + ' gold - (T)', True, (64, 64, 64))
+                            b1 = name.render('sold: ' + str(int(hp / max_hp * ship_stats[ship[0]].cost // 2)) + ' gold - (T)', True, (64, 64, 64))
                             display.blit(b1, (center_x + step - 50, center_y * 5 / 3 + 110))
                         step += display_width * 0.2
                     f = pygame.font.Font(None, 36)
@@ -2060,59 +2079,48 @@ def run_game():
                                 menu = 0
                             stop = 5
                     elif keys[pygame.K_r]:
-                        if ships_dict[fleets[0].ships[menu][0]][4] <= 3000:
-                            cost = 80
+                        if ship_stats[ship[0]].cost <= 3000:
+                            repair_cost = 80
+                        elif ship_stats[ship[0]].cost <= 7000:
+                            repair_cost = 120
+                        elif ship_stats[ship[0]].cost <= 15000:
+                            repair_cost = 160
                         else:
-                            cost = 120
-                        while fleets[0].gold > 0 and fleets[0].ships[menu][2] > fleets[0].ships[menu][1]:
+                            repair_cost = 200
+                        while fleets[0].gold > 0 and ship_stats[fleets[0].ships[menu][0]].max_hp > fleets[0].ships[menu][1]:
                             fleets[0].ships[menu][1] += 1
-                            fleets[0].gold -= cost
+                            fleets[0].gold -= repair_cost
                         if fleets[0].gold < 0:
                             fleets[0].ships[menu][1] -= 1
-                            fleets[0].gold += cost
+                            fleets[0].gold += repair_cost
                     elif keys[pygame.K_t]:
                         if stop == 0:
                             if len(fleets[0].ships) >= 2:
-                                fleets[0].gold += (fleets[0].ships[menu][1] / fleets[0].ships[menu][2] * ships_dict[fleets[0].ships[menu][0]][4]) // 2
+                                fleets[0].gold += (fleets[0].ships[menu][1] / ship_stats[fleets[0].ships[menu][0]].max_hp
+                                                   * ship_stats[fleets[0].ships[menu][0]].cost) // 2
                                 fleets[0].ships.remove(fleets[0].ships[menu])
                                 stop = 10
                                 if menu > len(fleets[0].ships) - 1:
                                     menu -= 1
-                                fleets[0].ships.sort(key=ships_speed_key)
-                                if (len(fleets[0].ships) > 0):
-                                    fleets[0].speed = fleets[0].ships[0][4]
-                                fleets[0].ships.sort(key=ships_rank_key)
-                                fleets[0].ms_sail1 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][0]
-                                fleets[0].ms_sail0 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][1]
-                                fleets[0].pic_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][2]
-                                fleets[0].deck_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][3]
+                                fleets[0].speed = 2.4
+                                for ship in fleets[0].ships:
+                                    if ship_stats[ship[0]].speed < fleets[0].speed:
+                                        fleets[0].speed = ship_stats[ship[0]].speed
                     elif keys[pygame.K_q]:
-                        if forpost[3] != '-' and (len(fleets[0].ships) < 5) and fleets[0].gold >= ships_dict[forpost[3]][4]:
-                            fleets[0].gold -= ships_dict[forpost[3]][4]
-                            fleets[0].ships.append([forpost[3], ships_dict[forpost[3]][6], ships_dict[forpost[3]][6],
-                                                    ships_dict[forpost[3]][7], ships_dict[forpost[3]][8]])
+                        if forpost[3] != '-' and (len(fleets[0].ships) < 5) and fleets[0].gold >= ship.stats[forpost[3]].cost:
+                            fleets[0].gold -= ship.stats[forpost[3]].cost
+                            fleets[0].ships.append([forpost[3], ship.stats[forpost[3]].max_hp])
                             fleets[0].ships.sort(key=ships_speed_key)
-                            if (len(fleets[0].ships) > 0):
-                                fleets[0].speed = fleets[0].ships[0][4]
-                            fleets[0].ships.sort(key=ships_rank_key)
-                            fleets[0].ms_sail1 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][0]
-                            fleets[0].ms_sail0 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][1]
-                            fleets[0].pic_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][2]
-                            fleets[0].deck_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][3]
+                            if ship_stats[forpost[3]].speed < fleets[0].speed:
+                                fleets[0].speed = ship_stats[forpost[3]].speed
                             forpost[3] = '-'
                     elif keys[pygame.K_e]:
-                        if forpost[4] != '-' and (len(fleets[0].ships) < 5) and fleets[0].gold >= ships_dict[forpost[4]][4]:
-                            fleets[0].gold -= ships_dict[forpost[4]][4]
-                            fleets[0].ships.append([forpost[4], ships_dict[forpost[4]][6], ships_dict[forpost[4]][6],
-                                                    ships_dict[forpost[4]][7], ships_dict[forpost[4]][8]])
+                        if forpost[4] != '-' and (len(fleets[0].ships) < 5) and fleets[0].gold >= ship.stats[forpost[4]].cost:
+                            fleets[0].gold -= ship.stats[forpost[4]].cost
+                            fleets[0].ships.append([forpost[4], ship.stats[forpost[4]].max_hp])
                             fleets[0].ships.sort(key=ships_speed_key)
-                            if (len(fleets[0].ships) > 0):
-                                fleets[0].speed = fleets[0].ships[0][4]
-                            fleets[0].ships.sort(key=ships_rank_key)
-                            fleets[0].ms_sail1 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][0]
-                            fleets[0].ms_sail0 = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][1]
-                            fleets[0].pic_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][2]
-                            fleets[0].deck_size = ships_dict[fleets[0].ships[len(fleets[0].ships) - 1][0]][3]
+                            if ship_stats[forpost[4]].speed < fleets[0].speed:
+                                fleets[0].speed = ship_stats[forpost[4]].speed
                             forpost[4] = '-'
                     elif keys[pygame.K_x]:
                         fleets[0].x = 0
@@ -2187,6 +2195,8 @@ def run_game():
                                                             ((i_width + 16) / 17, (i_height + 184) / 17))
             m_image_forpost3 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost3.png'),
                                                             ((i_width + 16) / 17, (i_height + 204) / 17))
+            image_forpost4 = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\forpost4.png'),
+                                                          ((i_width + 16) / scale, (i_height + 264) / scale))
 
             for island in islands:
                 ax = island[0]
@@ -2349,18 +2359,32 @@ def run_game():
                     info = f.render('CITY', True, color)
                     display.blit(info, (center_x - 10 + (fx - i_width / 2) / 16,
                                         center_y * 2/3 + (fy + (i_height - 10) / 2) / 16))
-            for fleet in fleets:
-                if (math.fabs(fleet.x) < display_width) and (math.fabs(fleet.y) < display_height):
+                elif forpost[2] == 3:
+                    rect = m_image_forpost3.get_rect(center=(center_x + (fx - i_width / 2) / 16, center_y * 2/3 + (fy - i_height / 2) / 16))
+                    surf, r = rot_center(m_image_forpost3, rect, 0)
+                    display.blit(surf, r)
+                    f = pygame.font.Font(None, 24 // scale)
+                    info = f.render('CASTLE', True, color)
+                    display.blit(info, (center_x - 10 + (fx - i_width / 2) / 16,
+                                        center_y * 2/3 + (fy + (i_height - 10) / 2) / 16))
+            fleets_paint = copy.copy(fleets)
+            fleets_paint.sort(key=lambda f: f.y)
+            for fleet in fleets_paint:
+                if (-display_width - ship_stats[fleet.ships[0][0]].pic_size / 8 < fleet.x < display_width + ship_stats[fleet.ships[0][0]].pic_size / 8) and (
+                    -display_height - ship_stats[fleet.ships[0][0]].pic_size / 8 < fleet.y < display_height + ship_stats[fleet.ships[0][0]].pic_size / 8):
                     if fleet.move == True:
-                        image = pygame.transform.smoothscale(fleet.ms_sail1[fleet.angle], (fleet.pic_size / 16, fleet.pic_size / 16))
+                        image = pygame.transform.smoothscale(ship_stats[fleet.ships[0][0]].ms_sail1[fleet.angle],
+                                (ship_stats[fleet.ships[0][0]].pic_size / 16, ship_stats[fleet.ships[0][0]].pic_size / 16))
                     else:
-                        image = pygame.transform.smoothscale(fleet.ms_sail0[fleet.angle], (fleet.pic_size / 16, fleet.pic_size / 16))
+                        image = pygame.transform.smoothscale(ship_stats[fleet.ships[0][0]].ms_sail0[fleet.angle],
+                                (ship_stats[fleet.ships[0][0]].pic_size / 16, ship_stats[fleet.ships[0][0]].pic_size / 16))
                     rect = image.get_rect(center=(center_x + (fleet.x - island_x) / 16, center_y * 2/3 + (fleet.y - island_y) / 16))
                     surf, r = rot_center(image, rect, 0)
                     display.blit(surf, r)
             step = -display_width * 0.4
             for ship in fleets[0].ships:
-                image = pygame.transform.smoothscale(ships_dict[ship[0]][0][(game_time // 5) % 12], (ships_dict[ship[0]][2] / 2, ships_dict[ship[0]][2] / 2))
+                image = pygame.transform.smoothscale(ship_stats[ship[0]].ms_sail1[(game_time // 5) % 12],
+                                                     (ship_stats[ship[0]].pic_size / 2, ship_stats[ship[0]].pic_size / 2))
                 rect = image.get_rect(center=(center_x + step, center_y * 5 / 3))
                 surf, r = rot_center(image, rect, 0)
                 display.blit(surf, r)
@@ -2368,13 +2392,13 @@ def run_game():
                 b1 = name.render(ship[0], True, (0, 0, 0))
                 display.blit(b1, (center_x + step - 30, center_y * 5 / 3 + 30))
                 name = pygame.font.Font(None, 24)
-                b1 = name.render('health:  ' + str(int(ship[1])) + ' / ' + str(int(ship[2])), True, (255, 0, 0))
+                b1 = name.render('health:  ' + str(int(ship[1])) + ' / ' + str(int(ship_stats[ship[0]].max_hp)), True, (255, 0, 0))
                 display.blit(b1, (center_x + step - 50, center_y * 5 / 3 + 62))
                 name = pygame.font.Font(None, 24)
-                b1 = name.render('speed: ' + str(int(ship[4] * 5)) + ' knots', True, (0, 0, 255))
+                b1 = name.render('speed: ' + str(int(ship_stats[ship[0]].speed * 5)) + ' knots', True, (0, 0, 255))
                 display.blit(b1, (center_x + step - 50, center_y * 5 / 3 + 86))
                 name = pygame.font.Font(None, 24)
-                b1 = name.render('turn speed: ' + str(ships_dict[ship[0]][5]) + '%', True, (0, 0, 255))
+                b1 = name.render('turn speed: ' + str(ship_stats[ship[0]].t_speed) + '%', True, (0, 0, 255))
                 display.blit(b1, (center_x + step - 50, center_y * 5 / 3 + 110))
                 step += display_width * 0.2
 
@@ -2390,24 +2414,38 @@ def run_game():
                 for other_fleet in fleets:
                     if other_fleet.type == 1 or other_fleet.type == 3 or other_fleet.type == 4:
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
-                        if (gip < other_fleet.deck_size + fleet.deck_size):
+                        print(other_fleet.ships, fleet.ships)
+                        print(other_fleet.ships[0], fleet.ships[0])
+                        print(other_fleet.ships[0][0], fleet.ships[0][0])
+                        print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
+                        battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                        if (gip < battle_radius):
                             f = pygame.font.Font(None, 36)
                             b = f.render('press F to fight', True, (255, 0, 0))
-                            display.blit(b, (display_width / 2 - 70, 0.5 * display_height - 80))
+                            display.blit(b, (0.5 * display_width - 70, 0.5 * display_height - 80))
                             if keys[pygame.K_f]:
                                 fraction_relations[other_fleet.fraction] -= len(other_fleet.ships)
                                 battle_with_player(other_fleet)
             elif fleet.type == 1:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
-                if (gip < fleets[0].deck_size + fleet.deck_size and fraction_relations[fleet.fraction] < 0):
+                print(other_fleet.ships, fleet.ships)
+                print(other_fleet.ships[0], fleet.ships[0])
+                print(other_fleet.ships[0][0], fleet.ships[0][0])
+                print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
+                battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
                     fraction_relations[fleet.fraction] -= len(fleet.ships)
                     battle_with_player(fleet)
             elif fleet.type == 2:
                 for other_fleet in fleets:
                     if other_fleet.type == 0 or other_fleet.type == 1 or other_fleet.type == 4:
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
-                        if (gip < other_fleet.deck_size + fleet.deck_size) and (fleet.target_x // 1 == (-island_x + other_fleet.x) // 1) and (
-                            fleet.target_y // 1 == (-island_y + other_fleet.y) // 1):
+                        print(other_fleet.ships, fleet.ships)
+                        print(other_fleet.ships[0], fleet.ships[0])
+                        print(other_fleet.ships[0][0], fleet.ships[0][0])
+                        print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
+                        battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                        if (gip < battle_radius):
                             if other_fleet == fleets[0]:
                                 battle_with_player(fleet)
                             else:
@@ -2416,23 +2454,22 @@ def run_game():
                 for other_fleet in fleets:
                     if other_fleet.type == 2 or (other_fleet.type == 0 and fraction_relations[fleet.fraction] < 0):
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
-                        # target_gip = ((other_fleet.x - island_x - other_fleet.target_x) ** 2
-                        #               + (other_fleet.y - island_y - other_fleet.target_y) ** 2) ** 0.5
-                        if (gip < other_fleet.deck_size + fleet.deck_size) and (fleet.target_x // 1 == (-island_x + other_fleet.x) // 1) and (
-                            fleet.target_y // 1 == (-island_y + other_fleet.y) // 1):
+                        print(other_fleet.ships, fleet.ships)
+                        print(other_fleet.ships[0], fleet.ships[0])
+                        print(other_fleet.ships[0][0], fleet.ships[0][0])
+                        print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
+                        battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                        if (gip < battle_radius):
                             if other_fleet == fleets[0]:
                                 battle_with_player(fleet)
                             else:
                                 auto_battle_step(fleet, other_fleet)
             elif fleet.type == 4:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
-                if (gip < fleets[0].deck_size + fleet.deck_size and fraction_relations[fleet.fraction] < 0):
+                battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
                     fraction_relations[fleet.fraction] -= len(fleet.ships)
                     battle_with_player(fleet)
-
-        for fleet in fleets:
-            if len(fleet.ships) == 0:
-                fleets.remove(fleet)
 
         f = pygame.font.Font(None, 36)
         forp = f.render(str(sum * 10), True, (255, 0, 0))
@@ -2440,33 +2477,44 @@ def run_game():
 
         pygame.display.update()
         game_time += 1
-        if game_time % (600 * 6) == 0:
+        if game_time % (3600 * 6) == 0:
             for forpost in forposts:
                 if forpost[6] == 'grass' or forpost[6] == 'snow':
-                    forpost[2] = 2
-        if game_time % (1800 * 6) == 0:
+                    forpost[2] = 4
+                elif forpost[6] == 'sand':
+                    forpost[2] = 3
+        elif game_time % (1800 * 6) == 0:
             for forpost in forposts:
-                if forpost[6] == 'grass':
+                if forpost[6] == 'grass' or forpost[6] == 'snow':
                     forpost[2] = 3
                 elif forpost[6] == 'sand':
+                    forpost[2] = 2
+        elif game_time % (600 * 6) == 0:
+            for forpost in forposts:
+                if forpost[6] == 'grass' or forpost[6] == 'snow':
                     forpost[2] = 2
         if game_time % (300 * 6) == 0:
             for forpost in forposts:
                 if forpost[2] == 1:
                     trade_ship = randint(0, 4)
-                    forpost[3] = list(ships_dict.keys())[trade_ship]
+                    forpost[3] = list(ship_stats.keys())[trade_ship]
                     trade_ship = randint(0, 4)
-                    forpost[4] = list(ships_dict.keys())[trade_ship]
+                    forpost[4] = list(ship_stats.keys())[trade_ship]
                 elif forpost[2] == 2:
                     trade_ship = randint(5, 8)
-                    forpost[3] = list(ships_dict.keys())[trade_ship]
+                    forpost[3] = list(ship_stats.keys())[trade_ship]
                     trade_ship = randint(5, 8)
-                    forpost[4] = list(ships_dict.keys())[trade_ship]
+                    forpost[4] = list(ship_stats.keys())[trade_ship]
                 elif forpost[2] == 3:
-                    trade_ship = randint(9, 12)
-                    forpost[3] = list(ships_dict.keys())[trade_ship]
-                    trade_ship = randint(9, 12)
-                    forpost[4] = list(ships_dict.keys())[trade_ship]
+                    trade_ship = randint(9, 11)
+                    forpost[3] = list(ship_stats.keys())[trade_ship]
+                    trade_ship = randint(9, 11)
+                    forpost[4] = list(ship_stats.keys())[trade_ship]
+                elif forpost[2] == 4:
+                    trade_ship = randint(12, 14)
+                    forpost[3] = list(ship_stats.keys())[trade_ship]
+                    trade_ship = randint(12, 14)
+                    forpost[4] = list(ship_stats.keys())[trade_ship]
 
         sum += time.clock() - t0
         print("battle ", time.clock() - t0)
