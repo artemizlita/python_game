@@ -66,6 +66,17 @@ class forpost:
 
 fleets = []
 
+wave_step = []
+wave_step.append(pygame.image.load('global\\waves\\0.png'))
+wave_step.append(pygame.image.load('global\\waves\\1.png'))
+wave_step.append(pygame.image.load('global\\waves\\2.png'))
+wave_step.append(pygame.image.load('global\\waves\\3.png'))
+wave_step.append(pygame.image.load('global\\waves\\4.png'))
+wave_step.append(pygame.image.load('global\\waves\\5.png'))
+wave_step.append(pygame.image.load('global\\waves\\6.png'))
+
+waves = []
+
 barkas_sail1 = []
 barkas_sail0 = []
 for i in range(0, 12):
@@ -859,9 +870,17 @@ def fishers_generate(fraction):
             fleets[len(fleets) - 1].gold += 0
 
 def battle_with_player(fleet):
-    fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships)
+    fleets[0].ships = game_display.battle(fleets[0].ships, fleet.ships, fleet.type, fleet.fraction)
     if len(fleets[0].ships) > 0:
+        max_gold = 0
+        for ship in fleets[0].ships:
+            if ship[0] in ['ladya', 'fleyt', 'pinas', 'tradeship']:
+                max_gold += 2 * ship_stats[ship[0]].cost
+            else:
+                max_gold += ship_stats[ship[0]].cost
         fleets[0].gold += fleet.gold
+        if fleets[0].gold > max_gold:
+            fleets[0].gold = max_gold
         new_fleet_generate(fleet)
         fleets.remove(fleet)
         for ship in fleets[0].ships:
@@ -897,6 +916,8 @@ def auto_battle_step(fleet, other_fleet):
             other_fleet.gold = sum
         new_fleet_generate(fleet)
         fleets.remove(fleet)
+        print('delete')
+        print()
     elif (len(other_fleet.ships) == 0) and (len(fleet.ships) > 0):
         sum = 0
         for ship in fleet.ships:
@@ -906,11 +927,15 @@ def auto_battle_step(fleet, other_fleet):
             fleet.gold = sum
         new_fleet_generate(other_fleet)
         fleets.remove(other_fleet)
+        print('delete')
+        print()
     elif (len(fleet.ships) == 0) and (len(other_fleet.ships) == 0):
         new_fleet_generate(fleet)
         new_fleet_generate(other_fleet)
         fleets.remove(fleet)
         fleets.remove(other_fleet)
+        print('delete delete')
+        print()
 
 def new_fleet_generate(fleet):
     r = randint(0, game_time // 6)
@@ -1053,7 +1078,7 @@ def run_game():
             pygame.display.update()
 
     # fleets.append(fleet_object([["warship", 90]], 2.4, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
-    fleets.append(fleet_object([["pink", 15], ["ladya", 20], ["lugger", 25]], 1.2, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
+    fleets.append(fleet_object([["pink", 15]], 1.6, 0, 0, 0, 0, 0, 0, '-', 1000, 0))
     fleets[0].move = False
 
     for forpost in forposts:
@@ -1063,6 +1088,10 @@ def run_game():
             fishers_generate(forpost[5])
     for island in islands:
         pirates_generate(0)
+
+    for i in range(448):
+        waves.append([randint(int(island_x - 2 * display_width), int(island_x + 2 * display_width)),
+                      randint(int(island_y - 2 * display_height), int(island_y + 2 * display_height)), i // 32])
 
     sand_1ne = pygame.transform.smoothscale(pygame.image.load('global\\island_sprite\\sand\\1ne.png'),
                                             ((i_width + 16) / scale, (i_height + 184) / scale))
@@ -1151,6 +1180,10 @@ def run_game():
                 quit()
 
         display.fill((0, 162, 232))
+
+        for i in range(32):
+            waves.append([randint(int(-island_x - 2 * display_width), int(-island_x + 2 * display_width)),
+                          randint(int(-island_y - 2 * display_height), int(-island_y + 2 * display_height)), 0])
 
         keys = pygame.key.get_pressed()
         if not(forpost_zone):
@@ -1347,7 +1380,10 @@ def run_game():
                                 mingip = gip
                     max_gold = 0
                     for ship in fleet.ships:
-                        max_gold += ship_stats[ship[0]].cost
+                        if ship[0] in ['ladya', 'fleyt', 'pinas', 'tradeship']:
+                            max_gold += 2 * ship_stats[ship[0]].cost
+                        else:
+                            max_gold += ship_stats[ship[0]].cost
                     if fleet.gold >= max_gold:
                         mingip = 99999
                         k = -1
@@ -1483,7 +1519,10 @@ def run_game():
                                 k = f
                         max_gold = 0
                         for ship in other_fleet.ships:
-                            max_gold += ship_stats[ship[0]].cost
+                            if ship[0] in ['ladya', 'fleyt', 'pinas', 'tradeship']:
+                                max_gold += 2 * ship_stats[ship[0]].cost
+                            else:
+                                max_gold += ship_stats[ship[0]].cost
                         if mingip < 32 and fleet.gold > 0:
                             fleet.move = False
                             fleet_move(fleet, (fleet.angle + 6) % 12, fleet.speed * 5)
@@ -1529,6 +1568,19 @@ def run_game():
 
 ########################################################painting########################################################
 
+        t0 = time.clock()
+
+        for wave in waves:
+            image = pygame.transform.smoothscale(wave_step[wave[2] // 2], (24 / scale, 13 / scale))
+            rect = image.get_rect(center=(center_x + (island_x + wave[0]) / scale, center_y + (island_y + wave[1]) / scale))
+            surf, r = rot_center(image, rect, 0)
+            display.blit(surf, r)
+            wave[2] += 1
+            if wave[2] >= 14:
+                waves.remove(wave)
+
+        sum += time.clock() - t0
+        print("painting waves ", time.clock() - t0)
         t0 = time.clock()
 
         for island in islands:
@@ -1864,7 +1916,7 @@ def run_game():
                 # display.blit(gold, (center_x + (fleet.x - 50) / scale, center_y + (fleet.y - 70) / scale))
                 if fleet.type == 0:
                     f = pygame.font.Font(None, 48 // scale)
-                    info = f.render('PLAYER', True, (192, 192, 192))
+                    info = f.render('PLAYER', True, (255, 174, 201))
                     display.blit(info, (center_x + (fleet.x - 50) / scale, center_y + (fleet.y - 48) / scale))
                 elif fleet.type == 1:
                     f = pygame.font.Font(None, 48 // scale)
@@ -1893,8 +1945,14 @@ def run_game():
         print("info fleets ", time.clock() - t0)
         t0 = time.clock()
 
+        max_gold = 0
+        for ship in fleets[0].ships:
+            if ship[0] in ['ladya', 'fleyt', 'pinas', 'tradeship']:
+                max_gold += 2 * ship_stats[ship[0]].cost
+            else:
+                max_gold += ship_stats[ship[0]].cost
         f = pygame.font.Font(None, 36)
-        coord = f.render('GOLD: ' + str(int(fleets[0].gold)), True, (255, 0, 0))
+        coord = f.render('GOLD: ' + str(int(fleets[0].gold)) + '/' + str(max_gold), True, (255, 0, 0))
         display.blit(coord, (10, 10))
         f = pygame.font.Font(None, 36)
         forp = f.render(str(game_time // 6), True, (255, 0, 0))
@@ -2096,8 +2154,16 @@ def run_game():
                     elif keys[pygame.K_t]:
                         if stop == 0:
                             if len(fleets[0].ships) >= 2:
+                                max_gold = 0
+                                for ship in fleets[0].ships:
+                                    if ship[0] in ['ladya', 'fleyt', 'pinas', 'tradeship']:
+                                        max_gold += 2 * ship_stats[ship[0]].cost
+                                    else:
+                                        max_gold += ship_stats[ship[0]].cost
                                 fleets[0].gold += (fleets[0].ships[menu][1] / ship_stats[fleets[0].ships[menu][0]].max_hp
                                                    * ship_stats[fleets[0].ships[menu][0]].cost) // 2
+                                if fleets[0].gold > max_gold:
+                                    fleets[0].gold = max_gold
                                 fleets[0].ships.remove(fleets[0].ships[menu])
                                 stop = 10
                                 if menu > len(fleets[0].ships) - 1:
@@ -2334,7 +2400,7 @@ def run_game():
                 elif forpost[5] == 'BLUE':
                     color = (0, 0, 255)
                 elif forpost[5] == 'PIRATE':
-                    color = (0, 0, 0)
+                    color = (64, 64, 64)
                 if forpost[2] == 1:
                     rect = m_image_forpost1.get_rect(center=(center_x + (fx - i_width/2) / 16, center_y * 2/3 + (fy - i_height/2) / 16))
                     surf, r = rot_center(m_image_forpost1, rect, 0)
@@ -2414,62 +2480,52 @@ def run_game():
                 for other_fleet in fleets:
                     if other_fleet.type == 1 or other_fleet.type == 3 or other_fleet.type == 4:
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
-                        print(other_fleet.ships, fleet.ships)
-                        print(other_fleet.ships[0], fleet.ships[0])
-                        print(other_fleet.ships[0][0], fleet.ships[0][0])
-                        print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
-                        battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
-                        if (gip < battle_radius):
-                            f = pygame.font.Font(None, 36)
-                            b = f.render('press F to fight', True, (255, 0, 0))
-                            display.blit(b, (0.5 * display_width - 70, 0.5 * display_height - 80))
-                            if keys[pygame.K_f]:
-                                fraction_relations[other_fleet.fraction] -= len(other_fleet.ships)
-                                battle_with_player(other_fleet)
+                        if len(fleet.ships) > 0 and len(other_fleet.ships) > 0:
+                            battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                            if (gip < battle_radius):
+                                f = pygame.font.Font(None, 36)
+                                b = f.render('press F to fight', True, (255, 0, 0))
+                                display.blit(b, (0.5 * display_width - 70, 0.5 * display_height - 80))
+                                if keys[pygame.K_f]:
+                                    fraction_relations[other_fleet.fraction] -= len(other_fleet.ships)
+                                    battle_with_player(other_fleet)
             elif fleet.type == 1:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
-                print(other_fleet.ships, fleet.ships)
-                print(other_fleet.ships[0], fleet.ships[0])
-                print(other_fleet.ships[0][0], fleet.ships[0][0])
-                print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
-                battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
-                if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
-                    fraction_relations[fleet.fraction] -= len(fleet.ships)
-                    battle_with_player(fleet)
+                if len(fleet.ships) > 0 and len(fleets[0].ships) > 0:
+                    battle_radius = ship_stats[fleets[0].ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                    if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
+                        fraction_relations[fleet.fraction] -= len(fleet.ships)
+                        battle_with_player(fleet)
             elif fleet.type == 2:
                 for other_fleet in fleets:
                     if other_fleet.type == 0 or other_fleet.type == 1 or other_fleet.type == 4:
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
-                        print(other_fleet.ships, fleet.ships)
-                        print(other_fleet.ships[0], fleet.ships[0])
-                        print(other_fleet.ships[0][0], fleet.ships[0][0])
-                        print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
-                        battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
-                        if (gip < battle_radius):
-                            if other_fleet == fleets[0]:
-                                battle_with_player(fleet)
-                            else:
-                                auto_battle_step(fleet, other_fleet)
+                        if len(fleet.ships) > 0 and len(other_fleet.ships) > 0:
+                            battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                            if (gip < battle_radius):
+                                if other_fleet == fleets[0]:
+                                    battle_with_player(fleet)
+                                else:
+                                    auto_battle_step(fleet, other_fleet)
             elif fleet.type == 3:
                 for other_fleet in fleets:
                     if other_fleet.type == 2 or (other_fleet.type == 0 and fraction_relations[fleet.fraction] < 0):
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
-                        print(other_fleet.ships, fleet.ships)
-                        print(other_fleet.ships[0], fleet.ships[0])
-                        print(other_fleet.ships[0][0], fleet.ships[0][0])
-                        print(ship_stats[other_fleet.ships[0][0]].deck_size, ship_stats[fleet.ships[0][0]].deck_size)
-                        battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
-                        if (gip < battle_radius):
-                            if other_fleet == fleets[0]:
-                                battle_with_player(fleet)
-                            else:
-                                auto_battle_step(fleet, other_fleet)
+                        if len(fleet.ships) > 0 and len(other_fleet.ships) > 0:
+                            battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                            if (gip < battle_radius):
+                                if other_fleet == fleets[0]:
+                                    battle_with_player(fleet)
+                                else:
+                                    auto_battle_step(fleet, other_fleet)
             elif fleet.type == 4:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
-                battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
-                if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
-                    fraction_relations[fleet.fraction] -= len(fleet.ships)
-                    battle_with_player(fleet)
+                if len(fleet.ships) > 0 and len(other_fleet.ships) > 0:
+                    battle_radius = ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size
+                    if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
+                        fraction_relations[fleet.fraction] -= len(fleet.ships)
+                        battle_with_player(fleet)
+            # print(fleet.ships)
 
         f = pygame.font.Font(None, 36)
         forp = f.render(str(sum * 10), True, (255, 0, 0))

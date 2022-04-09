@@ -84,9 +84,9 @@ class ship_object(ship_type):
 
 #################################################create_ships###########################################################
 
-kernel_image = pygame.image.load('kernel.png')
-kernel_hit_image = pygame.image.load('kernel_hit.png')
-kernel_miss_image = pygame.image.load('kernel_miss.png')
+kernel_image = pygame.image.load('battle\\kernel.png')
+kernel_hit_image = pygame.image.load('battle\\kernel_hit.png')
+kernel_miss_image = pygame.image.load('battle\\kernel_miss.png')
 
 wave_step = []
 wave_step.append(pygame.image.load('battle\\waves\\1.png'))
@@ -428,7 +428,32 @@ def ship_intersection(ship1, ship2):
     dx2 = ac2 * math.cos(math.radians(angle2) + math.pi - math.asin(dh2 / ac2)) + x2
     dy2 = -ac2 * math.sin(math.radians(angle2) + math.pi - math.asin(dh2 / ac2)) + y2
 
-    if (dot_in_rect(ax1, ay1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + ax1 / scale, center_y + ay1 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + bx1 / scale, center_y + by1 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + cx1 / scale, center_y + cy1 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + dx1 / scale, center_y + dy1 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + ax2 / scale, center_y + ay2 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + bx2 / scale, center_y + by2 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + cx2 / scale, center_y + cy2 / scale))
+    # image = pygame.transform.smoothscale(kernel_miss_image, (20, 20))
+    # display.blit(image, (center_x + dx2 / scale, center_y + dy2 / scale))
+    # f = pygame.font.Font(None, 20 // scale)
+    # typ = f.render(str(ship1.type) + '/' + str(dx1), True, (255, 0, 0))
+    # typ_rect = typ.get_rect(center=(center_x + dx1 / scale, center_y + dy1 / scale))
+    # display.blit(typ, typ_rect)
+    # f = pygame.font.Font(None, 20 // scale)
+    # typ = f.render(str(ship2.type) + '/' + str(dx2), True, (255, 0, 0))
+    # typ_rect = typ.get_rect(center=(center_x + dx2 / scale, center_y + dy2 / scale))
+    # display.blit(typ, typ_rect)
+
+    while (dot_in_rect(ax1, ay1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
         dot_in_rect(bx1, by1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
         dot_in_rect(cx1, cy1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
         dot_in_rect(dx1, dy1, ax2, ay2, bx2, by2, cx2, cy2, dx2, dy2)) or (
@@ -438,8 +463,8 @@ def ship_intersection(ship1, ship2):
         dot_in_rect(dx2, dy2, ax1, ay1, bx1, by1, cx1, cy1, dx1, dy1)):
         gip = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
         if (ship2 == friendly_ships[0]):
-            ship1.x += ship1.speed * (x1 - x2) / gip
-            ship1.y += ship1.speed * (y1 - y2) / gip
+            ship1.x += ship1.speed * (x1 - x2) / gip + ship2.speed * (x1 - x2) / gip
+            ship1.y += ship1.speed * (y1 - y2) / gip + ship2.speed * (x1 - x2) / gip
             for ship in enemy_ships:
                 ship.x += ship2.speed * (x1 - x2) / gip
                 ship.y += ship2.speed * (y1 - y2) / gip
@@ -452,6 +477,29 @@ def ship_intersection(ship1, ship2):
             ship1.y += ship1.speed * (y1 - y2) / gip
             ship2.x -= ship2.speed * (x1 - x2) / gip
             ship2.y -= ship2.speed * (y1 - y2) / gip
+
+        x1 = ship1.x
+        y1 = ship1.y
+        x2 = ship2.x
+        y2 = ship2.y
+
+        ax1 = ac1 * math.cos(math.radians(angle1) + math.asin(dh1 / ac1)) + x1
+        ay1 = -ac1 * math.sin(math.radians(angle1) + math.asin(dh1 / ac1)) + y1
+        bx1 = ac1 * math.cos(math.radians(angle1) - math.asin(dh1 / ac1)) + x1
+        by1 = -ac1 * math.sin(math.radians(angle1) - math.asin(dh1 / ac1)) + y1
+        cx1 = ac1 * math.cos(math.radians(angle1) + math.pi + math.asin(dh1 / ac1)) + x1
+        cy1 = -ac1 * math.sin(math.radians(angle1) + math.pi + math.asin(dh1 / ac1)) + y1
+        dx1 = ac1 * math.cos(math.radians(angle1) + math.pi - math.asin(dh1 / ac1)) + x1
+        dy1 = -ac1 * math.sin(math.radians(angle1) + math.pi - math.asin(dh1 / ac1)) + y1
+
+        ax2 = ac2 * math.cos(math.radians(angle2) + math.asin(dh2 / ac2)) + x2
+        ay2 = -ac2 * math.sin(math.radians(angle2) + math.asin(dh2 / ac2)) + y2
+        bx2 = ac2 * math.cos(math.radians(angle2) - math.asin(dh2 / ac2)) + x2
+        by2 = -ac2 * math.sin(math.radians(angle2) - math.asin(dh2 / ac2)) + y2
+        cx2 = ac2 * math.cos(math.radians(angle2) + math.pi + math.asin(dh2 / ac2)) + x2
+        cy2 = -ac2 * math.sin(math.radians(angle2) + math.pi + math.asin(dh2 / ac2)) + y2
+        dx2 = ac2 * math.cos(math.radians(angle2) + math.pi - math.asin(dh2 / ac2)) + x2
+        dy2 = -ac2 * math.sin(math.radians(angle2) + math.pi - math.asin(dh2 / ac2)) + y2
 
 def no_may_shoot_left(ship, target_ship, block_ship):
     x = ship.x
@@ -529,7 +577,7 @@ def no_may_shoot_right(ship, target_ship, block_ship):
 
 ###################################################game_start###########################################################
 
-def battle(friendly_ships_list, enemy_ships_list):
+def battle(friendly_ships_list, enemy_ships_list, type, fraction):
 
     i = 0
     for ship in friendly_ships_list:
@@ -540,6 +588,23 @@ def battle(friendly_ships_list, enemy_ships_list):
     for ship in enemy_ships_list:
         enemy_ships.append(ship_object(i, -1000, 180, ship[0], ship[1]))
         i += 200
+
+    if type == 1:
+        enemy_type = 'TRADERS'
+    elif type == 2:
+        enemy_color = (64, 64, 64)
+        enemy_type = 'PIRATES'
+    elif type == 3:
+        enemy_type = 'WARRIORS'
+    elif type == 4:
+        enemy_type = 'FISHERS'
+
+    if fraction == 'RED':
+        enemy_color = (255, 0, 0)
+    elif fraction == 'GREEN':
+        enemy_color = (0, 255, 0)
+    elif fraction == 'BLUE':
+        enemy_color = (0, 0, 255)
 
     friendly_ships[0].move = True
     game = True
@@ -686,21 +751,21 @@ def battle(friendly_ships_list, enemy_ships_list):
 
         for enemy_ship in enemy_ships:
             for friendly_ship in friendly_ships:
-                if (enemy_ship.x-friendly_ship.x)**2+(enemy_ship.y-friendly_ship.y)**2 < (
-                    enemy_ship.deck_width/2)**2+(enemy_ship.deck_height/2)**2+(friendly_ship.deck_width/2)**2+(friendly_ship.deck_height/2)**2:
-                    ship_intersection(enemy_ship, friendly_ship)
+                #if (enemy_ship.x-friendly_ship.x)**2+(enemy_ship.y-friendly_ship.y)**2 < (
+                #    enemy_ship.deck_width/2)**2+(enemy_ship.deck_height/2)**2+(friendly_ship.deck_width/2)**2+(friendly_ship.deck_height/2)**2:
+                ship_intersection(enemy_ship, friendly_ship)
             for other_enemy_ship in enemy_ships:
                 if other_enemy_ship != enemy_ship:
-                    if (enemy_ship.x-other_enemy_ship.x)**2+(enemy_ship.y-other_enemy_ship.y)**2 < (
-                        enemy_ship.deck_width/2)**2+(enemy_ship.deck_height/2)**2+(other_enemy_ship.deck_width/2)**2+(other_enemy_ship.deck_height/2)**2:
-                        ship_intersection(enemy_ship, other_enemy_ship)
+                    #if (enemy_ship.x-other_enemy_ship.x)**2+(enemy_ship.y-other_enemy_ship.y)**2 < (
+                    #    enemy_ship.deck_width/2)**2+(enemy_ship.deck_height/2)**2+(other_enemy_ship.deck_width/2)**2+(other_enemy_ship.deck_height/2)**2:
+                    ship_intersection(enemy_ship, other_enemy_ship)
 
         for friendly_ship in friendly_ships:
             for other_friendly_ship in friendly_ships:
                 if other_friendly_ship != friendly_ship and friendly_ship != friendly_ships[0]:
-                    if (other_friendly_ship.x-friendly_ship.x)**2+(other_friendly_ship.y-friendly_ship.y)**2 < (
-                        other_friendly_ship.deck_width/2)**2+(other_friendly_ship.deck_height/2)**2+(friendly_ship.deck_width/2)**2+(friendly_ship.deck_height/2)**2:
-                        ship_intersection(friendly_ship, other_friendly_ship)
+                    #if (other_friendly_ship.x-friendly_ship.x)**2+(other_friendly_ship.y-friendly_ship.y)**2 < (
+                    #    other_friendly_ship.deck_width/2)**2+(other_friendly_ship.deck_height/2)**2+(friendly_ship.deck_width/2)**2+(friendly_ship.deck_height/2)**2:
+                    ship_intersection(friendly_ship, other_friendly_ship)
 
 ########################################################painting########################################################
 
@@ -744,8 +809,9 @@ def battle(friendly_ships_list, enemy_ships_list):
             surf, r = rot_center(image, rect, enemy_ship.angle)
             display.blit(surf, r)
             f = pygame.font.Font(None, 48 // scale)
-            typ = f.render(str(enemy_ship.hp), True, (255, 0, 0))
-            display.blit(typ, (center_x + enemy_ship.x / scale, center_y + enemy_ship.y / scale))
+            typ = f.render(str(enemy_ship.hp) + '/' + str(enemy_ship.max_hp), True, enemy_color)
+            typ_rect = typ.get_rect(center=(center_x + enemy_ship.x / scale, center_y + enemy_ship.y / scale))
+            display.blit(typ, typ_rect)
 
         for friendly_ship in friendly_ships:
 
@@ -760,8 +826,39 @@ def battle(friendly_ships_list, enemy_ships_list):
             surf, r = rot_center(image, rect, friendly_ship.angle)
             display.blit(surf, r)
             f = pygame.font.Font(None, 48 // scale)
-            typ = f.render(str(friendly_ship.hp), True, (0, 255, 0))
-            display.blit(typ, (center_x + friendly_ship.x / scale, center_y + friendly_ship.y / scale))
+            typ = f.render(str(friendly_ship.hp) + '/' + str(friendly_ship.max_hp), True, (255, 174, 201))
+            typ_rect = typ.get_rect(center=(center_x + friendly_ship.x / scale, center_y + friendly_ship.y / scale))
+            display.blit(typ, typ_rect)
+
+        # f = pygame.font.Font(None, 36)
+        # typ = f.render("left guns c/d", True, (0, 0, 0))
+        # typ_rect = typ.get_rect(center=(display_width / 2 - 200, 18))
+        # display.blit(typ, typ_rect)
+
+        f = pygame.font.Font(None, 48)
+        typ = f.render(str(friendly_ships[0].cd_left), True, (0, 0, 0))
+        typ_rect = typ.get_rect(center=(display_width / 2 - 200, 24))
+        display.blit(typ, typ_rect)
+
+        # f = pygame.font.Font(None, 36)
+        # typ = f.render("set sail c/d", True, (0, 0, 255))
+        # typ_rect = typ.get_rect(center=(display_width / 2, 18))
+        # display.blit(typ, typ_rect)
+
+        f = pygame.font.Font(None, 48)
+        typ = f.render(str(friendly_ships[0].cd_sail), True, (0, 0, 255))
+        typ_rect = typ.get_rect(center=(display_width / 2, 24))
+        display.blit(typ, typ_rect)
+
+        # f = pygame.font.Font(None, 36)
+        # typ = f.render("right guns c/d", True, (0, 0, 0))
+        # typ_rect = typ.get_rect(center=(display_width / 2 + 200, 18))
+        # display.blit(typ, typ_rect)
+
+        f = pygame.font.Font(None, 48)
+        typ = f.render(str(friendly_ships[0].cd_right), True, (0, 0, 0))
+        typ_rect = typ.get_rect(center=(display_width / 2 + 200, 24))
+        display.blit(typ, typ_rect)
 
 #######################################################damage###########################################################
 
@@ -787,11 +884,11 @@ def battle(friendly_ships_list, enemy_ships_list):
         step = 5
         for enemy_ship in enemy_ships:
             ships_and_kernels(enemy_ship)
-            f = pygame.font.Font(None, 48)
+            f = pygame.font.Font(None, 36)
             typ = f.render(enemy_ship.type, True, (255, 255, 0))
-            display.blit(typ, (10, step))
-            hp = f.render(str(enemy_ship.hp), True, (255, 0, 0))
-            display.blit(hp, (150, step))
+            display.blit(typ, (display_width - 220, step))
+            hp = f.render(str(enemy_ship.hp) + '/' + str(enemy_ship.max_hp), True, enemy_color)
+            display.blit(hp, (display_width - 70, step))
             if (enemy_ship.hp <= 0):
                 enemy_ships.remove(enemy_ship)
             step += 35
@@ -799,11 +896,11 @@ def battle(friendly_ships_list, enemy_ships_list):
         step = 5
         for friendly_ship in friendly_ships:
             ships_and_kernels(friendly_ship)
-            f = pygame.font.Font(None, 48)
+            f = pygame.font.Font(None, 36)
             typ = f.render(friendly_ship.type, True, (255, 255, 0))
-            display.blit(typ, (display_width - 200, step))
-            hp = f.render(str(friendly_ship.hp), True, (0, 255, 0))
-            display.blit(hp, (display_width - 50, step))
+            display.blit(typ, (10, step))
+            hp = f.render(str(friendly_ship.hp) + '/' + str(friendly_ship.max_hp), True, (255, 174, 201))
+            display.blit(hp, (160, step))
             if (friendly_ships[0].hp <= 0):
                 friendly_ships.remove(friendly_ships[0])
                 if (len(friendly_ships) == 0):
@@ -831,6 +928,12 @@ def battle(friendly_ships_list, enemy_ships_list):
         f = pygame.font.Font(None, 20)
         coord = f.render("(q)/(e) - shot     (1)/(2)/(3) - scale", True, (0, 0, 0))
         display.blit(coord, (10, display_height - 30))
+
+        f = pygame.font.Font(None, 40)
+        coord = f.render(enemy_type, True, enemy_color)
+        coord_rect = coord.get_rect(topright=(display_width - 10, display_height - 40))
+        # coord_rect.topright
+        display.blit(coord, coord_rect)
 
         pygame.display.update()
         clock.tick(30)
