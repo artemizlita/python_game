@@ -1,5 +1,6 @@
 import pygame
 import math
+import time
 from random import randint
 
 pygame.init()
@@ -826,7 +827,7 @@ def battle(friendly_ships_list, enemy_ships_list, type, fraction):
             surf, r = rot_center(image, rect, friendly_ship.angle)
             display.blit(surf, r)
             f = pygame.font.Font(None, 48 // scale)
-            typ = f.render(str(friendly_ship.hp) + '/' + str(friendly_ship.max_hp), True, (255, 174, 201))
+            typ = f.render(str(friendly_ship.hp) + '/' + str(friendly_ship.max_hp), True, (255, 0, 255))
             typ_rect = typ.get_rect(center=(center_x + friendly_ship.x / scale, center_y + friendly_ship.y / scale))
             display.blit(typ, typ_rect)
 
@@ -899,12 +900,18 @@ def battle(friendly_ships_list, enemy_ships_list, type, fraction):
             f = pygame.font.Font(None, 36)
             typ = f.render(friendly_ship.type, True, (255, 255, 0))
             display.blit(typ, (10, step))
-            hp = f.render(str(friendly_ship.hp) + '/' + str(friendly_ship.max_hp), True, (255, 174, 201))
+            hp = f.render(str(friendly_ship.hp) + '/' + str(friendly_ship.max_hp), True, (255, 0, 255))
             display.blit(hp, (160, step))
             if (friendly_ships[0].hp <= 0):
                 friendly_ships.remove(friendly_ships[0])
                 if (len(friendly_ships) == 0):
                     game = False
+                    f = pygame.font.Font(None, 72)
+                    b = f.render('GAME OVER', True, (255, 0, 0))
+                    b_rect = b.get_rect(center=(0.5 * display_width, 0.5 * display_height))
+                    display.blit(b, b_rect)
+                    pygame.display.update()
+                    time.sleep(3)
                 else:
                     for ship_shift in friendly_ships:
                         if (ship_shift != friendly_ships[0]):
