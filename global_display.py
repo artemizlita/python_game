@@ -15,8 +15,8 @@ display_width = game_display.display_width
 display_height = game_display.display_height
 center_x = display_width / 2
 center_y = display_height / 2
-map_width = 28
-map_height = 28
+map_width = 20
+map_height = 20
 i_width = 540
 i_height = 216
 island_x = 0
@@ -214,14 +214,16 @@ ship_stats = {"barkas": ship_type(barkas_sail1, barkas_sail0, 300, 70, 1200, 100
               "warship": ship_type(warship_sail1, warship_sail0, 1300, 270, 30000, 80, 90, 9, 2.4),
               "tradeship": ship_type(tradeship_sail1, tradeship_sail0, 1300, 270, 25000, 40, 90, 7, 2.4)}
 
-fraction_relations = {'RED': 0, 'GREEN': 0, 'BLUE': 0, 'PIRATE': 0}
+fraction_relations = {'PLAYER': 0, 'RED': 10, 'GREEN': 10, 'BLUE': 10, 'PIRATE': 0}
 
-fraction_war_fleet_count = {'RED': 0, 'GREEN': 0, 'BLUE': 0}
+fraction_war_fleet_count = {'PLAYER': 0, 'RED': 0, 'GREEN': 0, 'BLUE': 0}
 
-fraction_wars = {'PLAYER': {'PLAYER': False, 'RED': False, 'GREEN': True, 'BLUE': True, 'PIRATE': False},
-                 'RED': {'PLAYER': False, 'RED': False, 'GREEN': True, 'BLUE': True, 'PIRATE': False},
-                 'GREEN': {'PLAYER': False, 'RED': True, 'GREEN': False, 'BLUE': True, 'PIRATE': False},
-                 'BLUE': {'PLAYER': False, 'RED': True, 'GREEN': True, 'BLUE': False, 'PIRATE': False},
+player_fraction = False
+
+fraction_wars = {'PLAYER': {'PLAYER': False, 'RED': False, 'GREEN': False, 'BLUE': False, 'PIRATE': False},
+                 'RED': {'PLAYER': False, 'RED': False, 'GREEN': False, 'BLUE': False, 'PIRATE': False},
+                 'GREEN': {'PLAYER': False, 'RED': False, 'GREEN': False, 'BLUE': False, 'PIRATE': False},
+                 'BLUE': {'PLAYER': False, 'RED': False, 'GREEN': False, 'BLUE': False, 'PIRATE': False},
                  'PIRATE': {'PLAYER': False, 'RED': False, 'GREEN': False, 'BLUE': False, 'PIRATE': False}}
 
 islands = []
@@ -1035,7 +1037,8 @@ def new_fleet_generate(fleet):
         rank = 3
     if fleet.type == 1:
         traders_generate(fleet.fraction)
-        if fraction_wars[fleet.fraction]['RED'] or fraction_wars[fleet.fraction]['GREEN'] or fraction_wars[fleet.fraction]['BLUE']:
+        if not(fraction_wars[fleet.fraction]['RED'] or fraction_wars[fleet.fraction]['GREEN']
+               or fraction_wars[fleet.fraction]['BLUE'] or fraction_wars[fleet.fraction]['PLAYER']):
             mingip = -1
             b_f_num = -1
             for b_f in range(len(fleets) - 1):
@@ -1065,6 +1068,8 @@ def new_fleet_generate(fleet):
             generate_fraction.append('GREEN')
         elif fwfc['BLUE'] < 0:
             generate_fraction.append('BLUE')
+        elif fwfc['PLAYER'] < 0:
+            generate_fraction.append('PLAYER')
         if len(generate_fraction) == 1:
             fg = 0
         else:
@@ -1088,12 +1093,14 @@ def new_fleet_generate(fleet):
         fleets[b_f_num].target_x = -island_x + fleet.x
         fleets[b_f_num].target_y = -island_y + fleet.y
     elif fleet.type == 5:
-        mercenaries_generate(min(fraction_war_fleet_count, key=fraction_war_fleet_count.get))
+        fwfc = copy.copy(fraction_war_fleet_count)
+        fwfc.pop('PLAYER')
+        mercenaries_generate(min(fwfc, key=fwfc.get))
 
 #################################################game_generating########################################################
 
 def run_game():
-    global scale, game, game_time, speed_mode
+    global scale, game, game_time, speed_mode, player_fraction
     global island_x, island_y
     forpost_zone = False
     menu = 0
@@ -1184,8 +1191,8 @@ def run_game():
             pygame.display.update()
 
     # fleets.append(fleet_object([["warship", 90], ["warship", 90], ["warship", 90], ["warship", 90], ["warship", 90]], 2.4, 0, 0, 0, 0, 0, 0, '-', 0, 0))
-    # fleets.append(fleet_object([["corvet", 60], ["corvet", 60]], 2.4, 0, 0, 0, 0, 0, 0, 'PLAYER', 0, 0))
-    fleets.append(fleet_object([["shuna", 20]], 1.2, 0, 0, 0, 0, 0, 0, '-', 0, 0))
+    fleets.append(fleet_object([["corvet", 60], ["corvet", 60], ["corvet", 60], ["corvet", 60], ["corvet", 60]], 2.4, 0, 0, 0, 0, 0, 0, 'PLAYER', 0, 0))
+    # fleets.append(fleet_object([["shuna", 20]], 1.2, 0, 0, 0, 0, 0, 0, 'PLAYER', 0, 0))
     fleets[0].move = False
 
     # fleets[0].ships = game_display.battle(fleets[0].ships,
@@ -1199,7 +1206,9 @@ def run_game():
             fraction_war_fleet_count[forpost[5]] += 1
     for forpost in forposts:
         if forpost[5] == 'PIRATE':
-            mercenaries_generate(min(fraction_war_fleet_count, key=fraction_war_fleet_count.get))
+            fwfc = copy.copy(fraction_war_fleet_count)
+            fwfc.pop('PLAYER')
+            mercenaries_generate(min(fwfc, key=fwfc.get))
     for island in islands:
         pirates_generate(0)
 
@@ -1404,10 +1413,10 @@ def run_game():
 
         sum += time.clock() - t0
         print("start ", time.clock() - t0)
+        t0 = time.clock()
 
 ########################################################movement########################################################
 
-        t0 = time.clock()
 
         for fleet in fleets:
             if fleet != fleets[0]:
@@ -1507,10 +1516,9 @@ def run_game():
 
         sum += time.clock() - t0
         print("movement ", time.clock() - t0)
+        t0 = time.clock()
 
 ###################################################change_target########################################################
-
-        t0 = time.clock()
 
         for fleet in fleets:
             if fleet != fleets[0]:
@@ -1640,7 +1648,7 @@ def run_game():
                     mingip = (fleet.rank + 2) * i_width
                     for other_fleet in fleets:
                         if other_fleet.type == 2 or (other_fleet.type == 0 and fraction_relations[fleet.fraction] < 0) or (
-                           other_fleet.type in [1, 3, 4, 5] and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
+                           other_fleet.type in [0, 1, 3, 4, 5] and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
                             gip = ((fleet.x - other_fleet.x) ** 2 + 6.25 * (fleet.y - other_fleet.y) ** 2) ** 0.5
                             if gip < mingip:
                                 fleet.target_x = -island_x + other_fleet.x
@@ -1652,6 +1660,9 @@ def run_game():
                         if gip < i_width / 2:
                             fractions = []
                             there_war = False
+                            if fraction_wars[fleet.fraction]['PLAYER']:
+                                fractions.append('PLAYER')
+                                there_war = True
                             if fraction_wars[fleet.fraction]['RED']:
                                 fractions.append('RED')
                                 there_war = True
@@ -1731,8 +1742,7 @@ def run_game():
                                         mingip_fishers = gip
                                         k_fishers = f
                             fleets[k_fishers].fraction = fleet.fraction
-                            if k_traders != -1:
-                                fleets[k_traders].fraction = fleet.fraction
+                            fleets[k_traders].fraction = fleet.fraction
                             forposts[k][5] = fleet.fraction
                         if fleet.rank == 0:
                             for ship in fleet.ships:
@@ -1818,8 +1828,8 @@ def run_game():
                             in_island = True
                             while in_island:
                                 in_island = False
-                                fx = -island_x + fleet.x + randint(-i_width / 2, i_width / 2)
-                                fy = -island_y + fleet.y + randint(0, i_height / 4)
+                                fx = forposts[k][0] - i_width / 2 + randint(-i_width, i_width)
+                                fy = forposts[k][1] + i_height / 2 + randint(0, i_height)
                                 for i in islands:
                                     ax = i[0]
                                     ay = i[1]
@@ -1835,7 +1845,7 @@ def run_game():
                     mingip = (fleet.rank + 2) * i_width
                     for other_fleet in fleets:
                         if (other_fleet.type == 0 and fraction_relations[fleet.fraction] < 0) or (
-                           other_fleet.type in [1, 3, 4, 5] and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
+                           other_fleet.type in [0, 1, 3, 4, 5] and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
                             gip = ((fleet.x - other_fleet.x) ** 2 + 6.25 * (fleet.y - other_fleet.y) ** 2) ** 0.5
                             if gip < mingip:
                                 fleet.target_x = -island_x + other_fleet.x
@@ -1847,6 +1857,9 @@ def run_game():
                         if gip < i_width / 2:
                             fractions = []
                             there_war = False
+                            if fraction_wars[fleet.fraction]['PLAYER']:
+                                fractions.append('PLAYER')
+                                there_war = True
                             if fraction_wars[fleet.fraction]['RED']:
                                 fractions.append('RED')
                                 there_war = True
@@ -1926,8 +1939,7 @@ def run_game():
                                         mingip_fishers = gip
                                         k_fishers = f
                             fleets[k_fishers].fraction = fleet.fraction
-                            if k_traders != -1:
-                                fleets[k_traders].fraction = fleet.fraction
+                            fleets[k_traders].fraction = fleet.fraction
                             forposts[k][5] = fleet.fraction
                         if mingip < i_width / 2:
                             if fleet.rank == 0:
@@ -1959,16 +1971,18 @@ def run_game():
                                 fleet.ships.append([trade_ship, ship_stats[trade_ship].max_hp])
                                 if ship_stats[trade_ship].speed < fleet.speed:
                                     fleet.speed = ship_stats[trade_ship].speed
-                        if min(fraction_war_fleet_count, key=fraction_war_fleet_count.get) != fleet.fraction:
+                        fwfc = copy.copy(fraction_war_fleet_count)
+                        fwfc.pop('PLAYER')
+                        if min(fwfc, key=fwfc.get) != fleet.fraction:
                             new_fleet_generate(fleet)
                             fleets.remove(fleet)
 
         sum += time.clock() - t0
         print("change_target ", time.clock() - t0)
+        t0 = time.clock()
 
 ########################################################painting########################################################
 
-        t0 = time.clock()
 
         for wave in waves:
             image = pygame.transform.smoothscale(wave_step[wave[2] // 2], (24 / scale, 13 / scale))
@@ -2235,6 +2249,8 @@ def run_game():
                     color = (0, 255, 0)
                 elif forpost[5] == 'BLUE':
                     color = (0, 0, 255)
+                elif forpost[5] == 'PLAYER':
+                    color = (255, 0, 255)
                 elif forpost[5] == 'PIRATE':
                     color = (0, 0, 0)
                 if forpost[2] == 1:
@@ -2297,14 +2313,15 @@ def run_game():
 
         sum += time.clock() - t0
         print("painting fleets ", time.clock() - t0)
+        t0 = time.clock()
 
 ##########################################################info##########################################################
-
-        t0 = time.clock()
 
         for fleet in fleets:
             if (-display_width - ship_stats[fleet.ships[0][0]].pic_size < fleet.x < display_width + ship_stats[fleet.ships[0][0]].pic_size) and (
                     -display_height - ship_stats[fleet.ships[0][0]].pic_size < fleet.y < display_height + ship_stats[fleet.ships[0][0]].pic_size):
+                if fleet.fraction == 'PLAYER':
+                    color = (255, 0, 255)
                 if fleet.fraction == 'RED':
                     color = (255, 0, 0)
                 elif fleet.fraction == 'GREEN':
@@ -2379,29 +2396,49 @@ def run_game():
 
         f = pygame.font.Font(None, 30)
         forp = f.render('RED: ' + str(fraction_relations['RED']), True, (255, 0, 0))
-        forp_rect = forp.get_rect(center=(display_width - 250, display_height - 75))
+        forp_rect = forp.get_rect(center=(display_width - 300, display_height - 125))
         display.blit(forp, forp_rect)
         forp = f.render('BLUE: ' + str(fraction_relations['BLUE']), True, (0, 0, 255))
-        forp_rect = forp.get_rect(center=(display_width - 100, display_height - 75))
+        forp_rect = forp.get_rect(center=(display_width - 100, display_height - 125))
         display.blit(forp, forp_rect)
         forp = f.render('GREEN: ' + str(fraction_relations['GREEN']), True, (0, 255, 0))
-        forp_rect = forp.get_rect(center=(display_width - 175, display_height - 25))
+        forp_rect = forp.get_rect(center=(display_width - 200, display_height - 25))
         display.blit(forp, forp_rect)
+
+        if player_fraction:
+            forp = f.render('PLAYER', True, (255, 0, 255))
+            forp_rect = forp.get_rect(center=(display_width - 200, display_height - 75))
+            display.blit(forp, forp_rect)
 
         if fraction_wars['RED']['BLUE'] == True:
             f = pygame.font.Font(None, 30)
             forp = f.render('WAR', True, (0, 0, 0))
-            forp_rect = forp.get_rect(center=(display_width - 175, display_height - 75))
+            forp_rect = forp.get_rect(center=(display_width - 200, display_height - 125))
             display.blit(forp, forp_rect)
         if fraction_wars['RED']['GREEN'] == True:
             f = pygame.font.Font(None, 30)
             forp = f.render('WAR', True, (0, 0, 0))
-            forp_rect = forp.get_rect(center=(display_width - 225, display_height - 50))
+            forp_rect = forp.get_rect(center=(display_width - 250, display_height - 75))
             display.blit(forp, forp_rect)
         if fraction_wars['BLUE']['GREEN'] == True:
             f = pygame.font.Font(None, 30)
             forp = f.render('WAR', True, (0, 0, 0))
-            forp_rect = forp.get_rect(center=(display_width - 125, display_height - 50))
+            forp_rect = forp.get_rect(center=(display_width - 150, display_height - 75))
+            display.blit(forp, forp_rect)
+        if fraction_wars['RED']['PLAYER'] == True:
+            f = pygame.font.Font(None, 30)
+            forp = f.render('WAR', True, (0, 0, 0))
+            forp_rect = forp.get_rect(center=(display_width - 250, display_height - 100))
+            display.blit(forp, forp_rect)
+        if fraction_wars['GREEN']['PLAYER'] == True:
+            f = pygame.font.Font(None, 30)
+            forp = f.render('WAR', True, (0, 0, 0))
+            forp_rect = forp.get_rect(center=(display_width - 200, display_height - 50))
+            display.blit(forp, forp_rect)
+        if fraction_wars['BLUE']['PLAYER'] == True:
+            f = pygame.font.Font(None, 30)
+            forp = f.render('WAR', True, (0, 0, 0))
+            forp_rect = forp.get_rect(center=(display_width - 150, display_height - 100))
             display.blit(forp, forp_rect)
 
         if stop > 0:
@@ -2409,10 +2446,9 @@ def run_game():
 
         sum += time.clock() - t0
         print("info ", time.clock() - t0)
+        t0 = time.clock()
 
 ################################################forpost_interface#######################################################
-
-        t0 = time.clock()
 
         for forpost in forposts:
             fx = forpost[0] - i_width/2
@@ -2434,6 +2470,37 @@ def run_game():
                             fleets[0].y = 99999
                             fleets[0].move = 0
                             forpost_zone = True
+                    if not(player_fraction) and fraction_relations[forpost[5]] >= 10 or player_fraction and (
+                            forpost[5] not in ['PLAYER', 'PIRATE']):
+                        f = pygame.font.Font(None, 36)
+                        b = f.render('press C to capture', True, (255, 255, 255))
+                        display.blit(b, (display_width / 2 - 70, 0.5 * display_height - 20))
+                        if keys[pygame.K_c]:
+                            player_fraction = True
+                            fraction_wars['PLAYER'][forpost[5]] = True
+                            fraction_wars[forpost[5]]['PLAYER'] = True
+                            fraction_relations['RED'] = 0
+                            fraction_relations['GREEN'] = 0
+                            fraction_relations['BLUE'] = 0
+                            mingip_fishers = 99999
+                            k_fishers = -1
+                            mingip_traders = 99999
+                            k_traders = -1
+                            for f in range(0, len(fleets)):
+                                if fleets[f].type == 1 and fleets[f].fraction == forpost[5]:
+                                    gip = ((fleets[0].x - fleets[f].x) ** 2 + 6.25 * (fleets[0].y - fleets[f].y) ** 2) ** 0.5
+                                    if gip < mingip_traders:
+                                        mingip_traders = gip
+                                        k_traders = f
+                                if fleets[f].type == 4 and fleets[f].fraction == forpost[5]:
+                                    gip = ((fleets[0].x - fleets[f].x) ** 2 + 6.25 * (
+                                            fleets[0].y - fleets[f].y) ** 2) ** 0.5
+                                    if gip < mingip_fishers:
+                                        mingip_fishers = gip
+                                        k_fishers = f
+                            fleets[k_fishers].fraction = 'PLAYER'
+                            fleets[k_traders].fraction = 'PLAYER'
+                            forpost[5] = 'PLAYER'
                 else:
                     if forpost[2] == 1:
                         forpost_type = 'CAMP'
@@ -2763,6 +2830,8 @@ def run_game():
                     color = (0, 255, 0)
                 elif forpost[5] == 'BLUE':
                     color = (0, 0, 255)
+                elif forpost[5] == 'PLAYER':
+                    color = (255, 0, 255)
                 elif forpost[5] == 'PIRATE':
                     color = (64, 64, 64)
                 if forpost[2] == 1:
@@ -2834,15 +2903,14 @@ def run_game():
 
         sum += time.clock() - t0
         print("other ", time.clock() - t0)
+        t0 = time.clock()
 
 ########################################################battle##########################################################
-
-        t0 = time.clock()
 
         for fleet in fleets:
             if fleet.type == 0:
                 for other_fleet in fleets:
-                    if other_fleet.type in [1, 3, 4, 5]:
+                    if (other_fleet.type in [0, 1, 3, 4, 5]) and (fleet.fraction != other_fleet.fraction):
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
                         if len(fleet.ships) > 0 and len(other_fleet.ships) > 0:
                             battle_radius = (ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size) / 2
@@ -2852,14 +2920,31 @@ def run_game():
                                 b_rect = b.get_rect(center=(0.5 * display_width, 0.5 * display_height - 80))
                                 display.blit(b, b_rect)
                                 if keys[pygame.K_f]:
-                                    fraction_relations[other_fleet.fraction] -= len(other_fleet.ships)
+                                    if not(player_fraction):
+                                        fraction_relations[other_fleet.fraction] -= len(other_fleet.ships)
+                                        if fraction_wars['RED'][other_fleet.fraction] == True:
+                                            fraction_relations['RED'] += 1
+                                        if fraction_wars['GREEN'][other_fleet.fraction] == True:
+                                            fraction_relations['GREEN'] += 1
+                                        if fraction_wars['BLUE'][other_fleet.fraction] == True:
+                                            fraction_relations['BLUE'] += 1
+                                    else:
+                                        fraction_wars[fleets[0].fraction][other_fleet.fraction] = True
+                                        fraction_wars[fleets[0].fraction][other_fleet.fraction] = True
                                     battle_with_player(other_fleet)
             elif fleet.type == 1:
                 gip = ((fleets[0].x - fleet.x) ** 2 + 6.25 * (fleets[0].y - fleet.y) ** 2) ** 0.5
                 if len(fleet.ships) > 0 and len(fleets[0].ships) > 0:
                     battle_radius = (ship_stats[fleets[0].ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size) / 2
                     if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
-                        fraction_relations[fleet.fraction] -= len(fleet.ships)
+                        if not (player_fraction):
+                            fraction_relations[fleet.fraction] -= len(fleet.ships)
+                            if fraction_wars['RED'][fleet.fraction] == True:
+                                fraction_relations['RED'] += 1
+                            if fraction_wars['GREEN'][fleet.fraction] == True:
+                                fraction_relations['GREEN'] += 1
+                            if fraction_wars['BLUE'][fleet.fraction] == True:
+                                fraction_relations['BLUE'] += 1
                         battle_with_player(fleet)
             elif fleet.type == 2:
                 for other_fleet in fleets:
@@ -2876,13 +2961,21 @@ def run_game():
             elif fleet.type == 3:
                 for other_fleet in fleets:
                     if other_fleet.type == 2 or (other_fleet.type == 0 and fraction_relations[fleet.fraction] < 0) or (
-                       (other_fleet.type in [1, 3, 4, 5]) and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
+                       (other_fleet.type in [0, 1, 3, 4, 5]) and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
                         if len(fleet.ships) > 0 and len(other_fleet.ships) > 0 and (
                             fleet in fleets) and (other_fleet in fleets):
                             battle_radius = (ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size) / 2
                             if (gip < battle_radius):
                                 if other_fleet == fleets[0]:
+                                    if not (player_fraction):
+                                        fraction_relations[fleet.fraction] -= len(fleet.ships)
+                                        if fraction_wars['RED'][other_fleet.fraction] == True:
+                                            fraction_relations['RED'] += 1
+                                        if fraction_wars['GREEN'][other_fleet.fraction] == True:
+                                            fraction_relations['GREEN'] += 1
+                                        if fraction_wars['BLUE'][other_fleet.fraction] == True:
+                                            fraction_relations['BLUE'] += 1
                                     battle_with_player(fleet)
                                 else:
                                     auto_battle_step(fleet, other_fleet)
@@ -2891,18 +2984,33 @@ def run_game():
                 if len(fleet.ships) > 0 and len(other_fleet.ships) > 0:
                     battle_radius = (ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size) / 2
                     if (gip < battle_radius and fraction_relations[fleet.fraction] < 0):
-                        fraction_relations[fleet.fraction] -= len(fleet.ships)
+                        if not (player_fraction):
+                            fraction_relations[fleet.fraction] -= len(fleet.ships)
+                            if fraction_wars['RED'][other_fleet.fraction] == True:
+                                fraction_relations['RED'] += 1
+                            if fraction_wars['GREEN'][other_fleet.fraction] == True:
+                                fraction_relations['GREEN'] += 1
+                            if fraction_wars['BLUE'][other_fleet.fraction] == True:
+                                fraction_relations['BLUE'] += 1
                         battle_with_player(fleet)
             elif fleet.type == 5:
                 for other_fleet in fleets:
                     if (other_fleet.type == 0 and fraction_relations[fleet.fraction] < 0) or (
-                       (other_fleet.type in [1, 3, 4, 5]) and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
+                       (other_fleet.type in [0, 1, 3, 4, 5]) and fraction_wars[fleet.fraction][other_fleet.fraction] == True):
                         gip = ((other_fleet.x - fleet.x) ** 2 + 6.25 * (other_fleet.y - fleet.y) ** 2) ** 0.5
                         if len(fleet.ships) > 0 and len(other_fleet.ships) > 0 and (
                             fleet in fleets) and (other_fleet in fleets):
                             battle_radius = (ship_stats[other_fleet.ships[0][0]].deck_size + ship_stats[fleet.ships[0][0]].deck_size) / 2
                             if (gip < battle_radius):
                                 if other_fleet == fleets[0]:
+                                    if not (player_fraction):
+                                        fraction_relations[fleet.fraction] -= len(fleet.ships)
+                                        if fraction_wars['RED'][other_fleet.fraction] == True:
+                                            fraction_relations['RED'] += 1
+                                        if fraction_wars['GREEN'][other_fleet.fraction] == True:
+                                            fraction_relations['GREEN'] += 1
+                                        if fraction_wars['BLUE'][other_fleet.fraction] == True:
+                                            fraction_relations['BLUE'] += 1
                                     battle_with_player(fleet)
                                 else:
                                     auto_battle_step(fleet, other_fleet)
@@ -2913,8 +3021,12 @@ def run_game():
 
         pygame.display.update()
 
-        for one_side in ['RED', 'GREEN', 'BLUE']:
-            for two_side in ['RED', 'GREEN', 'BLUE']:
+        war_generate = ['RED', 'GREEN', 'BLUE']
+        if player_fraction:
+            war_generate.append('PLAYER')
+
+        for one_side in war_generate:
+            for two_side in war_generate:
                 if one_side != two_side:
                     war = randint(0, 1800 * 6)
                     if war == 11:
@@ -2960,6 +3072,19 @@ def run_game():
                     forpost[3] = list(ship_stats.keys())[trade_ship]
                     trade_ship = randint(12, 14)
                     forpost[4] = list(ship_stats.keys())[trade_ship]
+
+        end_game = True
+        for forpost in forposts:
+            if forpost[5] in ['RED', 'GREEN', 'BLUE']:
+                end_game = False
+        if end_game:
+            game = False
+            f = pygame.font.Font(None, 72)
+            b = f.render('PLAYER FRACTION WINS!', True, (255, 255, 255))
+            b_rect = b.get_rect(center=(0.5 * display_width, 0.5 * display_height))
+            display.blit(b, b_rect)
+            pygame.display.update()
+            time.sleep(3)
 
         sum += time.clock() - t0
         print("battle ", time.clock() - t0)
