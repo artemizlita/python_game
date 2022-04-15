@@ -51,15 +51,15 @@ class ship_object(ship_type):
         if (type == "barkas"):
             super().__init__(barkas_move, barkas_stay, barkas_deck_width, barkas_deck_height, 0.8, 1.0, 30, 15, barkas_guns_left, barkas_guns_right)
         elif (type == "pink"):
-            super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.6, 30, 15, pink_guns_left, pink_guns_right)
+            super().__init__(pink_move, pink_stay, pink_deck_width, pink_deck_height, 1.2, 0.8, 30, 15, pink_guns_left, pink_guns_right)
         elif (type == "ladya"):
             super().__init__(ladya_move, ladya_stay, ladya_deck_width, ladya_deck_height, 1.2, 0.4, 30, 20, ladya_guns_left, ladya_guns_right)
         elif (type == "shuna"):
             super().__init__(shuna_move, shuna_stay, shuna_deck_width, shuna_deck_height, 1.6, 0.6, 30, 20, shuna_guns_left, shuna_guns_right)
         elif (type == "lugger"):
-            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 1.0, 30, 25, lugger_guns_left, lugger_guns_right)
+            super().__init__(lugger_move, lugger_stay, lugger_deck_width, lugger_deck_height, 1.6, 0.8, 30, 25, lugger_guns_left, lugger_guns_right)
         elif (type == "shlup"):
-            super().__init__(shlup_move, shlup_stay, shlup_deck_width, shlup_deck_height, 1.6, 0.8, 40, 30, shlup_guns_left, shlup_guns_right)
+            super().__init__(shlup_move, shlup_stay, shlup_deck_width, shlup_deck_height, 1.6, 1.0, 40, 30, shlup_guns_left, shlup_guns_right)
         elif (type == "bark"):
             super().__init__(bark_move, bark_stay, bark_deck_width, bark_deck_height, 2.0, 0.6, 40, 35, bark_guns_left, bark_guns_right)
         elif (type == "fleyt"):
@@ -74,8 +74,8 @@ class ship_object(ship_type):
             super().__init__(corvet_move, corvet_stay, corvet_deck_width, corvet_deck_height, 2.4, 0.6, 50, 60, corvet_guns_left, corvet_guns_right)
         elif (type == "fregat"):
             super().__init__(fregat_move, fregat_stay, fregat_deck_width, fregat_deck_height, 2.4, 0.8, 60, 75, fregat_guns_left, fregat_guns_right)
-        elif (type == "tradeship"):
-            super().__init__(tradeship_move, tradeship_stay, tradeship_deck_width, tradeship_deck_height, 2.4, 0.4, 60, 90, tradeship_guns_left, tradeship_guns_right)
+        elif (type == "galeon"):
+            super().__init__(galeon_move, galeon_stay, galeon_deck_width, galeon_deck_height, 2.4, 0.4, 60, 90, galeon_guns_left, galeon_guns_right)
         elif (type == "warship"):
             super().__init__(warship_move, warship_stay, warship_deck_width, warship_deck_height, 2.8, 0.8, 60, 90, warship_guns_left, warship_guns_right)
     def get_width(self):
@@ -188,12 +188,12 @@ fregat_deck_height = 308
 fregat_guns_left = [(-43, -81), (-43, -57), (-43, -33), (-43, -9), (-43, 15), (-43, 39), (-43, 63), (-43, 87)]
 fregat_guns_right = [(43, -81), (43, -57), (43, -33), (43, -9), (43, 15), (43, 39), (43, 63), (43, 87)]
 
-tradeship_move = pygame.image.load('battle\\tradeship\\sail_1.png').convert_alpha()
-tradeship_stay = pygame.image.load('battle\\tradeship\\sail_0.png').convert_alpha()
-tradeship_deck_width = 74
-tradeship_deck_height = 332
-tradeship_guns_left = [(-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75)]
-tradeship_guns_right = [(43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75)]
+galeon_move = pygame.image.load('battle\\galeon\\sail_1.png').convert_alpha()
+galeon_stay = pygame.image.load('battle\\galeon\\sail_0.png').convert_alpha()
+galeon_deck_width = 74
+galeon_deck_height = 332
+galeon_guns_left = [(-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75)]
+galeon_guns_right = [(43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75)]
 
 warship_move = pygame.image.load('battle\\warship\\sail_1.png').convert_alpha()
 warship_stay = pygame.image.load('battle\\warship\\sail_0.png').convert_alpha()
