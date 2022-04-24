@@ -1,6 +1,7 @@
 import pygame
 import math
 import time
+import sys
 from random import randint
 
 pygame.init()
@@ -16,9 +17,6 @@ center_y = display_height / 2
 wave_step = 0
 
 pygame.display.set_caption('Ship game')
-
-icon = pygame.image.load('icon.png')
-pygame.display.set_icon(icon)
 
 #####################################################class##############################################################
 
@@ -85,118 +83,118 @@ class ship_object(ship_type):
 
 #################################################create_ships###########################################################
 
-kernel_image = pygame.image.load('battle\\kernel.png').convert_alpha()
-kernel_hit_image = pygame.image.load('battle\\kernel_hit.png').convert_alpha()
-kernel_miss_image = pygame.image.load('battle\\kernel_miss.png').convert_alpha()
+kernel_image = pygame.image.load('data\\battle\\kernel.png').convert_alpha()
+kernel_hit_image = pygame.image.load('data\\battle\\kernel_hit.png').convert_alpha()
+kernel_miss_image = pygame.image.load('data\\battle\\kernel_miss.png').convert_alpha()
 
 wave_step = []
-wave_step.append(pygame.image.load('battle\\waves\\1.png').convert_alpha())
-wave_step.append(pygame.image.load('battle\\waves\\2.png').convert_alpha())
-wave_step.append(pygame.image.load('battle\\waves\\3.png').convert_alpha())
-wave_step.append(pygame.image.load('battle\\waves\\4.png').convert_alpha())
-wave_step.append(pygame.image.load('battle\\waves\\5.png').convert_alpha())
-wave_step.append(pygame.image.load('battle\\waves\\6.png').convert_alpha())
+wave_step.append(pygame.image.load('data\\battle\\waves\\1.png').convert_alpha())
+wave_step.append(pygame.image.load('data\\battle\\waves\\2.png').convert_alpha())
+wave_step.append(pygame.image.load('data\\battle\\waves\\3.png').convert_alpha())
+wave_step.append(pygame.image.load('data\\battle\\waves\\4.png').convert_alpha())
+wave_step.append(pygame.image.load('data\\battle\\waves\\5.png').convert_alpha())
+wave_step.append(pygame.image.load('data\\battle\\waves\\6.png').convert_alpha())
 
-barkas_move = pygame.image.load('battle\\barkas\\sail_1.png').convert_alpha()
-barkas_stay = pygame.image.load('battle\\barkas\\sail_0.png').convert_alpha()
+barkas_move = pygame.image.load('data\\battle\\barkas\\sail_1.png').convert_alpha()
+barkas_stay = pygame.image.load('data\\battle\\barkas\\sail_0.png').convert_alpha()
 barkas_deck_width = 34
 barkas_deck_height = 86
 barkas_guns_left = [(-23, -18), (-23, 6)]
 barkas_guns_right = [(23, -18), (23, 6)]
 
-pink_move = pygame.image.load('battle\\pink\\sail_1.png').convert_alpha()
-pink_stay = pygame.image.load('battle\\pink\\sail_0.png').convert_alpha()
+pink_move = pygame.image.load('data\\battle\\pink\\sail_1.png').convert_alpha()
+pink_stay = pygame.image.load('data\\battle\\pink\\sail_0.png').convert_alpha()
 pink_deck_width = 34
 pink_deck_height = 86
 pink_guns_left = [(-23, -18), (-23, 6)]
 pink_guns_right = [(23, -18), (23, 6)]
 
-ladya_move = pygame.image.load('battle\\ladya\\sail_1.png').convert_alpha()
-ladya_stay = pygame.image.load('battle\\ladya\\sail_0.png').convert_alpha()
+ladya_move = pygame.image.load('data\\battle\\ladya\\sail_1.png').convert_alpha()
+ladya_stay = pygame.image.load('data\\battle\\ladya\\sail_0.png').convert_alpha()
 ladya_deck_width = 34
 ladya_deck_height = 86
 ladya_guns_left = [(-27, -15), (-27, 9)]
 ladya_guns_right = [(27, -15), (27, 9)]
 
-shuna_move = pygame.image.load('battle\\shuna\\sail_1.png').convert_alpha()
-shuna_stay = pygame.image.load('battle\\shuna\\sail_0.png').convert_alpha()
+shuna_move = pygame.image.load('data\\battle\\shuna\\sail_1.png').convert_alpha()
+shuna_stay = pygame.image.load('data\\battle\\shuna\\sail_0.png').convert_alpha()
 shuna_deck_width = 34
 shuna_deck_height = 108
 shuna_guns_left = [(-23, -30), (-23, -6), (-23, 18)]
 shuna_guns_right = [(23, -30), (23, -6), (23, 18)]
 
-lugger_move = pygame.image.load('battle\\lugger\\sail_1.png').convert_alpha()
-lugger_stay = pygame.image.load('battle\\lugger\\sail_0.png').convert_alpha()
+lugger_move = pygame.image.load('data\\battle\\lugger\\sail_1.png').convert_alpha()
+lugger_stay = pygame.image.load('data\\battle\\lugger\\sail_0.png').convert_alpha()
 lugger_deck_width = 34
 lugger_deck_height = 108
 lugger_guns_left = [(-23, -24), (-23, 0), (-23, 24)]
 lugger_guns_right = [(23, -24), (23, 0), (23, 24)]
 
-shlup_move = pygame.image.load('battle\\shlup\\sail_1.png').convert_alpha()
-shlup_stay = pygame.image.load('battle\\shlup\\sail_0.png').convert_alpha()
+shlup_move = pygame.image.load('data\\battle\\shlup\\sail_1.png').convert_alpha()
+shlup_stay = pygame.image.load('data\\battle\\shlup\\sail_0.png').convert_alpha()
 shlup_deck_width = 42
 shlup_deck_height = 122
 shlup_guns_left = [(-27, -24), (-27, -0), (-27, 24)]
 shlup_guns_right = [(27, -24), (27, -0), (27, 24)]
 
-bark_move = pygame.image.load('battle\\bark\\sail_1.png').convert_alpha()
-bark_stay = pygame.image.load('battle\\bark\\sail_0.png').convert_alpha()
+bark_move = pygame.image.load('data\\battle\\bark\\sail_1.png').convert_alpha()
+bark_stay = pygame.image.load('data\\battle\\bark\\sail_0.png').convert_alpha()
 bark_deck_width = 42
 bark_deck_height = 146
 bark_guns_left = [(-27, -36), (-27, -12), (-27, 12), (-27, 36)]
 bark_guns_right = [(27, -36), (27, -12), (27, 12), (27, 36)]
 
-fleyt_move = pygame.image.load('battle\\fleyt\\sail_1.png').convert_alpha()
-fleyt_stay = pygame.image.load('battle\\fleyt\\sail_0.png').convert_alpha()
+fleyt_move = pygame.image.load('data\\battle\\fleyt\\sail_1.png').convert_alpha()
+fleyt_stay = pygame.image.load('data\\battle\\fleyt\\sail_0.png').convert_alpha()
 fleyt_deck_width = 42
 fleyt_deck_height = 146
 fleyt_guns_left = [(-27, -24), (-27, -0), (-27, 24)]
 fleyt_guns_right = [(27, -24), (27, -0), (27, 24)]
 
-brig_move = pygame.image.load('battle\\brig\\sail_1.png').convert_alpha()
-brig_stay = pygame.image.load('battle\\brig\\sail_0.png').convert_alpha()
+brig_move = pygame.image.load('data\\battle\\brig\\sail_1.png').convert_alpha()
+brig_stay = pygame.image.load('data\\battle\\brig\\sail_0.png').convert_alpha()
 brig_deck_width = 42
 brig_deck_height = 170
 brig_guns_left = [(-27, -48), (-27, -24), (-27, -0), (-27, 24), (-27, 48)]
 brig_guns_right = [(27, -48), (27, -24), (27, -0), (27, 24), (27, 48)]
 
-galera_move = pygame.image.load('battle\\galera\\sail_1.png').convert_alpha()
-galera_stay = pygame.image.load('battle\\galera\\sail_0.png').convert_alpha()
+galera_move = pygame.image.load('data\\battle\\galera\\sail_1.png').convert_alpha()
+galera_stay = pygame.image.load('data\\battle\\galera\\sail_0.png').convert_alpha()
 galera_deck_width = 58
 galera_deck_height = 206
 galera_guns_left = [(-35, -60), (-35, -36), (-35, -12), (-35, 12), (-35, 36), (-35, 60)]
 galera_guns_right = [(35, -60), (35, -36), (35, -12), (35, 12), (35, 36), (35, 60)]
 
-pinas_move = pygame.image.load('battle\\pinas\\sail_1.png').convert_alpha()
-pinas_stay = pygame.image.load('battle\\pinas\\sail_0.png').convert_alpha()
+pinas_move = pygame.image.load('data\\battle\\pinas\\sail_1.png').convert_alpha()
+pinas_stay = pygame.image.load('data\\battle\\pinas\\sail_0.png').convert_alpha()
 pinas_deck_width = 58
 pinas_deck_height = 230
 pinas_guns_left = [(-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48)]
 pinas_guns_right = [(35, -48), (35, -24), (35, 0), (35, 24), (35, 48)]
 
-corvet_move = pygame.image.load('battle\\corvet\\sail_1.png').convert_alpha()
-corvet_stay = pygame.image.load('battle\\corvet\\sail_0.png').convert_alpha()
+corvet_move = pygame.image.load('data\\battle\\corvet\\sail_1.png').convert_alpha()
+corvet_stay = pygame.image.load('data\\battle\\corvet\\sail_0.png').convert_alpha()
 corvet_deck_width = 58
 corvet_deck_height = 230
 corvet_guns_left = [(-35, -72), (-35, -48), (-35, -24), (-35, 0), (-35, 24), (-35, 48), (-35, 72)]
 corvet_guns_right = [(35, -72), (35, -48), (35, -24), (35, 0), (35, 24), (35, 48), (35, 72)]
 
-fregat_move = pygame.image.load('battle\\fregat\\sail_1.png').convert_alpha()
-fregat_stay = pygame.image.load('battle\\fregat\\sail_0.png').convert_alpha()
+fregat_move = pygame.image.load('data\\battle\\fregat\\sail_1.png').convert_alpha()
+fregat_stay = pygame.image.load('data\\battle\\fregat\\sail_0.png').convert_alpha()
 fregat_deck_width = 74
 fregat_deck_height = 308
 fregat_guns_left = [(-43, -81), (-43, -57), (-43, -33), (-43, -9), (-43, 15), (-43, 39), (-43, 63), (-43, 87)]
 fregat_guns_right = [(43, -81), (43, -57), (43, -33), (43, -9), (43, 15), (43, 39), (43, 63), (43, 87)]
 
-galeon_move = pygame.image.load('battle\\galeon\\sail_1.png').convert_alpha()
-galeon_stay = pygame.image.load('battle\\galeon\\sail_0.png').convert_alpha()
+galeon_move = pygame.image.load('data\\battle\\galeon\\sail_1.png').convert_alpha()
+galeon_stay = pygame.image.load('data\\battle\\galeon\\sail_0.png').convert_alpha()
 galeon_deck_width = 74
 galeon_deck_height = 332
 galeon_guns_left = [(-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75)]
 galeon_guns_right = [(43, -69), (43, -45), (43, -21), (43, 3), (43, 27), (43, 51), (43, 75)]
 
-warship_move = pygame.image.load('battle\\warship\\sail_1.png').convert_alpha()
-warship_stay = pygame.image.load('battle\\warship\\sail_0.png').convert_alpha()
+warship_move = pygame.image.load('data\\battle\\warship\\sail_1.png').convert_alpha()
+warship_stay = pygame.image.load('data\\battle\\warship\\sail_0.png').convert_alpha()
 warship_deck_width = 74
 warship_deck_height = 332
 warship_guns_left = [(-43, -93), (-43, -69), (-43, -45), (-43, -21), (-43, 3), (-43, 27), (-43, 51), (-43, 75), (-43, 99)]
@@ -619,7 +617,7 @@ def battle(friendly_ships_list, enemy_ships_list, type, fraction):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
 
         display.fill((0, 162, 232))
 
@@ -630,11 +628,11 @@ def battle(friendly_ships_list, enemy_ships_list, type, fraction):
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            if friendly_ships[0].cd_sail == 0:
+            if friendly_ships[0].cd_sail == 0 and friendly_ships[0].move == False:
                 friendly_ships[0].move = True
                 friendly_ships[0].cd_sail = 100
         elif keys[pygame.K_s]:
-            if friendly_ships[0].cd_sail == 0:
+            if friendly_ships[0].cd_sail == 0 and friendly_ships[0].move == True:
                 friendly_ships[0].move = False
                 friendly_ships[0].cd_sail = 100
         if keys[pygame.K_d]:
@@ -658,7 +656,7 @@ def battle(friendly_ships_list, enemy_ships_list, type, fraction):
         elif keys[pygame.K_3]:
             scale = 4
         if keys[pygame.K_ESCAPE]:
-            quit()
+            sys.exit()
 
         if friendly_ships[0].cd_left > 0:
             friendly_ships[0].cd_left -= 1

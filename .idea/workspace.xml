@@ -21,46 +21,627 @@
   <component name="ChangeListManager">
     <list default="true" id="fc09f26b-96f0-4649-aa74-bfba4886c335" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle/tradeship/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle/tradeship/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/bark/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/bark/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/barkas/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/barkas/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/brig/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/brig/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/corvet/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/corvet/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/fleyt/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/fleyt/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/fregat/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/fregat/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/galeon/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/galeon/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/galera/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/galera/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/karaka/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/karaka/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/kernel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/kernel_hit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/kernel_miss.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/ladya/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/ladya/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/lugger/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/lugger/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/pinas/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/pinas/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/pink/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/pink/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/shlup/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/shlup/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/shuna/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/shuna/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/warship/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/warship/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/waves/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/waves/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/waves/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/waves/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/waves/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle/waves/6.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/game_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_display.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/0/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/0/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/0/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/1/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/1/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/1/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/10/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/10/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/10/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/11/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/11/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/11/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/2/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/2/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/2/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/3/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/3/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/3/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/4/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/4/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/4/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/5/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/5/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/5/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/6/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/6/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/6/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/7/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/7/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/7/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/8/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/8/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/8/sail_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/9/carcas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/9/sail_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/global/tradeship/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/bark/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/barkas/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/brig/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/corvet/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fleyt/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/fregat/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galeon/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/galera/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/forpost_zone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1ne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1nse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1nsw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1nswe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1nw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1nwe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1se.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1sw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/grass/1swe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/palm.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1ne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1nse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1nsw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1nswe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1nw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1nwe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1se.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1sw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/sand/1swe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/ship_tree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1ne.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1nse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1nsw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1nswe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1nw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1nwe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1se.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1sw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/snow/1swe.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/island_sprite/tree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/ladya/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/lugger/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pinas/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/pink/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shlup/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/10/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/11/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/4/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/7/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/8/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/9/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/shuna/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/0/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/0/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/0/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/1/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/1/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/1/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/10/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/10/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/11/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/11/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/2/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/2/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/2/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/3/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/3/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/3/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/4/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/4/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/5/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/5/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/5/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/6/carcas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/6/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/6/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/7/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/7/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/8/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/8/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/9/sail_0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/warship/9/sail_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/global/waves/6.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/global_display.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_display.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/icon.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +669,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../island_generate" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
@@ -154,46 +736,50 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="483" y="382" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1280.984@0.0.1280.984" timestamp="1648530035634" />
-    <state x="420" y="234" key="FileChooserDialogImpl" timestamp="1646826409653">
+    <state x="387" y="347" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1650218665512">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1646826409653" />
-    <state width="1259" height="342" key="GridCell.Tab.0.bottom" timestamp="1650058630225">
+    <state x="387" y="347" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1280.984@0.0.1280.984" timestamp="1650218665512" />
+    <state x="420" y="234" key="FileChooserDialogImpl" timestamp="1650218641444">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="342" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1650058630225" />
-    <state width="1259" height="342" key="GridCell.Tab.0.center" timestamp="1650058630225">
+    <state x="420" y="234" key="FileChooserDialogImpl/0.0.1280.984@0.0.1280.984" timestamp="1650218641444" />
+    <state width="1259" height="342" key="GridCell.Tab.0.bottom" timestamp="1650792036878">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="342" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1650058630225" />
-    <state width="1259" height="342" key="GridCell.Tab.0.left" timestamp="1650058630225">
+    <state width="1259" height="342" key="GridCell.Tab.0.bottom/0.0.1280.984@0.0.1280.984" timestamp="1650792036878" />
+    <state width="1259" height="342" key="GridCell.Tab.0.center" timestamp="1650792036877">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="342" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1650058630225" />
-    <state width="1259" height="342" key="GridCell.Tab.0.right" timestamp="1650058630225">
+    <state width="1259" height="342" key="GridCell.Tab.0.center/0.0.1280.984@0.0.1280.984" timestamp="1650792036877" />
+    <state width="1259" height="342" key="GridCell.Tab.0.left" timestamp="1650792036877">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="342" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1650058630225" />
-    <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1646859192856">
+    <state width="1259" height="342" key="GridCell.Tab.0.left/0.0.1280.984@0.0.1280.984" timestamp="1650792036877" />
+    <state width="1259" height="342" key="GridCell.Tab.0.right" timestamp="1650792036878">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
-    <state width="1259" height="325" key="GridCell.Tab.1.center" timestamp="1646859192856">
+    <state width="1259" height="342" key="GridCell.Tab.0.right/0.0.1280.984@0.0.1280.984" timestamp="1650792036878" />
+    <state width="1259" height="325" key="GridCell.Tab.1.bottom" timestamp="1650142993705">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
-    <state width="1259" height="325" key="GridCell.Tab.1.left" timestamp="1646859192856">
+    <state width="1259" height="325" key="GridCell.Tab.1.bottom/0.0.1280.984@0.0.1280.984" timestamp="1650142993705" />
+    <state width="1259" height="325" key="GridCell.Tab.1.center" timestamp="1650142993704">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
-    <state width="1259" height="325" key="GridCell.Tab.1.right" timestamp="1646859192856">
+    <state width="1259" height="325" key="GridCell.Tab.1.center/0.0.1280.984@0.0.1280.984" timestamp="1650142993704" />
+    <state width="1259" height="325" key="GridCell.Tab.1.left" timestamp="1650142993704">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1646859192856" />
-    <state x="143" y="109" key="SettingsEditor" timestamp="1649859609970">
+    <state width="1259" height="325" key="GridCell.Tab.1.left/0.0.1280.984@0.0.1280.984" timestamp="1650142993704" />
+    <state width="1259" height="325" key="GridCell.Tab.1.right" timestamp="1650142993704">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1649859609970" />
+    <state width="1259" height="325" key="GridCell.Tab.1.right/0.0.1280.984@0.0.1280.984" timestamp="1650142993704" />
+    <state x="143" y="109" key="SettingsEditor" timestamp="1650220414123">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="143" y="109" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1650220414123" />
     <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1649967853892">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
